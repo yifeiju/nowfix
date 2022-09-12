@@ -86,12 +86,14 @@ const styles = StyleSheet.create({
         marginTop:48,
     },
     politica:{
-        
         alignItems:"center",
         position:"absolute",
         bottom:10,
         left:0,
         right:0,
+        textAlign:'center',
+        width: '100%',
+        bottom:20,
     },
     politi:{
         color:'#041E42',
