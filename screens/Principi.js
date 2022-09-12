@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     },
     politica:{
         textAlign:'center',
-        position:'fixed',
+        //position:'fixed',
         width: '100%',
         bottom:20,
     },
