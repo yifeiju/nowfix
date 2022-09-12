@@ -13,32 +13,33 @@ const Home=()=>{
         >
         <View style={globalStyles.container}>
             <View style={styles.center}>
-            <Image source={logo} style={{ width:266 , height: 74 }} resizeMode={'center'} />
+            <Image source={logo} style={{ width:266 , height: 50 }} resizeMode={'center'} />
             </View>
             
                 <View style={styles.searchContainer}>
-                    <Image source={busca} style={{width:32, height:32}}></Image>
+                    <Image source={busca} style={{width:24, height:24}}></Image>
                         <TextInput underlineColorAndroid="transparent" style={{marginLeft:10, width:'85%',height:'80%'}}></TextInput>     
                 </View>
                 <View style={styles.flexbox}>
                     <View style={styles.profesional}>
-                        <Text>Fontaneria</Text>
+                        <Text>Fontanería</Text>
                     </View>
                     <View style={styles.profesional}>
-                        <Text>Fontaneria</Text>
+                        <Text>Lampistería</Text>
                     </View>
                     <View style={styles.profesional}>
-                        <Text>Fontaneria</Text>
+                        <Text>Cerrajería</Text>
                     </View>
                     <View style={styles.profesional}>
-                        <Text>Fontaneria</Text>
+                        <Text>Cristalería</Text>
                     </View>
                     <View style={styles.profesional}>
-                        <Text>Fontaneria</Text>
+                        <Text>Informática</Text>
                     </View>
                     <View style={styles.profesional}>
-                        <Text>Fontaneria</Text>
+                        <Text>Calderas</Text>
                     </View>
+                   
                 </View>
                 
             
@@ -105,10 +106,16 @@ const styles = StyleSheet.create({
     },
     profesional:{
         width:'45%',
-        height:144,
+        height:120,
         marginBottom:20,
-        borderColor:"black",
+        borderColor:"grey",
         borderWidth:1,
+        alignItems:"center",
+        padding:10,
+        borderRadius:6,
+        shadowColor:"grey",
+        shadowOffset:{width:-4, height:4}
+
     },
     flexbox:{
         display:'flex',

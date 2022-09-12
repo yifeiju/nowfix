@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView} from 'react-native';
 import logo from '../assets/logo.png';
 import Login from './Login';
 import globalStyles from '../app/globalStyles';
@@ -23,7 +23,7 @@ export default({navigation, route})=>
                 
                     <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
                         
-                        <View style={globalStyles.btnyellow}>
+                        <View style={[globalStyles.btnyellow, styles.margin]}>
                             <Text style={styles.negrita}>
                                 Iniciar sessión
                             </Text>
@@ -42,7 +42,9 @@ export default({navigation, route})=>
                     </TouchableOpacity>
                 
                 <View style={styles.politica}><TouchableOpacity ><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
+            
             </View>
+            
         </KeyboardAvoidingView>
     
 
@@ -84,10 +86,12 @@ const styles = StyleSheet.create({
         marginTop:48,
     },
     politica:{
-        textAlign:'center',
-        position:'fixed',
-        width: '100%',
-        bottom:20,
+        
+        alignItems:"center",
+        position:"absolute",
+        bottom:10,
+        left:0,
+        right:0,
     },
     politi:{
         color:'#041E42',

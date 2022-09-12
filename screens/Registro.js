@@ -18,7 +18,7 @@ const Registro  = () => {
         >
             <View style={globalStyles.container}>
                 <View style={styles.center}>
-                <Image source={logo} style={{ width:266 , height: 74 }} resizeMode={'center'} />
+                <Image source={logo} style={{ width:266 , height: 50 }} resizeMode={'center'} />
                 </View>
                 <Text style={styles.siempre}>Siempre cerca de ti.</Text>
                 
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
     },
 
     negrita:{
-        fontWeight:'bold'
+        fontWeight:'bold',
+        textAlign:'center',
     },
     siempre:{
         color:'#041E42',
