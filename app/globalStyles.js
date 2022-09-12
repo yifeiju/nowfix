@@ -6,7 +6,7 @@ const globalStyles = StyleSheet.create({
         borderColor:"red",
         borderWidth:1,
         width:"100%",
-        height:"100%"
+        minHeight:896,
         
     },
     btnyellow:{
@@ -18,7 +18,7 @@ const globalStyles = StyleSheet.create({
         borderRadius:37,
     },
     screen: {
-  
+        flex:1,
         justifyContet: 'center',
         alignItems: 'center',
     },
