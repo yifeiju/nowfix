@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView} from 'react-native';
 import logo from '../assets/logo.png';
-import Login from './Login';
 import globalStyles from '../app/globalStyles';
 
 
@@ -14,7 +13,7 @@ export default({navigation, route})=>
         >
             <View style={globalStyles.container}>
                 <View style={styles.center } >
-                <Image source={logo} style={{ width:266 , height: 74 }} resizeMode={'center'} />
+                    <Image source={logo} style={{ width:266 , height: 74 }}  />
                 </View>
                 <Text style={styles.siempre}>Siempre cerca de ti.</Text>
 

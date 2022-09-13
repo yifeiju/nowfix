@@ -4,8 +4,15 @@ import globalStyles from '../app/globalStyles';
 import { logout } from '../app/api';
 import logo from '../assets/logo.png'
 import busca from '../assets/busca.png'
+import gota from '../assets/gota.png'
+import llama from '../assets/llama.png'
+import x1 from '../assets/x1.png'
+import x2 from '../assets/x2.png'
+import x3 from '../assets/x3.png'
+import Group from '../assets/Group.png'
 
-const Home=()=>{
+
+const Home=({navigation, route})=>{
     return(
         <KeyboardAvoidingView
             behavior="height"
@@ -13,7 +20,7 @@ const Home=()=>{
         >
         <View style={globalStyles.container}>
             <View style={styles.center}>
-            <Image source={logo} style={{ width:266 , height: 50 }} resizeMode={'center'} />
+            <Image source={logo} style={{ width:266 , height: 74 }}  />
             </View>
             
                 <View style={styles.searchContainer}>
@@ -22,22 +29,47 @@ const Home=()=>{
                 </View>
                 <View style={styles.flexbox}>
                     <View style={styles.profesional}>
-                        <Text>Fontanería</Text>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Six', { screen: 'Fontaneria' })}>
+                        <View style={styles.prof}>
+                            <Text>Fontanería</Text>
+                            <Image source={gota} style={{ width:35 , height: 60  ,marginTop:10}}  ></Image>
+                        </View>
+                    </TouchableOpacity>
                     </View>
+                    
                     <View style={styles.profesional}>
-                        <Text>Lampistería</Text>
+                        <View style={styles.prof}>
+                            <Text>Lampistería</Text>
+                            <Image source={x3} style={{ width:30.68 , height: 60  ,marginTop:10}}  ></Image>
+                        </View>
                     </View>
+
                     <View style={styles.profesional}>
-                        <Text>Cerrajería</Text>
+                        <View style={styles.prof}>
+                            <Text>Cerrajería</Text>
+                            <Image source={x2} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
+                        </View>
                     </View>
+
                     <View style={styles.profesional}>
-                        <Text>Cristalería</Text>
+                        <View style={styles.prof}>
+                            <Text>Cristalería</Text>
+                            <Image source={x1} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
+                        </View>
                     </View>
+
                     <View style={styles.profesional}>
-                        <Text>Informática</Text>
+                        <View style={styles.prof}>
+                            <Text>Informática</Text>
+                            <Image source={Group} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
+                        </View>
                     </View>
+
                     <View style={styles.profesional}>
-                        <Text>Calderas</Text>
+                        <View style={styles.prof}>
+                            <Text>Calderas</Text>
+                            <Image source={llama} style={{ width:41.25 , height: 60  ,marginTop:10}}  ></Image>
+                        </View>
                     </View>
                    
                 </View>
@@ -108,13 +140,14 @@ const styles = StyleSheet.create({
         width:'45%',
         height:120,
         marginBottom:20,
-        borderColor:"grey",
-        borderWidth:1,
         alignItems:"center",
-        padding:10,
+        
         borderRadius:6,
-        shadowColor:"grey",
-        shadowOffset:{width:-4, height:4}
+        shadowColor:"#000",
+        shadowOffset:{width:0, height:3},
+        shadowOpacity: 0.27,
+        shadowRadius: 4.30,
+        elevation: 3,
 
     },
     flexbox:{
@@ -122,6 +155,10 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         flexWrap:"wrap",
         justifyContent:"space-around"
+    },
+    prof:{
+        padding:10,
+        alignItems:"center",
     }
    
 })

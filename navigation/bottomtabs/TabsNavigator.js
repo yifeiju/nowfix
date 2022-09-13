@@ -7,6 +7,10 @@ import HomeNavigator from '../stacks/HomeNavigator';
 import NotificationNavigator from '../stacks/NotificationNavigator';
 import ProfileNavigator from '../stacks/ProfileNavigator';
 import ChatNavigator from '../stacks/ChatNavigator';
+import homeicon from '../../assets/homeicon.png'
+import notiicon from '../../assets/notiicon.png'
+import chaticon from '../../assets/chaticon.png'
+import pericon from '../../assets/pericon.png'
 
 
 const BottomTabs = createBottomTabNavigator();
@@ -28,26 +32,26 @@ const BTabs = () => (
 
         <BottomTabs.Screen name="HomeTab" component={HomeNavigator}
             options={{
-                tabBarIcon: ({ focused }) => <Ionicons name="md-home" size={30} color="#054091" />,
+                tabBarIcon: ({ focused }) => <Image source={homeicon} style={{width:20,height:20} }></Image>,
                 title: "Home"
             }}
         />
         <BottomTabs.Screen name="NotificationTab" component={NotificationNavigator}
             options={{
-                tabBarIcon: ({ focused }) => <Ionicons name="notifications" size={30} color="#054091" />,
+                tabBarIcon: ({ focused }) => <Image source={notiicon} style={{width:20,height:20} }></Image>,
                 title: "Notificacion"
                 
             }}
         />
         <BottomTabs.Screen name="ChatTab" component={ChatNavigator}
             options={{
-                tabBarIcon: ({ focused }) => <Ionicons name="chatbubble-ellipses" size={30} color="#054091" />,
+                tabBarIcon: ({ focused }) => <Image source={chaticon} style={{width:20,height:20} }></Image>,
                 title: "Chat"
             }}
         />
         <BottomTabs.Screen name="ProfileTab" component={ProfileNavigator}
             options={{
-                tabBarIcon: ({ focused }) => <Ionicons name="person" size={30} color="#054091" />,
+                tabBarIcon: ({ focused }) => <Image source={pericon} style={{width:20,height:20} }></Image>,
                 title: "Perfil"
             }}
         />
