@@ -9,9 +9,14 @@ const Profile=()=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-            <Text>Profile</Text>
+            <Text style={globalStyles.title}>Profile</Text>
+            <Text style={{textAlign:'center'}}>Nombre</Text>
         </View>
         </KeyboardAvoidingView>
     )
 }
 export default Profile;
+
+const styles = StyleSheet.create({
+    
+})

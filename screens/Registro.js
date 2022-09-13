@@ -18,7 +18,7 @@ const Registro  = () => {
         >
             <View style={globalStyles.container}>
                 <View style={styles.center}>
-                <Image source={logo} style={{ width:266 , height: 50 }} resizeMode={'center'} />
+                <Image source={logo} style={{ width:266 , height: 74 }}  />
                 </View>
                 <Text style={styles.siempre}>Siempre cerca de ti.</Text>
                 

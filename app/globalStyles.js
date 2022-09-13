@@ -22,7 +22,11 @@ const globalStyles = StyleSheet.create({
         justifyContet: 'center',
         alignItems: 'center',
     },
-    
+    title:{
+        textAlign:'center',
+        marginTop:30,
+        fontWeight:'bold'
+    }
 });
 
 export default globalStyles;
