@@ -26,6 +26,17 @@ const globalStyles = StyleSheet.create({
         textAlign:'center',
         marginTop:30,
         fontWeight:'bold'
+    },
+    btnback:{
+        width:15,
+        height:20,
+    },
+    back:{
+        position:'absolute',
+        top:55,
+        left:30,
+        backgroundColor:'red'
+
     }
 });
 

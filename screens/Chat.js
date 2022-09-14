@@ -9,7 +9,7 @@ const Chat=()=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-            <Text>chat</Text>
+            <Text style={globalStyles.title}>chat</Text>
         </View>
         </KeyboardAvoidingView>
     )

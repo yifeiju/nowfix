@@ -11,6 +11,7 @@ const Profile=()=>{
         <View style={globalStyles.container}>
             <Text style={globalStyles.title}>Profile</Text>
             <Text style={{textAlign:'center'}}>Nombre</Text>
+            
         </View>
         </KeyboardAvoidingView>
     )

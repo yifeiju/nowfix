@@ -2,8 +2,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image ,TouchableHighlight, } from 'react-native';
 import globalStyles from '../app/globalStyles';
+import back from '../assets/back.png'
 
-const Calderas=()=>{
+const Calderas=({navigation, route})=>{
     return(
         
         <KeyboardAvoidingView
@@ -11,7 +12,10 @@ const Calderas=()=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-            <Text>Calderas</Text>
+        <TouchableOpacity style={globalStyles.back} onPress={()=>navigation.navigate("Home")}>
+                <Image source={back} style={globalStyles.btnback}></Image>
+            </TouchableOpacity>
+            <Text style={globalStyles.title}>Calderas</Text>
         </View>
         </KeyboardAvoidingView>
         
