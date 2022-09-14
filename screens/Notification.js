@@ -9,7 +9,7 @@ const Notification=()=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-            <Text>Notification</Text>
+            <Text style={globalStyles.title}>Notification</Text>
         </View>
         </KeyboardAvoidingView>
     )

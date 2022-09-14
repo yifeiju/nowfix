@@ -29,47 +29,57 @@ const Home=({navigation, route})=>{
                 </View>
                 <View style={styles.flexbox}>
                     <View style={styles.profesional}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Six', { screen: 'Fontaneria' })}>
-                        <View style={styles.prof}>
-                            <Text>Fontanería</Text>
-                            <Image source={gota} style={{ width:35 , height: 60  ,marginTop:10}}  ></Image>
-                        </View>
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Fontaneria")} style={styles.prof}>
+                            <View style={styles.prof}>
+                                <Text>Fontanería</Text>
+                                <Image source={gota} style={{ width:35 , height: 60  ,marginTop:10}}  ></Image>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     
                     <View style={styles.profesional}>
-                        <View style={styles.prof}>
-                            <Text>Lampistería</Text>
-                            <Image source={x3} style={{ width:30.68 , height: 60  ,marginTop:10}}  ></Image>
-                        </View>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Lampisteria")} style={styles.prof}>
+                            <View style={styles.prof}>
+                                <Text>Lampistería</Text>
+                                <Image source={x3} style={{ width:30.68 , height: 60  ,marginTop:10}}  ></Image>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.profesional}>
-                        <View style={styles.prof}>
-                            <Text>Cerrajería</Text>
-                            <Image source={x2} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
-                        </View>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Cerrajeria")} style={styles.prof}>
+                            <View style={styles.prof}>
+                                <Text>Cerrajería</Text>
+                                <Image source={x2} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.profesional}>
-                        <View style={styles.prof}>
-                            <Text>Cristalería</Text>
-                            <Image source={x1} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
-                        </View>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Cristaleria")} style={styles.prof}>
+                            <View style={styles.prof}>
+                                <Text>Cristalería</Text>
+                                <Image source={x1} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.profesional}>
-                        <View style={styles.prof}>
-                            <Text>Informática</Text>
-                            <Image source={Group} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
-                        </View>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Informatica")} style={styles.prof}>
+                            <View style={styles.prof}>
+                                <Text>Informática</Text>
+                                <Image source={Group} style={{ width:60 , height: 60  ,marginTop:10}}  ></Image>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.profesional}>
-                        <View style={styles.prof}>
-                            <Text>Calderas</Text>
-                            <Image source={llama} style={{ width:41.25 , height: 60  ,marginTop:10}}  ></Image>
-                        </View>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Calderas")} style={styles.prof}>
+                            <View style={styles.prof}>
+                                <Text>Calderas</Text>
+                                <Image source={llama} style={{ width:41.25 , height: 60  ,marginTop:10}}  ></Image>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                    
                 </View>
@@ -141,14 +151,13 @@ const styles = StyleSheet.create({
         height:120,
         marginBottom:20,
         alignItems:"center",
-        
         borderRadius:6,
         shadowColor:"#000",
         shadowOffset:{width:0, height:3},
         shadowOpacity: 0.27,
         shadowRadius: 4.30,
         elevation: 3,
-
+        
     },
     flexbox:{
         display:'flex',
@@ -159,6 +168,8 @@ const styles = StyleSheet.create({
     prof:{
         padding:10,
         alignItems:"center",
+        width:'100%',
+        borderRadius:6,
     }
    
 })
