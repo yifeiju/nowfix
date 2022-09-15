@@ -80,14 +80,8 @@ const Home=({navigation, route})=>{
                                 <Image source={llama} style={{ width:41.25 , height: 60  ,marginTop:10}}  ></Image>
                             </View>
                         </TouchableOpacity>
-                    </View>
-                   
+                    </View>  
                 </View>
-                
-            
-            <TouchableOpacity onPress={()=>logout()}>
-                <Text>out</Text>
-            </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
     )
@@ -148,7 +142,7 @@ const styles = StyleSheet.create({
     },
     profesional:{
         width:'45%',
-        height:120,
+        height:130,
         marginBottom:20,
         alignItems:"center",
         borderRadius:6,

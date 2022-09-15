@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 const globalStyles = StyleSheet.create({
     container: {   
         padding:25,
-        borderColor:"red",
-        borderWidth:1,
+        //borderColor:"red",
+        //borderWidth:1,
         width:"100%",
-        minHeight:896,
+        minHeight:'100%'
         
     },
     btnyellow:{
@@ -25,19 +25,26 @@ const globalStyles = StyleSheet.create({
     title:{
         textAlign:'center',
         marginTop:30,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        
+        
     },
+    title1:{
+        textAlign:'center',
+        fontWeight:'bold',
+    },
+    titleview:{
+        display:'flex',
+        flexDirection:'row', 
+        flexWrap:"wrap",
+        justifyContent:'space-between', 
+        marginTop:30
+    },
+
     btnback:{
         width:15,
         height:20,
     },
-    back:{
-        position:'absolute',
-        top:55,
-        left:30,
-        backgroundColor:'red'
-
-    }
 });
 
 export default globalStyles;

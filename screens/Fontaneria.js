@@ -11,12 +11,12 @@ const Fontaneria=({navigation, route})=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-            <View style={globalStyles.back}>
-                <TouchableOpacity  onPress={()=>navigation.navigate("Home")}>
+            <View style={globalStyles.titleview}> 
+                <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
                     <Image source={back} style={globalStyles.btnback}></Image>
                 </TouchableOpacity>
+                <Text style={globalStyles.title1}>Fontaneria</Text><View></View>
             </View>
-            <Text style={globalStyles.title}>Fontaneria</Text>
         </View>
         </KeyboardAvoidingView>
         

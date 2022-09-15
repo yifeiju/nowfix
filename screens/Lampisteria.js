@@ -6,19 +6,19 @@ import back from '../assets/back.png'
 
 const Lampisteria=({navigation, route})=>{
     return(
-        
         <KeyboardAvoidingView
             behavior="height"
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-        <TouchableOpacity style={globalStyles.back} onPress={()=>navigation.navigate("Home")}>
-                <Image source={back} style={globalStyles.btnback}></Image>
-            </TouchableOpacity>
-            <Text style={globalStyles.title}>Lampisteria</Text>
+            <View style={globalStyles.titleview}> 
+                <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+                    <Image source={back} style={globalStyles.btnback}></Image>
+                </TouchableOpacity>
+                <Text style={globalStyles.title1}>Lampisteria</Text><View></View>
+            </View>
         </View>
         </KeyboardAvoidingView>
-        
     )
 }
 export default Lampisteria;
