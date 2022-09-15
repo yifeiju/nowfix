@@ -12,10 +12,12 @@ const Calderas=({navigation, route})=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-        <TouchableOpacity style={globalStyles.back} onPress={()=>navigation.navigate("Home")}>
-                <Image source={back} style={globalStyles.btnback}></Image>
-            </TouchableOpacity>
-            <Text style={globalStyles.title}>Calderas</Text>
+            <View style={globalStyles.titleview}> 
+                <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+                    <Image source={back} style={globalStyles.btnback}></Image>
+                </TouchableOpacity>
+                <Text style={globalStyles.title1}>Calderas</Text><View></View>
+            </View>
         </View>
         </KeyboardAvoidingView>
         

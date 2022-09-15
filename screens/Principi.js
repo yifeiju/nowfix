@@ -40,7 +40,7 @@ export default({navigation, route})=>
                         </View>
                     </TouchableOpacity>
                 
-                <View style={styles.politica}><TouchableOpacity ><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
+                <View style={styles.politica}><TouchableOpacity onPress={() => navigation.navigate('Registro')}><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
             
             </View>
             
@@ -87,12 +87,11 @@ const styles = StyleSheet.create({
     politica:{
         alignItems:"center",
         position:"absolute",
-        bottom:10,
-        left:0,
-        right:0,
         textAlign:'center',
         width: '100%',
         bottom:20,
+        margin:'auto',
+        left:25
     },
     politi:{
         color:'#041E42',

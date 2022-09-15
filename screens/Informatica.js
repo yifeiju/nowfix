@@ -12,10 +12,12 @@ const Informatica=({navigation, route})=>{
             style={globalStyles.screen}
         >
         <View style={globalStyles.container}>
-        <TouchableOpacity style={globalStyles.back} onPress={()=>navigation.navigate("Home")}>
-                <Image source={back} style={globalStyles.btnback}></Image>
-            </TouchableOpacity>
-            <Text style={globalStyles.title}>Informatica</Text>
+            <View style={globalStyles.titleview}> 
+                <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+                    <Image source={back} style={globalStyles.btnback}></Image>
+                </TouchableOpacity>
+                <Text style={globalStyles.title1}>Informatica</Text><View></View>
+            </View>
         </View>
         </KeyboardAvoidingView>
         
