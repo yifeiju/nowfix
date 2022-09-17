@@ -1,16 +1,16 @@
 import { createContext, useState } from "react";
-import { fakeServices } from "../hardCode";
 
 export const AppContext = createContext();
 
 const Provider = ({ children }) => {
-  const [state, setState] = useState({
-    services: fakeServices,
-    userType: [],
+  const [AppState, setAppState] = useState({
+    services: [],
+    userTypes: [],
     user: {},
   });
+  console.log({ AppState });
   return (
-    <AppContext.Provider value={[state, setState]}>
+    <AppContext.Provider value={[AppState, setAppState]}>
       {children}
     </AppContext.Provider>
   );

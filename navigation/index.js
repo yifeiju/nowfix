@@ -1,11 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useContext, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../app/index";
+import { auth } from "../app/firebase/config";
 import Main from "./stacks/index";
 import BTabs from "./bottomtabs/TabsNavigator";
 import { AppContext } from "../app/Provider";
-import { fbServices } from "../app/firebase";
+import { fb } from "../app/firebase";
 import { getArrayFromCollection } from "../app/firebase/utils";
 
 const MainNavigator = () => {
@@ -16,16 +16,16 @@ const MainNavigator = () => {
       console.log("onAuthStateChanged", user);
       if (user?.uid) {
         const id = user.uid;
-        setState({ ...state, user: { ...user, id } });
+        setState((prevState = {}) => ({ ...prevState, user: { ...user, id } }));
       } else {
-        setState({ ...state, user: {} });
+        setState((prevState = {}) => ({ ...prevState, user: {} }));
       }
     });
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-    fbServices.getServices().then((result) => {
+    fb.service.getServices().then((result) => {
       const services = getArrayFromCollection(result);
       setState((prevState = {}) => ({ ...prevState, services: services }));
     });
