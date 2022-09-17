@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   Image,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { fb } from "../app/firebase";
 import logo from "../assets/logo.png";
@@ -19,6 +20,18 @@ const Registro = () => {
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
 
+  const onSignUp = async () => {
+    const credendialts = await fb.auth.signUp(email, password);
+    try {
+      const { user = {} } = credendialts;
+      fb.user.createUserData({
+        id: user.uid,
+        email,
+        name,
+      });
+    } catch (error) {}
+  };
+
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -26,12 +39,14 @@ const Registro = () => {
           <Image source={logo} style={{ width: 266, height: 74 }} />
         </View>
         <Text style={styles.siempre}>Siempre cerca de ti.</Text>
-
-        <TextInput
-          style={styles.input}
-          placeholder="Usuario/Profesional"
-          autoCapitalize="none"
-        />
+        <TouchableWithoutFeedback onPress={() => console.log("CLICK")}>
+          <TextInput
+            editable={false}
+            style={styles.input}
+            placeholder="Usuario/Profesional"
+            autoCapitalize="none"
+          />
+        </TouchableWithoutFeedback>
 
         <TextInput
           style={styles.input}
@@ -64,7 +79,7 @@ const Registro = () => {
           onChangeText={(text) => setConfirm(text)}
         />
 
-        <TouchableOpacity onPress={() => fb.auth.signUp(email, password)}>
+        <TouchableOpacity onPress={onSignUp}>
           <View style={[globalStyles.btnyellow, styles.prompt]}>
             <Text style={styles.negrita}>Completar registro</Text>
           </View>

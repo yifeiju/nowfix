@@ -12,11 +12,12 @@ const MainNavigator = () => {
   const [state, setState] = useContext(AppContext);
   const { user = {} } = state;
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log("onAuthStateChanged", user);
       if (user?.uid) {
-        const id = user.uid;
-        setState((prevState = {}) => ({ ...prevState, user: { ...user, id } }));
+        const data = await fb.user.getUserData(user.uid);
+        console.log({ data });
+        setState((prevState = {}) => ({ ...prevState, user: data }));
       } else {
         setState((prevState = {}) => ({ ...prevState, user: {} }));
       }
@@ -25,7 +26,7 @@ const MainNavigator = () => {
   }, []);
 
   useEffect(() => {
-    fb.service.getServices().then((result) => {
+    fb.service.all().then((result) => {
       const services = getArrayFromCollection(result);
       setState((prevState = {}) => ({ ...prevState, services: services }));
     });

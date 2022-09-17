@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -8,14 +8,17 @@ import {
 } from "react-native";
 import { fb } from "../app/firebase";
 import globalStyles from "../app/globalStyles";
+import { AppContext } from "../app/Provider";
 
 const Profile = () => {
+  const [state = {}] = useContext(AppContext);
+  const { user } = state;
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <Text style={globalStyles.title}>Profile</Text>
         <Text style={{ textAlign: "center", marginTop: 30, marginBottom: 55 }}>
-          Nombre
+          {user?.name}
         </Text>
         <TouchableOpacity>
           <View style={[globalStyles.btnyellow, styles.margin]}>
