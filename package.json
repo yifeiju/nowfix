@@ -7,12 +7,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "tunnel":"expo start --tunnel",
+    "tunnel": "expo start --tunnel",
     "eject": "expo eject"
   },
   "dependencies": {
     "@expo/ngrok": "^2.5.0",
     "@react-native-masked-view/masked-view": "0.2.6",
+    "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/stack": "^6.2.2",
     "expo": "^45.0.8",

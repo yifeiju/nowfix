@@ -11,5 +11,6 @@ export default () => (
         <Stack.Screen name="Principi" component={Principi} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Registro" component={Registro} />
+        
     </Stack.Navigator>
 );

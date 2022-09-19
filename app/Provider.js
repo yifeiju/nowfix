@@ -1,12 +1,19 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from "react";
+
+export const AppContext = createContext();
+
 const Provider = ({ children }) => {
-   
-    return (
-        <AppContext.Provider>
-            {children}
-        </AppContext.Provider>
-    );
-}
+  const [AppState, setAppState] = useState({
+    services: [],
+    userTypes: [],
+    user: {},
+  });
+  console.log({ AppState });
+  return (
+    <AppContext.Provider value={[AppState, setAppState]}>
+      {children}
+    </AppContext.Provider>
+  );
+};
 
 export default Provider;
-export const AppContext = createContext();  

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image, ScrollView} from 'react-native';
 import logo from '../assets/logo.png';
-import Login from './Login';
 import globalStyles from '../app/globalStyles';
 
 
@@ -14,7 +13,7 @@ export default({navigation, route})=>
         >
             <View style={globalStyles.container}>
                 <View style={styles.center } >
-                <Image source={logo} style={{ width:266 , height: 74 }} resizeMode={'center'} />
+                    <Image source={logo} style={{ width:266 , height: 74 }}  />
                 </View>
                 <Text style={styles.siempre}>Siempre cerca de ti.</Text>
 
@@ -23,7 +22,7 @@ export default({navigation, route})=>
                 
                     <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
                         
-                        <View style={globalStyles.btnyellow}>
+                        <View style={[globalStyles.btnyellow, styles.margin]}>
                             <Text style={styles.negrita}>
                                 Iniciar sessión
                             </Text>
@@ -41,8 +40,10 @@ export default({navigation, route})=>
                         </View>
                     </TouchableOpacity>
                 
-                <View style={styles.politica}><TouchableOpacity ><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
+                <View style={styles.politica}><TouchableOpacity onPress={() => navigation.navigate('Registro')}><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
+            
             </View>
+            
         </KeyboardAvoidingView>
     
 
@@ -84,10 +85,13 @@ const styles = StyleSheet.create({
         marginTop:48,
     },
     politica:{
+        alignItems:"center",
+        position:"absolute",
         textAlign:'center',
-        //position:'fixed',
         width: '100%',
         bottom:20,
+        margin:'auto',
+        left:25
     },
     politi:{
         color:'#041E42',

@@ -1,35 +1,47 @@
-import { NavigationContainer } from '@react-navigation/native';  
-import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../app/firebase';
-import Main from './stacks/index';
-import BTabs from './bottomtabs/TabsNavigator';
-
-
+import { NavigationContainer } from "@react-navigation/native";
+import React, { useContext, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../app/firebase/config";
+import Main from "./stacks/index";
+import BTabs from "./bottomtabs/TabsNavigator";
+import { AppContext } from "../app/Provider";
+import { fb } from "../app/firebase";
+import { getArrayFromCollection } from "../app/firebase/utils";
 
 const MainNavigator = () => {
-    const [isLogged, setIsLogged] = useState(false);
+  const [state, setState] = useContext(AppContext);
+  const { user = {} } = state;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log("onAuthStateChanged", user);
+      if (user?.uid) {
+        const data = await fb.user.getUserData(user.uid);
+        console.log({ data });
+        setState((prevState = {}) => ({ ...prevState, user: data }));
+      } else {
+        setState((prevState = {}) => ({ ...prevState, user: {} }));
+      }
+    });
+    return unsubscribe;
+  }, []);
 
-    useEffect(() => {
-        onAuthStateChanged(auth, user => {
-            if (user) {
-                console.log('user', user);
-                const uid = user.uid;
-                setIsLogged(true);
-            } else {
-                console.log("No user logged");
-                setIsLogged(false);
-            }
-        });
-    }, []);
+  useEffect(() => {
+    fb.service.all().then((result) => {
+      const services = getArrayFromCollection(result);
+      setState((prevState = {}) => ({ ...prevState, services: services }));
+    });
+  }, []);
 
-    return (<NavigationContainer>
-        {isLogged ?
-            <BTabs/> :
-            <Main/>
-        }
-    </NavigationContainer>)
+  useEffect(() => {
+    fb.user.allUserTypes().then((result) => {
+      const userTypes = getArrayFromCollection(result);
+      setState((prevState = {}) => ({ ...prevState, userTypes: userTypes }));
+    });
+  }, []);
 
-}
+  return (
+    <NavigationContainer>{user.id ? <BTabs /> : <Main />}</NavigationContainer>
+  );
+};
 
 export default MainNavigator;

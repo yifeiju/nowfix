@@ -1,13 +1,24 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../../screens/Home';
+import React, { useContext } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "../../screens/Home";
+import ServiceList from "../../screens/ServiceList";
+import { AppContext } from "../../app/Provider";
 
- const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
-export default () => (
-    <Stack.Navigator screenOptions={{headerShown:false}}>
-
-        <Stack.Screen name="Home" component={Home} />
-
+export default () => {
+  const [state] = useContext(AppContext);
+  const { services = [] } = state ?? {};
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Home} />
+      {services.map((service) => (
+        <Stack.Screen
+          key={service.id}
+          name={service.name}
+          component={ServiceList}
+        />
+      ))}
     </Stack.Navigator>
-);
+  );
+};
