@@ -32,6 +32,7 @@ const BTabs = () => (
       name="HomeTab"
       component={HomeNavigator}
       options={{
+        unmountOnBlur: true ,
         tabBarIcon: ({ focused }) => (
           <Image source={homeicon} style={{ width: 20, height: 20 }}></Image>
         ),

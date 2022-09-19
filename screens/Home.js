@@ -34,7 +34,7 @@ const Home = ({ navigation, route }) => {
           {services.map((service = {}) => {
             let icon;
             try {
-              icon = require(`../assets/${service.icon}`);
+              icon =  service.icon;
             } catch (error) {}
             return (
               <View style={styles.profesional} key={service.id}>
@@ -44,9 +44,13 @@ const Home = ({ navigation, route }) => {
                 >
                   <View style={styles.prof}>
                     <Text>{service.name}</Text>
+                    {
+                      console.log(icon)
+                    }
+                    
                     <Image
-                      source={icon}
-                      style={{ width: 60, height: 60, marginTop: 10 }}
+                      source= {{uri:icon}}
+                      style={{ width: service.width, height: service.height, marginTop: 10 }}
                     ></Image>
                   </View>
                 </TouchableOpacity>

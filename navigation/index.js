@@ -32,6 +32,13 @@ const MainNavigator = () => {
     });
   }, []);
 
+  useEffect(() => {
+    fb.user.allUserTypes().then((result) => {
+      const userTypes = getArrayFromCollection(result);
+      setState((prevState = {}) => ({ ...prevState, userTypes: userTypes }));
+    });
+  }, []);
+
   return (
     <NavigationContainer>{user.id ? <BTabs /> : <Main />}</NavigationContainer>
   );

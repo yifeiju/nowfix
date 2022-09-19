@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, addDoc, getDoc } from "firebase/firestore";
+import { collection, doc, setDoc, addDoc, getDoc, getDocs, query } from "firebase/firestore";
 import { db } from "../config";
 
 const userRef = collection(db, "user");
@@ -12,4 +12,9 @@ export const getUserData = (id) => {
     console.log({ id, doc, data: doc.data() });
     return doc.data();
   });
+};
+
+export const allUserTypes = async () => {
+  const colRef = collection(db, "userTypes");
+  return await getDocs(query(colRef));
 };

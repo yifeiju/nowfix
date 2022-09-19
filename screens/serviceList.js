@@ -11,7 +11,7 @@ import back from "../assets/back.png";
 
 const ServiceList = ({ navigation, route = {} }) => {
   const service = route.params ?? {};
-  const icon = require(`../assets/${service.icon}`);
+  
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -21,10 +21,7 @@ const ServiceList = ({ navigation, route = {} }) => {
           </TouchableOpacity>
           <Text style={globalStyles.title1}>{service.name}</Text>
           <View>
-            <Image
-              source={icon}
-              style={{ width: 35, height: 60, marginTop: 10 }}
-            ></Image>
+            
           </View>
         </View>
       </View>
