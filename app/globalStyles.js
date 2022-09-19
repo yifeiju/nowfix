@@ -45,6 +45,9 @@ const globalStyles = StyleSheet.create({
         width:15,
         height:20,
     },
+    white:{
+        color:'white',
+    }
 });
 
 export default globalStyles;

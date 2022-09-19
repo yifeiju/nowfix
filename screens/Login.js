@@ -48,7 +48,7 @@ const Login = () => {
 
         <TouchableOpacity onPress={() => fb.auth.signIn(email, password)}>
           <View style={[globalStyles.btnyellow, styles.prompt]}>
-            <Text style={styles.negrita}>Iniciar sessión</Text>
+            <Text style={[styles.negrita, globalStyles.white]}>Iniciar sessión</Text>
           </View>
         </TouchableOpacity>
       </View>

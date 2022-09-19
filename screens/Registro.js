@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -9,9 +9,11 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
+
 import { fb } from "../app/firebase";
 import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
+
 
 const Registro = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -19,6 +21,8 @@ const Registro = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
+  
+
 
   const onSignUp = async () => {
     const credendialts = await fb.auth.signUp(email, password);
@@ -39,7 +43,7 @@ const Registro = () => {
           <Image source={logo} style={{ width: 266, height: 74 }} />
         </View>
         <Text style={styles.siempre}>Siempre cerca de ti.</Text>
-        <TouchableWithoutFeedback onPress={() => console.log("CLICK")}>
+        <TouchableWithoutFeedback >
           <TextInput
             editable={false}
             style={styles.input}
@@ -81,9 +85,11 @@ const Registro = () => {
 
         <TouchableOpacity onPress={onSignUp}>
           <View style={[globalStyles.btnyellow, styles.prompt]}>
-            <Text style={styles.negrita}>Completar registro</Text>
+            <Text style={[styles.negrita, globalStyles.white]}>Completar registro</Text>
           </View>
         </TouchableOpacity>
+
+        
       </View>
     </KeyboardAvoidingView>
   );

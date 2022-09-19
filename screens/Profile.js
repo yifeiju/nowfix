@@ -22,22 +22,22 @@ const Profile = () => {
         </Text>
         <TouchableOpacity>
           <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text>Favoritos</Text>
+            <Text style={[styles.negrita, globalStyles.white]}>Favoritos</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text>Historial de servisios</Text>
+            <Text style={[styles.negrita, globalStyles.white]}>Historial de servisios</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
           <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text>Ajustes</Text>
+            <Text style={[styles.negrita, globalStyles.white]}>Ajustes</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => fb.auth.logout()}>
           <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text>Cerrar sessión</Text>
+            <Text style={[styles.negrita, globalStyles.white]}>Cerrar sessión</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -49,5 +49,9 @@ export default Profile;
 const styles = StyleSheet.create({
   margin: {
     marginBottom: 32,
+  },
+  negrita: {
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

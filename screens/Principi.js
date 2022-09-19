@@ -23,7 +23,7 @@ export default({navigation, route})=>
                     <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
                         
                         <View style={[globalStyles.btnyellow, styles.margin]}>
-                            <Text style={styles.negrita}>
+                            <Text style={[styles.negrita, globalStyles.white]}>
                                 Iniciar sessión
                             </Text>
                         </View>
@@ -34,7 +34,7 @@ export default({navigation, route})=>
                 
                     <TouchableOpacity onPress={() => navigation.navigate('Registro')}>
                         <View style={[globalStyles.btnyellow,styles.margin]}>
-                            <Text style={styles.negrita}>
+                            <Text style={[styles.negrita, globalStyles.white]}>
                                 Registrarse
                             </Text>
                         </View>
