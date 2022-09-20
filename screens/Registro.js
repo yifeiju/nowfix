@@ -8,11 +8,14 @@ import {
   TextInput,
   Image,
   TouchableWithoutFeedback,
+  Modal,
+  Pressable,
 } from "react-native";
 
 import { fb } from "../app/firebase";
 import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
+import { AppContext } from "../app/Provider";
 
 
 const Registro = () => {
@@ -21,7 +24,9 @@ const Registro = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
-  
+  const [state, setState] = useContext(AppContext);
+  const { userTypes = [] } = state;
+  const [modalVisible, setModalVisible] = useState(false);
 
 
   const onSignUp = async () => {
@@ -43,7 +48,24 @@ const Registro = () => {
           <Image source={logo} style={{ width: 266, height: 74 }} />
         </View>
         <Text style={styles.siempre}>Siempre cerca de ti.</Text>
-        <TouchableWithoutFeedback >
+        <Modal 
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {setModalVisible(!modalVisible)}}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              {userTypes.map((userType = {}) => {
+                return(
+                  <Pressable key={userType.id} onPress={()=> setModalVisible(!modalVisible)}>
+                    <Text>{userType.name}</Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </View>
+        </Modal>
+        <TouchableWithoutFeedback onPress={()=>{setModalVisible(true)}}>
           <TextInput
             editable={false}
             style={styles.input}
@@ -102,6 +124,27 @@ const styles = StyleSheet.create({
     justifyContet: "center",
     alignItems: "center",
     marginTop: 55,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
 
   prompt: {
