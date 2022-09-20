@@ -57,8 +57,8 @@ const Registro = () => {
             <View style={styles.modalView}>
               {userTypes.map((userType = {}) => {
                 return(
-                  <Pressable key={userType.id} onPress={()=> setModalVisible(!modalVisible)}>
-                    <Text>{userType.name}</Text>
+                  <Pressable key={userType.id} onPress={()=> setModalVisible(!modalVisible)} style={styles.buttonpop}>
+                    <Text style={[styles.negrita, globalStyles.white]}>{userType.name}</Text>
                   </Pressable>
                 );
               })}
@@ -73,6 +73,7 @@ const Registro = () => {
             autoCapitalize="none"
           />
         </TouchableWithoutFeedback>
+        
 
         <TextInput
           style={styles.input}
@@ -133,18 +134,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    width:'80%'
   },
 
   prompt: {
@@ -181,5 +173,20 @@ const styles = StyleSheet.create({
     fontSize: 23,
     marginTop: 48,
     marginBottom: 30,
+  },
+  buttonpop:{
+    width:'100%',
+    height:96,
+    borderRadius:37,
+    backgroundColor:'#FF8200',
+    textAlign:'center',
+    justifyContent: 'center', 
+    marginBottom:35,
+    marginTop:35
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
   },
 });
