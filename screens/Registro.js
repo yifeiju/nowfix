@@ -27,6 +27,7 @@ const Registro = () => {
   const [state, setState] = useContext(AppContext);
   const { userTypes = [] } = state;
   const [modalVisible, setModalVisible] = useState(false);
+  const [userType, setUserType] = useState("")
 
 
   const onSignUp = async () => {
@@ -37,6 +38,7 @@ const Registro = () => {
         id: user.uid,
         email,
         name,
+        userType,
       });
     } catch (error) {}
   };
@@ -57,7 +59,7 @@ const Registro = () => {
             <View style={styles.modalView}>
               {userTypes.map((userType = {}) => {
                 return(
-                  <Pressable key={userType.id} onPress={()=> setModalVisible(!modalVisible)} style={styles.buttonpop}>
+                  <Pressable key={userType.id} onPress={()=> {setModalVisible(!modalVisible),setUserType(userType.name)}} style={styles.buttonpop}>
                     <Text style={[styles.negrita, globalStyles.white]}>{userType.name}</Text>
                   </Pressable>
                 );
@@ -71,6 +73,7 @@ const Registro = () => {
             style={styles.input}
             placeholder="Usuario/Profesional"
             autoCapitalize="none"
+            value={userType}
           />
         </TouchableWithoutFeedback>
         

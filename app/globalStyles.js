@@ -17,6 +17,16 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center', 
         borderRadius:37,
     },
+    btnyellow2:{
+        width:"100%",
+        height:48,
+        backgroundColor:'#FF8200',
+        textAlign:'center',
+        alignItems:'center',
+        justifyContent: 'space-between', 
+        borderRadius:37,
+        flexDirection:'row'
+    },
     screen: {
         flex:1,
         justifyContet: 'center',

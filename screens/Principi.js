@@ -40,7 +40,7 @@ export default({navigation, route})=>
                         </View>
                     </TouchableOpacity>
                 
-                <View style={styles.politica}><TouchableOpacity onPress={() => navigation.navigate('Registro')}><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
+                <View style={styles.politica}><TouchableOpacity onPress={() => {}}><Text style={styles.politi}>Politíca de privacidad</Text></TouchableOpacity></View>
             
             </View>
             
