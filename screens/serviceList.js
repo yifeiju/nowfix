@@ -6,14 +6,19 @@ import {
   Text,
   Image,
   StyleSheet,
+  TextInput,
+  Modal,
+  Pressable,
   
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
 import filtro from "../assets/filtro.png";
+import busca from '../assets/busca.png'
 
 const ServiceList = ({ navigation, route = {} }) => {
   const service = route.params ?? {};
+  const [modalVisible, setModalVisible] = useState(false);
   
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
@@ -25,7 +30,35 @@ const ServiceList = ({ navigation, route = {} }) => {
           <Text style={globalStyles.title1}>{service.name}</Text>
           <View></View>
         </View>
-        <TouchableOpacity >
+        <Modal 
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {setModalVisible(!modalVisible)}}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.negrita}>Cambiar nombre</Text>
+              <TextInput style={styles.input} ></TextInput>
+              
+                <View style={styles.flex}>
+                  <Pressable onPress={()=> {setModalVisible(!modalVisible)}} style={styles.buttonpop1}>
+                    <Text style={styles.negrita}>Cancelar</Text>
+                  </Pressable>
+                  <Pressable onPress={()=> {}} style={styles.buttonpop}>
+                    <Text style={[styles.negrita, globalStyles.white]}>Aceptar</Text>
+                  </Pressable>
+                </View> 
+            </View>
+          </View>
+        </Modal>
+        <View style={styles.searchContainer}>
+          <Image source={busca} style={{ width: 24, height: 24 }}></Image>
+          <TextInput
+            underlineColorAndroid="transparent"
+            style={{ marginLeft: 10, width: "85%", height: "80%" }}
+          ></TextInput>
+        </View>
+        <TouchableOpacity style={styles.prompt2} onPress={()=>setModalVisible(true)}>
           <View style={[globalStyles.btnyellow2,styles.prompt]}>
             <Text style={[styles.negrita, globalStyles.white]}>Filtro</Text>
             <Image source={filtro} style={{width:30,height:34}}></Image>
@@ -39,7 +72,7 @@ export default ServiceList;
 
 const styles = StyleSheet.create({
   center: {
-    justifyContet: "center",
+    justifyContent: "center",
     alignItems: "center",
     marginTop: 55,
   },
@@ -57,10 +90,12 @@ const styles = StyleSheet.create({
   },
 
   prompt: {
-    marginTop: 40,
     paddingLeft:'5%',
     paddingRight:'5%'
     
+  },
+  prompt2:{
+    marginTop: 20,
   },
 
   txtcenter: {
@@ -109,5 +144,15 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center"
+  },
+  searchContainer: {
+    height: 48,
+    borderRadius: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    backgroundColor: "#D9D9D9",
+    marginTop: 20,
+    
   },
 });

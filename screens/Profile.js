@@ -6,48 +6,81 @@ import {
   View,
   Text,
   Image,
+  ScrollView,
+  Modal,
+  Pressable
 } from "react-native";
 import { fb } from "../app/firebase";
 import globalStyles from "../app/globalStyles";
 import { AppContext } from "../app/Provider";
-import fotoperfil from "../assets/Foto perfil.png"
+import fotoperfil from "../assets/Fotoperfil.png";
 
-const Profile = () => {
+
+const Profile = ({navigation,route}) => {
   const [state = {}] = useContext(AppContext);
   const { user } = state;
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <Text style={globalStyles.title}>Profile</Text>
-        <View style={{alignItems:'center', justifyContent:'center', marginTop:30}}>
-          <Image source={fotoperfil} style={{width:96,height:96}}></Image>
-        </View>
-        <Text style={{ textAlign: "center", marginTop: 30,  }}>
-          {user?.name}
-        </Text>
-        <Text style={{ textAlign: "center", marginTop: 30, marginBottom: 55 }}>
-          {user?.email}
-        </Text>
-        <TouchableOpacity>
-          <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text style={[styles.negrita, globalStyles.white]}>Favoritos</Text>
+        <ScrollView>
+          <View style={styles.center}>
+            <Image source={fotoperfil} style={{width:96, height:96}}></Image>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text style={[styles.negrita, globalStyles.white]}>Historial de servisios</Text>
+          <Text style={{ textAlign: "center", marginTop: 30,  }}>
+            {user?.name}
+          </Text>
+          <Text style={{ textAlign: "center", marginTop: 30, marginBottom: 55 }}>
+            {user?.email}
+          </Text>
+          <TouchableOpacity style={styles.margin} onPress={()=>{navigation.navigate('Favoritos')}}>
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>Favoritos</Text>
+            </View>
+          </TouchableOpacity >
+          <TouchableOpacity style={styles.margin} onPress={()=>{navigation.navigate('Servicios')}}>
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>Servicios</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.margin} onPress={()=>{navigation.navigate('Ajustes')}}>
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>Ajustes</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.margin} onPress={()=>{navigation.navigate('Acerca')}}>
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>Acerca de Nowfix</Text>
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.margin} onPress={() => setModalVisible(true)}>
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>Cerrar sessión</Text>
+            </View>
+          </TouchableOpacity>
+        
+        </ScrollView>
+        <Modal 
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {setModalVisible(!modalVisible)}}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.negrita}>¿Desea cerrar sesión?</Text>
+                <View style={styles.flex}>
+                  <Pressable onPress={()=> {setModalVisible(!modalVisible)}} style={styles.buttonpop1}>
+                    <Text style={styles.negrita}>Cancelar</Text>
+                  </Pressable>
+                  <Pressable onPress={()=> fb.auth.logout()} style={styles.buttonpop}>
+                    <Text style={[styles.negrita, globalStyles.white]}>Cerrar</Text>
+                  </Pressable>
+                </View> 
+            </View>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text style={[styles.negrita, globalStyles.white]}>Ajustes</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => fb.auth.logout()}>
-          <View style={[globalStyles.btnyellow, styles.margin]}>
-            <Text style={[styles.negrita, globalStyles.white]}>Cerrar sessión</Text>
-          </View>
-        </TouchableOpacity>
+        </Modal>
       </View>
     </KeyboardAvoidingView>
   );
@@ -57,9 +90,68 @@ export default Profile;
 const styles = StyleSheet.create({
   margin: {
     marginBottom: 32,
+    alignItems:'center',
   },
   negrita: {
     fontWeight: "bold",
     textAlign: "center",
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width:'80%',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  buttonpop:{
+    width:'40%',
+    height:48,
+    borderRadius:37,
+    backgroundColor:'#FF8200',
+    textAlign:'center',
+    justifyContent: 'center', 
+    
+    marginTop:35
+  },
+  buttonpop1:{
+    width:'40%',
+    height:48,
+    borderRadius:37,
+    borderColor:'#FF8200',
+    borderWidth:1,
+    textAlign:'center',
+    justifyContent: 'center', 
+    
+    marginTop:35
+  },
+  negrita: {
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  flex:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-around',
+    width:'100%',
   },
 });

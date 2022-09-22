@@ -6,11 +6,11 @@ const globalStyles = StyleSheet.create({
         //borderColor:"red",
         //borderWidth:1,
         width:"100%",
-        minHeight:'100%'
+        minHeight:'100%',
         
     },
     btnyellow:{
-        width:"100%",
+        width:"90%",
         height:48,
         backgroundColor:'#FF8200',
         textAlign:'center',
@@ -29,7 +29,7 @@ const globalStyles = StyleSheet.create({
     },
     screen: {
         flex:1,
-        justifyContet: 'center',
+        justifyContent: 'center',
         alignItems: 'center',
     },
     title:{

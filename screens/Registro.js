@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Modal,
   Pressable,
+  ScrollView,
 } from "react-native";
 
 import { fb } from "../app/firebase";
@@ -46,8 +47,9 @@ const Registro = () => {
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
+        <ScrollView>
         <View style={styles.center}>
-          <Image source={logo} style={{ width: 266, height: 74 }} />
+          <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
         <Text style={styles.siempre}>Siempre cerca de ti.</Text>
         <Modal 
@@ -109,13 +111,13 @@ const Registro = () => {
           onChangeText={(text) => setConfirm(text)}
         />
 
-        <TouchableOpacity onPress={onSignUp}>
-          <View style={[globalStyles.btnyellow, styles.prompt]}>
+        <TouchableOpacity style={styles.prompt} onPress={onSignUp}>
+          <View style={[globalStyles.btnyellow]}>
             <Text style={[styles.negrita, globalStyles.white]}>Completar registro</Text>
           </View>
         </TouchableOpacity>
 
-        
+        </ScrollView>
       </View>
     </KeyboardAvoidingView>
   );
@@ -125,7 +127,7 @@ export default Registro;
 
 const styles = StyleSheet.create({
   center: {
-    justifyContet: "center",
+    justifyContent: "center",
     alignItems: "center",
     marginTop: 55,
   },
@@ -144,6 +146,7 @@ const styles = StyleSheet.create({
 
   prompt: {
     marginTop: 40,
+    alignItems:'center',
   },
 
   txtcenter: {

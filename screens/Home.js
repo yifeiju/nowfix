@@ -7,10 +7,10 @@ import {
   Text,
   TextInput,
   Image,
+  ScrollView
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import logo from "../assets/logo.png";
-import busca from "../assets/busca.png";
 import { AppContext } from "../app/Provider";
 
 const Home = ({ navigation, route }) => {
@@ -18,18 +18,12 @@ const Home = ({ navigation, route }) => {
   const { services = [] } = state;
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
-      <View style={globalStyles.container}>
+      <ScrollView style={globalStyles.container}>
         <View style={styles.center}>
-          <Image source={logo} style={{ width: 266, height: 74 }} />
+          <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
 
-        <View style={styles.searchContainer}>
-          <Image source={busca} style={{ width: 24, height: 24 }}></Image>
-          <TextInput
-            underlineColorAndroid="transparent"
-            style={{ marginLeft: 10, width: "85%", height: "80%" }}
-          ></TextInput>
-        </View>
+        
         <View style={styles.flexbox}>
           {services.map((service = {}) => {
             let icon;
@@ -58,7 +52,9 @@ const Home = ({ navigation, route }) => {
             );
           })}
         </View>
-      </View>
+        
+        
+      </ScrollView >
     </KeyboardAvoidingView>
   );
 };
@@ -66,7 +62,7 @@ export default Home;
 
 const styles = StyleSheet.create({
   center: {
-    justifyContet: "center",
+    justifyContent: "center",
     alignItems: "center",
     marginTop: 55,
   },
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
   },
   profesional: {
     width: "45%",
-    height: 130,
+    height: 144,
     marginBottom: 20,
     alignItems: "center",
     borderRadius: 6,
@@ -129,6 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
+    marginTop:50,
   },
   prof: {
     padding: 10,

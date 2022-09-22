@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   Image,
+  ScrollView,
 } from "react-native";
 import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
@@ -20,8 +21,9 @@ const Login = () => {
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
+        <ScrollView>
         <View style={styles.center}>
-          <Image source={logo} style={{ width: 266, height: 74 }} />
+          <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
         <Text style={styles.siempre}>Siempre cerca de ti.</Text>
         <Text style={styles.ini}>iniciar sesión :</Text>
@@ -46,11 +48,12 @@ const Login = () => {
           <Text style={styles.txtcenter}>¿Has olvidado la contraseña?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => fb.auth.signIn(email, password)}>
-          <View style={[globalStyles.btnyellow, styles.prompt]}>
+        <TouchableOpacity style={styles.prompt} onPress={() => fb.auth.signIn(email, password)}>
+          <View style={[globalStyles.btnyellow]}>
             <Text style={[styles.negrita, globalStyles.white]}>Iniciar sessión</Text>
           </View>
         </TouchableOpacity>
+        </ScrollView>
       </View>
     </KeyboardAvoidingView>
   );
@@ -60,12 +63,13 @@ export default Login;
 
 const styles = StyleSheet.create({
   center: {
-    justifyContet: "center",
+    justifyContent: "center",
     alignItems: "center",
     marginTop: 55,
   },
   prompt: {
     marginTop: 40,
+    alignItems:'center',
   },
 
   txtcenter: {

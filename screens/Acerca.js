@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
+import logo from '../assets/logo.png'
 
 const Acerca = ({ navigation, route = {} }) => {
     
@@ -23,7 +24,9 @@ const Acerca = ({ navigation, route = {} }) => {
             <Text style={globalStyles.title1}>Acerca de Nowfix</Text>
             <View></View>
           </View>
-          
+          <View style={styles.center}>
+            <Image source={logo} style={{width:266, height:80}}></Image>
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -32,7 +35,7 @@ const Acerca = ({ navigation, route = {} }) => {
   
   const styles = StyleSheet.create({
     center: {
-      justifyContet: "center",
+      justifyContent: "center",
       alignItems: "center",
       marginTop: 55,
     },

@@ -43,6 +43,7 @@ const BTabs = () => (
       name="NotificationTab"
       component={NotificationNavigator}
       options={{
+        unmountOnBlur: true ,
         tabBarIcon: ({ focused }) => (
           <Image source={notiicon} style={{ width: 20, height: 20 }}></Image>
         ),
@@ -53,6 +54,7 @@ const BTabs = () => (
       name="ChatTab"
       component={ChatNavigator}
       options={{
+        unmountOnBlur: true ,
         tabBarIcon: ({ focused }) => (
           <Image source={chaticon} style={{ width: 20, height: 20 }}></Image>
         ),
@@ -63,6 +65,7 @@ const BTabs = () => (
       name="ProfileTab"
       component={ProfileNavigator}
       options={{
+        unmountOnBlur: true ,
         tabBarIcon: ({ focused }) => (
           <Image source={pericon} style={{ width: 20, height: 20 }}></Image>
         ),

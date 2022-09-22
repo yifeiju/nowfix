@@ -32,7 +32,7 @@ const Servicios = ({ navigation, route = {} }) => {
   
   const styles = StyleSheet.create({
     center: {
-      justifyContet: "center",
+      justifyContent: "center",
       alignItems: "center",
       marginTop: 55,
     },
