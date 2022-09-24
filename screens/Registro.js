@@ -33,7 +33,7 @@ const Registro = () => {
     const credendialts = await fb.auth.signUp(email, password);
     try {
       const { user = {} } = credendialts;
-      fb.user.createUserData({
+      fb.user.setUserData({
         id: user.uid,
         email,
         name,

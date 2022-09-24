@@ -3,7 +3,7 @@ import { db } from "../config";
 
 const userRef = collection(db, "user");
 
-export const createUserData = (userData = {}) => {
+export const setUserData = (userData = {}) => {
   return setDoc(doc(userRef, userData.id), userData);
 };
 
