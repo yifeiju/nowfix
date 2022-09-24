@@ -16,7 +16,6 @@ const MainNavigator = () => {
       console.log("onAuthStateChanged", user);
       if (user?.uid) {
         const data = await fb.user.getUserData(user.uid);
-        console.log({ data });
         setState((prevState = {}) => ({ ...prevState, user: data }));
       } else {
         setState((prevState = {}) => ({ ...prevState, user: {} }));

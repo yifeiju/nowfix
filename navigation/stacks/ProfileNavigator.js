@@ -5,6 +5,8 @@ import Acerca from '../../screens/Acerca';
 import Favoritos from '../../screens/Favoritos';
 import Ajustes from '../../screens/Ajustes';
 import Servicios from '../../screens/Servicios';
+import Facturas from '../../screens/Facturas';
+import Categories from '../../screens/Categories';
 
 
  const Stack = createStackNavigator();
@@ -17,6 +19,9 @@ export default () => (
         <Stack.Screen name="Favoritos" component={Favoritos} />
         <Stack.Screen name="Ajustes" component={Ajustes} />
         <Stack.Screen name="Servicios" component={Servicios} />
+        <Stack.Screen name="Facturas" component={Facturas} />
+        <Stack.Screen name="Categories" component={Categories} />
+
 
     </Stack.Navigator>
 );

@@ -38,6 +38,20 @@ const Profile = ({ navigation, route }) => {
           >
             {user?.email}
           </Text>
+          {user.userType?.id === "professional" && (
+            <>
+            <TouchableOpacity
+              style={styles.margin}
+              onPress={() => {
+                navigation.navigate("Categories");
+              }}
+            >
+              <View style={[globalStyles.btnyellow]}>
+                <Text style={[styles.negrita, globalStyles.white]}>Categories y Precio</Text>
+              </View>
+            </TouchableOpacity>
+            </>
+          )}
           <TouchableOpacity
             style={styles.margin}
             onPress={() => {
@@ -50,6 +64,7 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
+          
           <TouchableOpacity
             style={styles.margin}
             onPress={() => {
@@ -84,6 +99,18 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.margin}
+            onPress={() => {
+              navigation.navigate("Facturas");
+            }}
+          >
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>
+                Facturas
+              </Text>
+            </View>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.margin}
@@ -96,20 +123,7 @@ const Profile = ({ navigation, route }) => {
             </View>
           </TouchableOpacity>
 
-          {user.userType?.id === "client" && (
-            <>
-            <TouchableOpacity
-              style={styles.margin}
-              onPress={() => {
-                navigation.navigate("Favoritos");
-              }}
-            >
-              <View style={[globalStyles.btnyellow]}>
-                <Text style={[styles.negrita, globalStyles.white]}>sadas</Text>
-              </View>
-            </TouchableOpacity>
-            </>
-          )}
+          
         </ScrollView>
         <Modal
           animationType="slide"
