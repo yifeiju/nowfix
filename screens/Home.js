@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
   Image,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import logo from "../assets/logo.png";
@@ -23,12 +23,11 @@ const Home = ({ navigation, route }) => {
           <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
 
-        
         <View style={styles.flexbox}>
           {services.map((service = {}) => {
             let icon;
             try {
-              icon =  service.icon;
+              icon = service.icon;
             } catch (error) {}
             return (
               <View style={styles.profesional} key={service.id}>
@@ -38,13 +37,14 @@ const Home = ({ navigation, route }) => {
                 >
                   <View style={styles.prof}>
                     <Text>{service.name}</Text>
-                    {
-                      console.log(icon)
-                    }
-                    
+
                     <Image
-                      source= {{uri:icon}}
-                      style={{ width: service.width, height: service.height, marginTop: 10 }}
+                      source={{ uri: icon }}
+                      style={{
+                        width: service.width,
+                        height: service.height,
+                        marginTop: 10,
+                      }}
                     ></Image>
                   </View>
                 </TouchableOpacity>
@@ -52,9 +52,7 @@ const Home = ({ navigation, route }) => {
             );
           })}
         </View>
-        
-        
-      </ScrollView >
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    marginTop:50,
+    marginTop: 50,
   },
   prof: {
     padding: 10,

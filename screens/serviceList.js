@@ -9,17 +9,16 @@ import {
   TextInput,
   Modal,
   Pressable,
-  
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
 import filtro from "../assets/filtro.png";
-import busca from '../assets/busca.png'
+import busca from "../assets/busca.png";
 
 const ServiceList = ({ navigation, route = {} }) => {
   const service = route.params ?? {};
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -30,24 +29,32 @@ const ServiceList = ({ navigation, route = {} }) => {
           <Text style={globalStyles.title1}>{service.name}</Text>
           <View></View>
         </View>
-        <Modal 
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {setModalVisible(!modalVisible)}}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.negrita}>Cambiar nombre</Text>
-              <TextInput style={styles.input} ></TextInput>
-              
-                <View style={styles.flex}>
-                  <Pressable onPress={()=> {setModalVisible(!modalVisible)}} style={styles.buttonpop1}>
-                    <Text style={styles.negrita}>Cancelar</Text>
-                  </Pressable>
-                  <Pressable onPress={()=> {}} style={styles.buttonpop}>
-                    <Text style={[styles.negrita, globalStyles.white]}>Aceptar</Text>
-                  </Pressable>
-                </View> 
+            <View style={globalStyles.modalView}>
+              <Text style={styles.negrita}>Filtro</Text>
+              <View style={styles.flex}>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                  style={styles.buttonpop1}
+                >
+                  <Text style={styles.negrita}>Cancelar</Text>
+                </Pressable>
+                <Pressable onPress={() => {}} style={styles.buttonpop}>
+                  <Text style={[styles.negrita, globalStyles.white]}>
+                    Aceptar
+                  </Text>
+                </Pressable>
+              </View>
             </View>
           </View>
         </Modal>
@@ -58,10 +65,13 @@ const ServiceList = ({ navigation, route = {} }) => {
             style={{ marginLeft: 10, width: "85%", height: "80%" }}
           ></TextInput>
         </View>
-        <TouchableOpacity style={styles.prompt2} onPress={()=>setModalVisible(true)}>
-          <View style={[globalStyles.btnyellow2,styles.prompt]}>
+        <TouchableOpacity
+          style={styles.prompt2}
+          onPress={() => setModalVisible(true)}
+        >
+          <View style={[globalStyles.btnyellow2, styles.prompt]}>
             <Text style={[styles.negrita, globalStyles.white]}>Filtro</Text>
-            <Image source={filtro} style={{width:30,height:34}}></Image>
+            <Image source={filtro} style={{ width: 30, height: 34 }}></Image>
           </View>
         </TouchableOpacity>
       </View>
@@ -80,21 +90,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
     padding: 35,
     alignItems: "center",
-    width:'80%'
+    width: "80%",
   },
 
   prompt: {
-    paddingLeft:'5%',
-    paddingRight:'5%'
-    
+    paddingLeft: "5%",
+    paddingRight: "5%",
   },
-  prompt2:{
+  prompt2: {
     marginTop: 20,
   },
 
@@ -120,8 +129,8 @@ const styles = StyleSheet.create({
 
   negrita: {
     fontWeight: "bold",
-    textAlign:'center',
-    alignItems:'center'
+    textAlign: "center",
+    alignItems: "center",
   },
   siempre: {
     color: "#041E42",
@@ -130,20 +139,20 @@ const styles = StyleSheet.create({
     marginTop: 48,
     marginBottom: 30,
   },
-  buttonpop:{
-    width:'100%',
-    height:96,
-    borderRadius:37,
-    backgroundColor:'#FF8200',
-    textAlign:'center',
-    justifyContent: 'center', 
-    marginBottom:35,
-    marginTop:35
+  buttonpop: {
+    width: "100%",
+    height: 96,
+    borderRadius: 37,
+    backgroundColor: "#FF8200",
+    textAlign: "center",
+    justifyContent: "center",
+    marginBottom: 35,
+    marginTop: 35,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   searchContainer: {
     height: 48,
@@ -153,6 +162,5 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: "#D9D9D9",
     marginTop: 20,
-    
   },
 });

@@ -18,7 +18,6 @@ import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
 import { AppContext } from "../app/Provider";
 
-
 const Registro = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
@@ -28,8 +27,7 @@ const Registro = () => {
   const [state, setState] = useContext(AppContext);
   const { userTypes = [] } = state;
   const [modalVisible, setModalVisible] = useState(false);
-  const [userType, setUserType] = useState("")
-
+  const [userType, setUserType] = useState({});
 
   const onSignUp = async () => {
     const credendialts = await fb.auth.signUp(email, password);
@@ -48,75 +46,90 @@ const Registro = () => {
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <ScrollView>
-        <View style={styles.center}>
-          <Image source={logo} style={{ width: 266, height: 80 }} />
-        </View>
-        <Text style={styles.siempre}>Siempre cerca de ti.</Text>
-        <Modal 
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {setModalVisible(!modalVisible)}}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              {userTypes.map((userType = {}) => {
-                return(
-                  <Pressable key={userType.id} onPress={()=> {setModalVisible(!modalVisible),setUserType(userType.name)}} style={styles.buttonpop}>
-                    <Text style={[styles.negrita, globalStyles.white]}>{userType.name}</Text>
-                  </Pressable>
-                );
-              })}
+          <View style={styles.center}>
+            <Image source={logo} style={{ width: 266, height: 80 }} />
+          </View>
+          <Text style={styles.siempre}>Siempre cerca de ti.</Text>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={globalStyles.modalView}>
+                {userTypes.map((type = {}) => {
+                  return (
+                    <Pressable
+                      key={type.id}
+                      onPress={() => {
+                        setModalVisible(!modalVisible), setUserType(type);
+                      }}
+                      style={styles.buttonpop}
+                    >
+                      <Text style={[styles.negrita, globalStyles.white]}>
+                        {type.name}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
             </View>
-          </View>
-        </Modal>
-        <TouchableWithoutFeedback onPress={()=>{setModalVisible(true)}}>
+          </Modal>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <TextInput
+              editable={false}
+              style={styles.input}
+              placeholder="Usuario/Profesional"
+              autoCapitalize="none"
+              value={userType.name}
+            />
+          </TouchableOpacity>
+
           <TextInput
-            editable={false}
             style={styles.input}
-            placeholder="Usuario/Profesional"
+            placeholder="Nombre"
             autoCapitalize="none"
-            value={userType}
+            onChangeText={(text) => setName(text)}
           />
-        </TouchableWithoutFeedback>
-        
 
-        <TextInput
-          style={styles.input}
-          placeholder="Nombre"
-          autoCapitalize="none"
-          onChangeText={(text) => setName(text)}
-        />
+          <TextInput
+            style={styles.input}
+            keyboardType="email-address"
+            placeholder="E-mail"
+            autoCapitalize="none"
+            onChangeText={(text) => setEmail(text)}
+          />
 
-        <TextInput
-          style={styles.input}
-          keyboardType="email-address"
-          placeholder="E-mail"
-          autoCapitalize="none"
-          onChangeText={(text) => setEmail(text)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="contraseña"
+            secureTextEntry
+            autoCapitalize="none"
+            onChangeText={(text) => setPassword(text)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="contraseña"
-          secureTextEntry
-          autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
-        />
+          <TextInput
+            style={styles.input}
+            secureTextEntry
+            placeholder="confirmar contraseña"
+            autoCapitalize="none"
+            onChangeText={(text) => setConfirm(text)}
+          />
 
-        <TextInput
-          style={styles.input}
-          secureTextEntry
-          placeholder="confirmar contraseña"
-          autoCapitalize="none"
-          onChangeText={(text) => setConfirm(text)}
-        />
-
-        <TouchableOpacity style={styles.prompt} onPress={onSignUp}>
-          <View style={[globalStyles.btnyellow]}>
-            <Text style={[styles.negrita, globalStyles.white]}>Completar registro</Text>
-          </View>
-        </TouchableOpacity>
-
+          <TouchableOpacity style={styles.prompt} onPress={onSignUp}>
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>
+                Completar registro
+              </Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </KeyboardAvoidingView>
@@ -135,18 +148,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
     padding: 35,
     alignItems: "center",
-    width:'80%'
+    width: "80%",
   },
 
   prompt: {
     marginTop: 40,
-    alignItems:'center',
+    alignItems: "center",
   },
 
   txtcenter: {
@@ -180,19 +193,19 @@ const styles = StyleSheet.create({
     marginTop: 48,
     marginBottom: 30,
   },
-  buttonpop:{
-    width:'100%',
-    height:96,
-    borderRadius:37,
-    backgroundColor:'#FF8200',
-    textAlign:'center',
-    justifyContent: 'center', 
-    marginBottom:35,
-    marginTop:35
+  buttonpop: {
+    width: "100%",
+    height: 96,
+    borderRadius: 37,
+    backgroundColor: "#FF8200",
+    textAlign: "center",
+    justifyContent: "center",
+    marginBottom: 35,
+    marginTop: 35,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
 });
