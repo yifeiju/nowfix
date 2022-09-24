@@ -1,6 +1,15 @@
 import Provider from "./app/Provider";
+import AppProvider from "./app/store";
 import MainNavigator from "./navigation";
 
-const App = () => <Provider><MainNavigator /></Provider>
+const App = () => (
+  <>
+    <AppProvider>
+      <Provider>
+        <MainNavigator />
+      </Provider>
+    </AppProvider>
+  </>
+);
 
-export default App; 
+export default App;

@@ -7,9 +7,12 @@ import BTabs from "./bottomtabs/TabsNavigator";
 import { AppContext } from "../app/Provider";
 import { fb } from "../app/firebase";
 import { getArrayFromCollection } from "../app/firebase/utils";
+import { requestAllServices } from "../app/store/states/services/thunks";
+import { useAppDispatch } from "../app/store";
 
 const MainNavigator = () => {
   const [state, setState] = useContext(AppContext);
+  const dispatch = useAppDispatch();
   const { user = {} } = state;
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -29,6 +32,7 @@ const MainNavigator = () => {
       const services = getArrayFromCollection(result);
       setState((prevState = {}) => ({ ...prevState, services: services }));
     });
+    dispatch(requestAllServices());
   }, []);
 
   useEffect(() => {

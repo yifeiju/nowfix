@@ -12,10 +12,16 @@ import {
 import globalStyles from "../app/globalStyles";
 import logo from "../assets/logo.png";
 import { AppContext } from "../app/Provider";
+import { useAppSelector } from "../app/store";
+import { selectCurrentUser } from "../app/store/states/user/selectors";
+import { selectAllServices } from "../app/store/states/services/selectors";
 
 const Home = ({ navigation, route }) => {
   const [state] = useContext(AppContext);
   const { services = [] } = state;
+  const user = useAppSelector(selectCurrentUser);
+  const allServices = useAppSelector(selectAllServices);
+  console.log("USE_APP_SELECTOR: ", { user: user, allServices });
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <ScrollView style={globalStyles.container}>
