@@ -1,16 +1,13 @@
 import { fb } from "../../../firebase";
+import { getArrayFromCollection } from "../../../firebase/utils";
 import { setAllServices } from "./actions";
-
-const getArrayFromCollection = (collection) => {
-  // DOTO: find a way to reuse this function
-  return collection.docs.map((doc) => {
-    return { ...doc.data(), id: doc.id };
-  });
-};
+import { selectAllServices } from "./selectors";
 
 export const requestAllServices = () => {
   return (dispatch, getState) => {
-    //TODO: check getState
+    const currentState = getState(); // this is how we get the currentState
+    const allServices = selectAllServices(currentState);
+    console.log({ currentState, allServices });
     fb.service.all().then((result) => {
       const services = getArrayFromCollection(result);
       dispatch(setAllServices(services));
