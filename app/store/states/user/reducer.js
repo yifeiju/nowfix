@@ -8,10 +8,10 @@ export const userInitialState = {
 };
 
 export const userReducer = (
-  prevState = userInitialState,
+  currentState = userInitialState,
   { type, payload } = {}
 ) => {
-  const state = { ...prevState };
+  const state = { ...currentState };
   switch (type) {
     case types.SET_USER_DATA:
       state.currentUser.data = { ...state.currentUser.data, ...payload };

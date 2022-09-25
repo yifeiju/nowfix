@@ -5,10 +5,10 @@ export const servicesInitialState = {
 };
 
 export const serviceReducer = (
-  prevState = servicesInitialState,
+  currentState = servicesInitialState,
   { type, payload } = {}
 ) => {
-  const state = { ...prevState };
+  const state = { ...currentState };
   switch (type) {
     case types.SET_ALL_SERVICES:
       state.allServices = payload;
