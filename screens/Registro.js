@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -7,7 +7,6 @@ import {
   Text,
   TextInput,
   Image,
-  TouchableWithoutFeedback,
   Modal,
   Pressable,
   ScrollView,
@@ -16,16 +15,16 @@ import {
 import { fb } from "../app/firebase";
 import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
-import { AppContext } from "../app/Provider";
+import { useAppSelector } from "../app/store";
+import { selectAllUserTypes } from "../app/store/states/user/selectors";
 
 const Registro = () => {
+  const userTypes = useAppSelector(selectAllUserTypes);
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [state, setState] = useContext(AppContext);
-  const { userTypes = [] } = state;
   const [modalVisible, setModalVisible] = useState(false);
   const [userType, setUserType] = useState({});
 

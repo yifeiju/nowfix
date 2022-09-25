@@ -9,6 +9,7 @@ import { fb } from "../app/firebase";
 import { getArrayFromCollection } from "../app/firebase/utils";
 import { requestAllServices } from "../app/store/states/services/thunks";
 import { useAppDispatch } from "../app/store";
+import { requestAllUserTypes } from "../app/store/states/user/thunks";
 
 const MainNavigator = () => {
   const [state, setState] = useContext(AppContext);
@@ -40,6 +41,7 @@ const MainNavigator = () => {
       const userTypes = getArrayFromCollection(result);
       setState((prevState = {}) => ({ ...prevState, userTypes: userTypes }));
     });
+    dispatch(requestAllUserTypes());
   }, []);
 
   return (

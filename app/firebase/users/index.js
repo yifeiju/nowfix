@@ -29,8 +29,7 @@ export const getUserData = (id) => {
   });
 };
 
-export const allUserTypes = async () => {
+export const allUserTypes = () => {
   const colRef = collection(db, "userTypes");
-  return await getDocs(query(colRef));
+  return getDocs(query(colRef));
 };
-
