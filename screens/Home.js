@@ -1,24 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
   View,
   Text,
-  TextInput,
   Image,
   ScrollView,
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import logo from "../assets/logo.png";
-import { AppContext } from "../app/Provider";
 import { useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { selectAllServices } from "../app/store/states/services/selectors";
 
 const Home = ({ navigation, route }) => {
-  const [state] = useContext(AppContext);
-  const { services = [] } = state;
+  const services = useAppSelector(selectAllServices);
   const user = useAppSelector(selectCurrentUser);
   const allServices = useAppSelector(selectAllServices);
   console.log("USE_APP_SELECTOR: ", { user: user, allServices });

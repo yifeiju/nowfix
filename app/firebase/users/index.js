@@ -7,9 +7,7 @@ import {
   getDocs,
   query,
 } from "firebase/firestore";
-import { useContext, useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
-import { AppContext } from "../../Provider";
+
 import { db } from "../config";
 
 const userRef = collection(db, "user");

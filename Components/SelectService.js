@@ -1,22 +1,22 @@
 import React, { useContext, useState } from "react";
 import {
-  KeyboardAvoidingView,
-  StyleSheet,
   TouchableOpacity,
   View,
   Text,
   TextInput,
-  Image,
   ScrollView,
-  Modal,
 } from "react-native";
 import SelectionComponent from "./SelectionComponent";
 import ServiceComponent from "./ServiceComponent";
 import { AppContext } from "../app/Provider";
 import { fb } from "../app/firebase";
+import { selectAllServices } from "../app/store/states/services/selectors";
+import { useAppSelector } from "../app/store";
+
 const SelectService = () => {
+  const services = useAppSelector(selectAllServices);
   const [state, setState] = useContext(AppContext);
-  const { services, user } = state;
+  const { user } = state;
   const [selections, setSelections] = useState([]);
   const [servicesPrice, setServicesPrice] = useState();
   const onConfirm = () => {
