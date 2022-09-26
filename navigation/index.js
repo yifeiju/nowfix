@@ -11,6 +11,7 @@ import {
   requestUserData,
 } from "../app/store/states/user/thunks";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
+import { setUserData } from "../app/store/states/user/actionsCreator";
 
 const MainNavigator = () => {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -20,7 +21,7 @@ const MainNavigator = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
         dispatch(requestUserData(user?.uid));
-      }
+      } else dispatch(setUserData());
     });
     return unsubscribe;
   }, []);

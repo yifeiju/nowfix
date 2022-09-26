@@ -87,7 +87,7 @@ const Registro = () => {
               style={styles.input}
               placeholder="Usuario/Profesional"
               autoCapitalize="none"
-              value={userType.name}
+              value={userType.name ?? ""}
             />
           </TouchableOpacity>
 
