@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -12,12 +12,12 @@ import {
 } from "react-native";
 import { fb } from "../app/firebase";
 import globalStyles from "../app/globalStyles";
-import { AppContext } from "../app/Provider";
+import { useAppSelector } from "../app/store";
+import { selectCurrentUser } from "../app/store/states/user/selectors";
 import fotoperfil from "../assets/Fotoperfil.png";
 
 const Profile = ({ navigation, route }) => {
-  const [state = {}] = useContext(AppContext);
-  const { user } = state;
+  const user = useAppSelector(selectCurrentUser);
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
@@ -40,16 +40,18 @@ const Profile = ({ navigation, route }) => {
           </Text>
           {user.userType?.id === "professional" && (
             <>
-            <TouchableOpacity
-              style={styles.margin}
-              onPress={() => {
-                navigation.navigate("Categories");
-              }}
-            >
-              <View style={[globalStyles.btnyellow]}>
-                <Text style={[styles.negrita, globalStyles.white]}>Categories y Precio</Text>
-              </View>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.margin}
+                onPress={() => {
+                  navigation.navigate("Categories");
+                }}
+              >
+                <View style={[globalStyles.btnyellow]}>
+                  <Text style={[styles.negrita, globalStyles.white]}>
+                    Categories y Precio
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </>
           )}
           <TouchableOpacity
@@ -64,7 +66,7 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          
+
           <TouchableOpacity
             style={styles.margin}
             onPress={() => {
@@ -106,9 +108,7 @@ const Profile = ({ navigation, route }) => {
             }}
           >
             <View style={[globalStyles.btnyellow]}>
-              <Text style={[styles.negrita, globalStyles.white]}>
-                Facturas
-              </Text>
+              <Text style={[styles.negrita, globalStyles.white]}>Facturas</Text>
             </View>
           </TouchableOpacity>
 
@@ -122,8 +122,6 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
-
-          
         </ScrollView>
         <Modal
           animationType="slide"
@@ -232,15 +230,12 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const AppModal =({children, isVisibnle})=>{
-  return(
+const AppModal = ({ children, isVisibnle }) => {
+  return (
     <Modal>
       <View>
-        <View>
-          {chil}
-        </View>
+        <View>{chil}</View>
       </View>
     </Modal>
-  )
-}
+  );
+};
