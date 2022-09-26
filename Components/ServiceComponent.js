@@ -1,14 +1,5 @@
-import React, { useContext } from "react";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  TextInput,
-  Image,
-  ScrollView,
-} from "react-native";
+import React from "react";
+import { TouchableOpacity, View, Text } from "react-native";
 const ServiceComponent = ({
   isSelected = false,
   item = {},
@@ -19,12 +10,12 @@ const ServiceComponent = ({
       onPress={onSelection}
       style={{
         width: "90%",
-        margin:20,
+        margin: 20,
       }}
     >
       <View
         style={{
-          backgroundColor: isSelected ? "#FF8200" : "none",
+          backgroundColor: isSelected ? "#FF8200" : "transparent",
           height: 96,
           borderWidth: 1,
           borderColor: "#FF8200",

@@ -25,10 +25,24 @@ export const requestUserData = (id) => {
   };
 };
 
-export const requestUpdateUserData = (updateData = {}) => {
-  return (dispatch, getState) => {
-    fb.user.updateUserData(updateData).then(() => {
-      dispatch(requestUserData(updateData?.id));
-    });
+export const requestUpdateUserData = ({
+  userId,
+  data = {},
+  beforeRequest = () => {},
+  onSuccess = () => {},
+  onError = () => {},
+  onComplete = () => {},
+}) => {
+  return async (dispatch, getState) => {
+    beforeRequest();
+    try {
+      await fb.user.updateUserData(data);
+      dispatch(requestUserData(userId));
+      onSuccess();
+    } catch (error) {
+      onError();
+    } finally {
+      onComplete();
+    }
   };
 };

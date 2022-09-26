@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  ScrollView
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
@@ -22,7 +23,9 @@ const Categories = ({ navigation, route = {} }) => {
           <Text style={globalStyles.title1}>Categories</Text>
           <View></View>
         </View>
+        <ScrollView>
         <SelectService />
+        </ScrollView>
       </View>
     </KeyboardAvoidingView>
   );
