@@ -21,7 +21,10 @@ export const createStore = (reducer = (state) => state) => {
   const dispatch = (action = {}) => {
     if (typeof action !== "object" || Array.isArray(action)) return;
     state = reducer(state, action);
-    console.log("STORE_STATE: ", action, state);
+    console.log("STORE_STATE: ", {
+      action_dispatched: action,
+      new_state: state,
+    });
     notifyUpdates();
   };
 
