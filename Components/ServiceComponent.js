@@ -15,13 +15,19 @@ const ServiceComponent = ({
   onSelection = () => {},
 }) => {
   return (
-    <TouchableOpacity onPress={onSelection}>
+    <TouchableOpacity
+      onPress={onSelection}
+      style={{
+        width: "90%",
+        margin:20,
+      }}
+    >
       <View
         style={{
-          backgroundColor: isSelected ? "blue" : "none",
-          width: 100,
-          height: 100,
+          backgroundColor: isSelected ? "#FF8200" : "none",
+          height: 96,
           borderWidth: 1,
+          borderColor: "#FF8200",
         }}
       >
         <Text>{item.name}</Text>

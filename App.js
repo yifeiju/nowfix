@@ -12,11 +12,11 @@ const App = () => (
   <>
     <AppProvider>
       <MainNavigator />
-      <TestDispatch />
+      {/* <TestDispatch />
       <TestSelectorUser />
       <TestSelectorUserDispatch />
       <TestSelectorServices />
-      <TestSelectorServicesDispatch />
+      <TestSelectorServicesDispatch /> */}
     </AppProvider>
   </>
 );

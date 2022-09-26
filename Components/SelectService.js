@@ -31,8 +31,16 @@ const SelectService = () => {
     }
   };
   return (
-    <View>
-      <ScrollView>
+    <View style={{ alignItems: "center" }}>
+      <ScrollView
+        style={{
+          width: "100%",
+        }}
+        contentContainerStyle={{
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
         <SelectionComponent
           lists={services}
           selectedIDs={user.services}
