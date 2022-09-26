@@ -10,15 +10,12 @@ import {
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import logo from "../assets/logo.png";
-import { useAppSelector } from "../app/store";
-import { selectCurrentUser } from "../app/store/states/user/selectors";
+import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectAllServices } from "../app/store/states/services/selectors";
+import { selectCurrentUser } from "../app/store/states/user/selectors";
 
 const Home = ({ navigation, route }) => {
   const services = useAppSelector(selectAllServices);
-  const user = useAppSelector(selectCurrentUser);
-  const allServices = useAppSelector(selectAllServices);
-  console.log("USE_APP_SELECTOR: ", { user: user, allServices });
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <ScrollView style={globalStyles.container}>
@@ -60,6 +57,31 @@ const Home = ({ navigation, route }) => {
   );
 };
 export default Home;
+
+export const TestDispatch = () => {
+  const dispatch = useAppDispatch();
+  console.log("TestDispatch", { dispatch });
+  return null;
+};
+
+export const TestSelectorUser = () => {
+  const user = useAppSelector(selectCurrentUser);
+  console.log("TestSelectorUser", { user });
+  return null;
+};
+
+export const TestSelectorServices = () => {
+  const services = useAppSelector(selectAllServices);
+  console.log("TestSelectorServices", { services });
+  return null;
+};
+
+export const TestSelectorServicesDispatch = () => {
+  const services = useAppSelector(selectAllServices);
+  const dispatch = useAppDispatch();
+  console.log("TestSelectorServicesDispatch", { services, dispatch });
+  return null;
+};
 
 const styles = StyleSheet.create({
   center: {

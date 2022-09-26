@@ -17,7 +17,7 @@ const MainNavigator = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
         dispatch(requestUserData(user?.uid));
       }
