@@ -29,8 +29,9 @@ export const createStore = (
       notifyUpdates();
     } catch (error) {
       let err = error;
-      if (typeof action !== "object" || Array.isArray(action))
-        err = "action has to be typeof function or object";
+      if (typeof action !== "object" || Array.isArray(action)) {
+        err = "action has to be typeof object and have a property type";
+      }
       throw new Error(err);
     }
     return action;
