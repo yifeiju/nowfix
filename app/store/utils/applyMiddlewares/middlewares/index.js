@@ -1,7 +1,7 @@
 export const logger = ({ getState } = {}) => {
   return (next = () => {}) => {
     return (action) => {
-      if (typeof getState !== "function" || !action?.type) return next(action);
+      if (typeof getState !== "function") return next(action);
       console.group("ACTION: ", action?.type);
       console.log("%cprevState: ", "color: #ededff;", getState());
       console.log("%caction: ", "color: #337eff;", action);
