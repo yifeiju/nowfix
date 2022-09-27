@@ -27,7 +27,6 @@ export const updateUserData = (userData = {}) => {
 
 export const getUserData = (id) => {
   return getDoc(doc(userRef, id)).then((doc) => {
-    console.log({ id, doc, data: doc.data() });
     return doc.data();
   });
 };
