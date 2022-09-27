@@ -1,7 +1,7 @@
-export const logger = ({ getState } = {}) => {
-  return (next = () => {}) => {
-    const mLogger = (action) => {
-      if (typeof getState !== "function") return next(action);
+export function logger({ getState } = {}) {
+  return function middleLogger(next = () => {}) {
+    return function innerlogger(action) {
+      if (typeof getState !== "function" || !action?.type) return next(action);
       console.group("ACTION: ", action?.type);
       console.log("%cprevState: ", "color: #ededff;", getState());
       console.log("%caction: ", "color: #337eff;", action);
@@ -10,19 +10,16 @@ export const logger = ({ getState } = {}) => {
       console.groupEnd();
       return result;
     };
-    return mLogger;
   };
-};
+}
 
-export const thunk = (store = {}) => {
-  return (next = () => {}) => {
-    const mThunk = (action) => {
+export function thunk(store = {}) {
+  return function middleThunk(next = () => {}) {
+    return function innerThunk(action) {
       if (typeof action === "function") {
         return action(store.dispatch, store.getState);
       }
-      const result = next(action);
-      return result;
+      return next(action);
     };
-    return mThunk;
   };
-};
+}

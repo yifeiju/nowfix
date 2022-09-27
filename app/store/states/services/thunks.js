@@ -12,7 +12,11 @@ export const requestAllServices = () => {
     const currentState = getState(); // getState: its a function that will get the whole state
     const allServices = selectAllServices(currentState);
     const currentUser = selectCurrentUser(currentState);
-    console.log({ currentState, allServices, currentUser });
+    console.log("EXAPLE_USING_THUNK", {
+      currentState,
+      allServices,
+      currentUser,
+    });
     ////////////////////////////////////////////////////////////////////////
     fb.service.all().then((result) => {
       const services = getArrayFromCollection(result);

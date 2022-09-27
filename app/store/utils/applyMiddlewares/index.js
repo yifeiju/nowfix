@@ -1,25 +1,21 @@
 export const defaultMiddleWare = (store = {}) => {
-  return (next = () => {}) => {
-    return (action) => {
-      const result = next(action);
-      return result;
+  return function middleDefaultMiddleware(next = () => {}) {
+    return function innerDefaultMiddleware(action) {
+      console.log("FIRED_DEFAULT_MIDDLEWATE", { action, next });
+      return next(action);
     };
   };
 };
 
 export const applyMiddleware = (...middlewares) => {
-  return (store) => {
-    return (mainNext) => {
-      let newNext = mainNext;
-      const nextMiddlewares = middlewares.map(
-        (middleware = defaultMiddleWare) => {
-          newNext = middleware(store)(newNext);
-          return newNext;
-        }
+  return function outerApplyMiddleware(store) {
+    return function middleApplyMiddleware(mainNext) {
+      const mainMiddleware = middlewares.reduceRight(
+        (prevNext, currentMiddleware) => currentMiddleware(store)(prevNext),
+        mainNext
       );
-      return (action) => {
-        const result = nextMiddlewares.reduce((acc, next) => next(action));
-        return result;
+      return function innerApplyMiddleware(action) {
+        return mainMiddleware(action);
       };
     };
   };
