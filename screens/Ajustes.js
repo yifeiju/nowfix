@@ -74,7 +74,7 @@ const Ajustes = ({ navigation, route = {} }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.negrita}>Cambiar nombre</Text>
-              <TextInput style={styles.input} value={user?.name}></TextInput>
+              <TextInput style={styles.input} ></TextInput>
 
               <View style={styles.flex}>
                 <Pressable
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     borderColor: "#FF8200",
     borderRadius: 8,
     marginTop: 40,
-    height: 40,
+    height: 50,
     width: "90%",
     display: "flex",
     flexDirection: "row",

@@ -10,18 +10,23 @@ const ServiceComponent = ({
       onPress={onSelection}
       style={{
         width: "90%",
-        margin: 20,
+        margin: 5,
+        height: 96,
       }}
     >
       <View
         style={{
           backgroundColor: isSelected ? "#FF8200" : "transparent",
-          height: 96,
           borderWidth: 1,
+          height:96,
           borderColor: "#FF8200",
+          borderRadius:37,
+          alignItems:'center',
+          justifyContent:'center',
+          textAlign:'center',
         }}
       >
-        <Text>{item.name}</Text>
+        <Text style={{textAlign:'center',alignItems:'center'}}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );

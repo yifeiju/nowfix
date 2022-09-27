@@ -9,6 +9,7 @@ import {
   TextInput,
   Modal,
   Pressable,
+  
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
@@ -17,13 +18,19 @@ import busca from "../assets/busca.png";
 import { fb } from "../app/firebase";
 import { AppConstants } from "../app/utils/constants";
 import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
+import { useNavigation } from "@react-navigation/native";
+import Slider from "@react-native-community/slider";
 
-const ServiceList = ({ navigation, route = {} }) => {
+const ServiceList = ({ navigation:{goBack}, route = {} }) => {
   const service = route.params ?? {};
+  const navigations = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [users, setUsers] = useState([]);
   const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
   const [filters, setFilters] = useState({});
+  const [locationRange, setLocationRange] = useState(0);
+  const [starsRange, setStarsRange] = useState(0);
+  const [priceRange, setPriceRange] = useState(0);
   useEffect(() => {
     const extraQueries = Object.values(filters).length
       ? getUsersFilteredForServiceScreen({
@@ -49,11 +56,11 @@ const ServiceList = ({ navigation, route = {} }) => {
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleview}>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => goBack()}>
             <Image source={back} style={globalStyles.btnback}></Image>
           </TouchableOpacity>
           <Text style={globalStyles.title1}>{service.name}</Text>
-          <View></View>
+          <Text></Text>
         </View>
         <View style={styles.searchContainer}>
           <Image source={busca} style={{ width: 24, height: 24 }}></Image>
@@ -84,7 +91,15 @@ const ServiceList = ({ navigation, route = {} }) => {
         >
           <View style={styles.centeredView}>
             <View style={globalStyles.modalView}>
-              <Text style={styles.negrita}>Filtro</Text>
+              <Text style={{fontSize:20,color:'#054091'}}>Proximidad</Text>
+              <Slider style={{width:'90%',height:50}} onValueChange={(value)=>setLocationRange(value)} minimumValue={0} maximumValue={1} thumbTintColor={'#FF8200'} minimumTrackTintColor={'#FF8200'} ></Slider>
+              <Text>{Math.floor(locationRange*4)}</Text>
+              <Text style={{fontSize:20,color:'#054091'}}>Valoraciones</Text>
+              <Slider style={{width:'90%',height:50}} onValueChange={(value)=>setStarsRange(value)} minimumValue={0} maximumValue={1} thumbTintColor={'#FF8200'} minimumTrackTintColor={'#FF8200'} ></Slider>
+              <Text>{Math.floor(starsRange*4)}</Text>
+              <Text style={{fontSize:20,color:'#054091'}}>Precio</Text>
+              <Slider style={{width:'90%',height:50}} onValueChange={(value)=>setPriceRange(value)} minimumValue={0} maximumValue={1} thumbTintColor={'#FF8200'} minimumTrackTintColor={'#FF8200'} ></Slider>
+              <Text>{Math.floor(priceRange*100)}/h</Text>
               <View style={styles.flex}>
                 <Pressable
                   onPress={() => {
@@ -123,8 +138,18 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
     padding: 35,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
     width: "80%",
   },
 
@@ -169,13 +194,23 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   buttonpop: {
-    width: "100%",
-    height: 96,
+    width: "40%",
+    height: 48,
     borderRadius: 37,
     backgroundColor: "#FF8200",
     textAlign: "center",
     justifyContent: "center",
-    marginBottom: 35,
+
+    marginTop: 35,
+  },
+  buttonpop1: {
+    width: "40%",
+    height: 48,
+    borderRadius: 37,
+    borderColor: "#FF8200",
+    borderWidth: 1,
+    textAlign: "center",
+    justifyContent: "center",
     marginTop: 35,
   },
   textStyle: {
@@ -191,5 +226,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: "#D9D9D9",
     marginTop: 20,
+  },
+  flex: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
   },
 });

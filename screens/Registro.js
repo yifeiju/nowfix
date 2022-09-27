@@ -25,7 +25,6 @@ const Registro = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [location, setLocation] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [userType, setUserType] = useState({});
 
@@ -38,7 +37,6 @@ const Registro = () => {
         email,
         name,
         userType,
-        location,
       });
     } catch (error) {}
   };
@@ -101,14 +99,7 @@ const Registro = () => {
             autoCapitalize="none"
             onChangeText={(text) => setName(text)}
           />
-          
-          <TextInput
-            style={styles.input}
-            placeholder="Nombre"
-            autoCapitalize="none"
-            onChangeText={(text) => setName(text)}
-          />
-          
+
           <TextInput
             style={styles.input}
             keyboardType="email-address"

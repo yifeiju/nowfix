@@ -30,11 +30,11 @@ const Profile = ({ navigation, route }) => {
               style={{ width: 96, height: 96 }}
             ></Image>
           </View>
-          <Text style={{ textAlign: "center", marginTop: 30 }}>
+          <Text style={{ textAlign: "center", marginTop: 20 }}>
             {user?.name}
           </Text>
           <Text
-            style={{ textAlign: "center", marginTop: 30, marginBottom: 55 }}
+            style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}
           >
             {user?.email}
           </Text>
