@@ -1,6 +1,6 @@
 export const logger = ({ getState } = {}) => {
   return (next = () => {}) => {
-    return (action) => {
+    const mLogger = (action) => {
       if (typeof getState !== "function") return next(action);
       console.group("ACTION: ", action?.type);
       console.log("%cprevState: ", "color: #ededff;", getState());
@@ -10,17 +10,19 @@ export const logger = ({ getState } = {}) => {
       console.groupEnd();
       return result;
     };
+    return mLogger;
   };
 };
 
 export const thunk = (store = {}) => {
   return (next = () => {}) => {
-    return (action) => {
+    const mThunk = (action) => {
       if (typeof action === "function") {
         return action(store.dispatch, store.getState);
       }
       const result = next(action);
       return result;
     };
+    return mThunk;
   };
 };

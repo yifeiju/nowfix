@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 export const AppProvider = ({ children }) => <>{children}</>;
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 const defaultIsEqual = isEqual;
 
