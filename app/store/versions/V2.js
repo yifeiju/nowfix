@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
 import { rootReducer } from "../states";
-import { applyMiddleware, createStore, logger, thunk } from "../utils";
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+  logger,
+  thunk,
+} from "../utils";
 import isEqual from "lodash/isEqual";
 import { useRef } from "react";
 
 export const AppProvider = ({ children }) => <>{children}</>;
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(
+  combineReducers(rootReducer),
+  applyMiddleware(thunk, logger)
+);
 
 const defaultIsEqual = isEqual;
 
