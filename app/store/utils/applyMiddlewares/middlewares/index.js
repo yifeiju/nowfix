@@ -1,11 +1,13 @@
 export const logger = ({ getState } = {}) => {
   return (next = () => {}) => {
     return (action) => {
-      if (typeof getState !== "function") return next(action);
-      console.log("prevState: ", getState());
-      console.log("action: ", action);
+      if (typeof getState !== "function" || !action?.type) return next(action);
+      console.group("ACTION: ", action?.type);
+      console.log("%cprevState: ", "color: #ededff;", getState());
+      console.log("%caction: ", "color: #337eff;", action);
       const result = next(action);
-      console.log("nextState: ", getState());
+      console.log("%cnextState: ", "color: #19FF66;", getState());
+      console.groupEnd();
       return result;
     };
   };
