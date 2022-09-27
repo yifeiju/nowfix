@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { rootReducer } from "../states";
-import { createStore } from "../utils";
+import { applyMiddleware, createStore, logger, thunk } from "../utils";
 import isEqual from "lodash/isEqual";
 import { useRef } from "react";
 
 export const AppProvider = ({ children }) => <>{children}</>;
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 const defaultIsEqual = isEqual;
 
@@ -30,22 +30,4 @@ export const useAppSelector = (
   return ref.current;
 };
 
-export const useAppDispatch = () => {
-  const thunkDispatch = useCallback((action = {}) => {
-    switch (typeof action) {
-      case "function":
-        return action(thunkDispatch, store.getState);
-
-      case "object": {
-        if (!Array.isArray(action)) return store.dispatch(action);
-        return;
-      }
-
-      default:
-        throw new Error(
-          "AppDispatch: action has to be typeof function or object"
-        );
-    }
-  }, []);
-  return thunkDispatch;
-};
+export const useAppDispatch = () => store.dispatch;

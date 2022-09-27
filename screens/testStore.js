@@ -9,6 +9,19 @@ export const TestDispatch = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(requestAllServices());
+    console.log("normalDispatch: ", dispatch({ type: "TEST_NORMAL" }));
+    console.log(
+      "THUNK_Dispatch: ",
+      dispatch(() => {})
+    );
+    console.log(
+      "THUNK_Dispatch_RETURS: ",
+      dispatch(() => "hello")
+    );
+    console.log(
+      "THUNK_Dispatch_RETURS_promisse: ",
+      dispatch(() => new Promise(() => {}))
+    );
   }, []);
   return null;
 };

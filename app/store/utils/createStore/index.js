@@ -1,4 +1,9 @@
-export const createStore = (reducer = (state) => state) => {
+import { defaultMiddleWare } from "../applyMiddlewares";
+
+export const createStore = (
+  reducer = (state) => state,
+  middleware = defaultMiddleWare
+) => {
   let state = reducer(undefined, {});
   const subscribers = new Map();
   let nextSubscriberIndex = 1;
@@ -19,18 +24,25 @@ export const createStore = (reducer = (state) => state) => {
   };
 
   const dispatch = (action = {}) => {
-    if (typeof action !== "object" || Array.isArray(action)) return;
-    state = reducer(state, action);
-    console.log("STORE_STATE: ", {
-      action_dispatched: action,
-      new_state: state,
-    });
-    notifyUpdates();
+    try {
+      state = reducer(state, action);
+      notifyUpdates();
+    } catch (error) {
+      let err = error;
+      if (typeof action !== "object" || Array.isArray(action))
+        err = "action has to be typeof function or object";
+      throw new Error(err);
+    }
+    return action;
   };
 
-  return {
+  const store = {
     getState,
     dispatch,
     subscribe,
   };
+
+  store.dispatch = middleware(store)(dispatch);
+
+  return store;
 };
