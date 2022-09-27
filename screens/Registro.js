@@ -25,6 +25,7 @@ const Registro = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [location, setLocation] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [userType, setUserType] = useState({});
 
@@ -37,6 +38,7 @@ const Registro = () => {
         email,
         name,
         userType,
+        location,
       });
     } catch (error) {}
   };
@@ -49,6 +51,7 @@ const Registro = () => {
             <Image source={logo} style={{ width: 266, height: 80 }} />
           </View>
           <Text style={styles.siempre}>Siempre cerca de ti.</Text>
+          
           <Modal
             animationType="slide"
             transparent={true}
@@ -77,6 +80,7 @@ const Registro = () => {
               </View>
             </View>
           </Modal>
+          
           <TouchableOpacity
             onPress={() => {
               setModalVisible(true);
@@ -97,7 +101,14 @@ const Registro = () => {
             autoCapitalize="none"
             onChangeText={(text) => setName(text)}
           />
-
+          
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre"
+            autoCapitalize="none"
+            onChangeText={(text) => setName(text)}
+          />
+          
           <TextInput
             style={styles.input}
             keyboardType="email-address"
@@ -147,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    backgroundColor:'rgba(0,0,0,0.5)',
   },
   modalView: {
     margin: 20,

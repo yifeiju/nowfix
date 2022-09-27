@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
-import SelectService from "../Components/SelectService";
-
+import SelectService from'../components/SelectService'
 const Categories = ({ navigation, route = {} }) => {
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
@@ -24,7 +23,8 @@ const Categories = ({ navigation, route = {} }) => {
           <View></View>
         </View>
         <ScrollView>
-        <SelectService />
+          
+          <SelectService />
         </ScrollView>
       </View>
     </KeyboardAvoidingView>
