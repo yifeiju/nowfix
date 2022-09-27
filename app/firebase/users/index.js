@@ -17,12 +17,12 @@ import { getArrayFromCollection } from "../utils";
 const userRef = collection(db, "user");
 const userTypeRef = collection(db, "userTypes");
 
-export const setUserData = (userData = {}) => {
-  return setDoc(doc(userRef, userData.id), userData);
+export const setUserData = (userId, data = {}) => {
+  return setDoc(doc(userRef, userId), data);
 };
 
-export const updateUserData = (userData = {}) => {
-  return updateDoc(doc(userRef, userData.id), userData);
+export const updateUserData = (userId, data = {}) => {
+  return updateDoc(doc(userRef, userId), data);
 };
 
 export const getUserData = (id) => {

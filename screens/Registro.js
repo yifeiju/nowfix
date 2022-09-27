@@ -32,12 +32,13 @@ const Registro = () => {
     const credendialts = await fb.auth.signUp(email, password);
     try {
       const { user = {} } = credendialts;
-      fb.user.setUserData({
+      const data = {
         id: user.uid,
         email,
         name,
         userType,
-      });
+      };
+      fb.user.setUserData(data.id, data);
     } catch (error) {}
   };
 
@@ -49,7 +50,7 @@ const Registro = () => {
             <Image source={logo} style={{ width: 266, height: 80 }} />
           </View>
           <Text style={styles.siempre}>Siempre cerca de ti.</Text>
-          
+
           <Modal
             animationType="slide"
             transparent={true}
@@ -78,7 +79,7 @@ const Registro = () => {
               </View>
             </View>
           </Modal>
-          
+
           <TouchableOpacity
             onPress={() => {
               setModalVisible(true);
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalView: {
     margin: 20,

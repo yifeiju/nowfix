@@ -36,10 +36,12 @@ export const requestUpdateUserData = ({
   return async (dispatch, getState) => {
     beforeRequest();
     try {
-      await fb.user.updateUserData(data);
+      await fb.user.updateUserData(userId, data);
+      console.log("CALLED__");
       dispatch(requestUserData(userId));
       onSuccess();
     } catch (error) {
+      console.log("ERR: ", error);
       onError();
     } finally {
       onComplete();
