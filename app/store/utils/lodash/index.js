@@ -4,3 +4,11 @@ export const isFunction = (...functions) => {
   }
   return true;
 };
+
+export const isObject = (...objects) => {
+  for (let index = 0, end = objects.length; index < end; index++) {
+    const obj = objects[index];
+    if (Array.isArray(obj) || typeof obj !== "object") return false;
+  }
+  return true;
+};
