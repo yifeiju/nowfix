@@ -9,7 +9,6 @@ import {
   TextInput,
   Modal,
   Pressable,
-  
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
@@ -21,7 +20,7 @@ import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
 import { useNavigation } from "@react-navigation/native";
 import Slider from "@react-native-community/slider";
 
-const ServiceList = ({ navigation:{goBack}, route = {} }) => {
+const ServiceList = ({ navigation: { goBack }, route = {} }) => {
   const service = route.params ?? {};
   const navigations = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,7 +30,8 @@ const ServiceList = ({ navigation:{goBack}, route = {} }) => {
   const [locationRange, setLocationRange] = useState(0);
   const [starsRange, setStarsRange] = useState(0);
   const [priceRange, setPriceRange] = useState(0);
-  useEffect(() => {
+
+  const requestUserByFilter = async () => {
     const extraQueries = Object.values(filters).length
       ? getUsersFilteredForServiceScreen({
           maxPrice: filters.maxPrice,
@@ -46,6 +46,10 @@ const ServiceList = ({ navigation:{goBack}, route = {} }) => {
         extraQueries,
       })
       .then(setUsers);
+  };
+  
+  useEffect(() => {
+    requestUserByFilter();
   }, [limit]);
 
   const onLastChildReached = () => {
@@ -91,15 +95,38 @@ const ServiceList = ({ navigation:{goBack}, route = {} }) => {
         >
           <View style={styles.centeredView}>
             <View style={globalStyles.modalView}>
-              <Text style={{fontSize:20,color:'#054091'}}>Proximidad</Text>
-              <Slider style={{width:'90%',height:50}} onValueChange={(value)=>setLocationRange(value)} minimumValue={0} maximumValue={1} thumbTintColor={'#FF8200'} minimumTrackTintColor={'#FF8200'} ></Slider>
-              <Text>{Math.floor(locationRange*4)}</Text>
-              <Text style={{fontSize:20,color:'#054091'}}>Valoraciones</Text>
-              <Slider style={{width:'90%',height:50}} onValueChange={(value)=>setStarsRange(value)} minimumValue={0} maximumValue={1} thumbTintColor={'#FF8200'} minimumTrackTintColor={'#FF8200'} ></Slider>
-              <Text>{Math.floor(starsRange*4)}</Text>
-              <Text style={{fontSize:20,color:'#054091'}}>Precio</Text>
-              <Slider style={{width:'90%',height:50}} onValueChange={(value)=>setPriceRange(value)} minimumValue={0} maximumValue={1} thumbTintColor={'#FF8200'} minimumTrackTintColor={'#FF8200'} ></Slider>
-              <Text>{Math.floor(priceRange*100)}/h</Text>
+              <Text style={{ fontSize: 20, color: "#054091" }}>Proximidad</Text>
+              <Slider
+                style={{ width: "90%", height: 50 }}
+                onValueChange={(value) => setLocationRange(value)}
+                minimumValue={0}
+                maximumValue={1}
+                thumbTintColor={"#FF8200"}
+                minimumTrackTintColor={"#FF8200"}
+              ></Slider>
+              <Text>{Math.floor(locationRange * 4)}</Text>
+              <Text style={{ fontSize: 20, color: "#054091" }}>
+                Valoraciones
+              </Text>
+              <Slider
+                style={{ width: "90%", height: 50 }}
+                onValueChange={(value) => setStarsRange(value)}
+                minimumValue={0}
+                maximumValue={1}
+                thumbTintColor={"#FF8200"}
+                minimumTrackTintColor={"#FF8200"}
+              ></Slider>
+              <Text>{Math.floor(starsRange * 4)}</Text>
+              <Text style={{ fontSize: 20, color: "#054091" }}>Precio</Text>
+              <Slider
+                style={{ width: "90%", height: 50 }}
+                onValueChange={(value) => setPriceRange(value)}
+                minimumValue={0}
+                maximumValue={1}
+                thumbTintColor={"#FF8200"}
+                minimumTrackTintColor={"#FF8200"}
+              ></Slider>
+              <Text>{Math.floor(priceRange * 100)}/h</Text>
               <View style={styles.flex}>
                 <Pressable
                   onPress={() => {
@@ -134,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalView: {
     margin: 20,
