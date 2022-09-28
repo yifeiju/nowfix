@@ -1,3 +1,4 @@
+import { isFunction } from "../lodash";
 import { defaultMiddleWare } from "../applyMiddlewares";
 
 export const createStore = (
@@ -10,9 +11,9 @@ export const createStore = (
 
   const getState = () => state;
 
-  const getNextSubscriberKey = () => `sub_${nextSubscriberIndex}`;
+  const getNextSubscriberKey = () => `store_sub_${nextSubscriberIndex}`;
   const subscribe = (subscriber = () => {}) => {
-    if (typeof subscriber !== "function") return;
+    if (!isFunction(subscriber)) return;
     const key = getNextSubscriberKey();
     subscribers.set(key, subscriber);
     nextSubscriberIndex++;
@@ -20,17 +21,17 @@ export const createStore = (
   };
 
   const notifyUpdates = () => {
-    subscribers.forEach((sub = () => {}) => sub(state));
+    subscribers.forEach((sub = () => {}) => sub());
   };
 
   const dispatch = (action = {}) => {
     try {
-      state = reducer(state, action);
+      state = reducer(store.getState(), action);
       notifyUpdates();
     } catch (error) {
       let err = error;
       if (typeof action !== "object" || Array.isArray(action)) {
-        err = "action has to be typeof object and have a property type";
+        err = "action has to be an object and have a property type";
       }
       throw new Error(err);
     }
@@ -43,7 +44,7 @@ export const createStore = (
     subscribe,
   };
 
-  store.dispatch = middleware(store)(dispatch);
+  store.dispatch = middleware(store)?.(dispatch);
 
   return store;
 };

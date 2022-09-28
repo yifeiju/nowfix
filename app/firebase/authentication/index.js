@@ -14,7 +14,6 @@ export const signIn = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
       const user = userCredential.user;
-      console.log("CCCC", user);
       return user.uid;
     })
     .catch((error) => {

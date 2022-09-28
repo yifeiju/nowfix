@@ -25,18 +25,18 @@ export const useAppSelector = (
   name = ""
 ) => {
   const [, forceRender] = useState(false);
-  const ref = useRef(selector(store.getState()));
+  const selection = useRef(selector(store.getState()));
   useEffect(() => {
-    const unsubscribe = store.subscribe((nextState) => {
-      const nextSelection = selector(nextState);
-      if (isEqual(ref.current, nextSelection)) return;
-      ref.current = nextSelection;
+    const unsubscribe = store.subscribe(() => {
+      const nextSelection = selector(store.getState());
+      if (isEqual(selection.current, nextSelection)) return;
+      selection.current = nextSelection;
       forceRender((isTrue) => !isTrue);
     }, name);
     return unsubscribe;
   }, []);
 
-  return ref.current;
+  return selection.current;
 };
 
 export const useAppDispatch = () => store.dispatch;

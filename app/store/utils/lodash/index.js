@@ -1,8 +1,6 @@
-export const once = (func = () => {}) => {
-  let hasBeenCalled = false;
-  let result;
-  return (...args) => {
-    if (!hasBeenCalled) result = func(...args);
-    return result;
-  };
+export const isFunction = (...functions) => {
+  for (let index = 0, end = functions.length; index < end; index++) {
+    if (typeof functions[index] !== "function") return false;
+  }
+  return true;
 };
