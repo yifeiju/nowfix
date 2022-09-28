@@ -1,11 +1,12 @@
 import { isFunction } from "../lodash";
 import { defaultMiddleWare } from "../applyMiddlewares";
+import { initializeStoreState } from "./actions";
 
 export const createStore = (
   reducer = (state) => state,
   middleware = defaultMiddleWare
 ) => {
-  let state = reducer(undefined, {});
+  let state;
   const subscribers = new Map();
   let nextSubscriberIndex = 1;
 
@@ -45,6 +46,7 @@ export const createStore = (
   };
 
   store.dispatch = middleware(store)?.(dispatch);
+  store.dispatch(initializeStoreState());
 
   return store;
 };
