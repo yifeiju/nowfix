@@ -126,7 +126,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
                 thumbTintColor={"#FF8200"}
                 minimumTrackTintColor={"#FF8200"}
               ></Slider>
-              <Text>{Math.floor(priceRange * 100)}/h</Text>
+              <Text>{Math.floor(priceRange * 100)}€/h</Text>
               <View style={styles.flex}>
                 <Pressable
                   onPress={() => {
@@ -138,7 +138,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
                 </Pressable>
                 <Pressable onPress={() => {}} style={styles.buttonpop}>
                   <Text style={[styles.negrita, globalStyles.white]}>
-                    Aceptar
+                    Aplicar
                   </Text>
                 </Pressable>
               </View>

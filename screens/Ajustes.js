@@ -13,14 +13,30 @@ import {
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
 import lapiz from "../assets/lapiz.png";
-import { useAppSelector } from "../app/store";
+import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
+import { requestUpdateUserData } from "../app/store/states/user/thunks";
 
 const Ajustes = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
+  const [nombre, setNombre] = useState(user.name);
+
+  const changeName=()=>{
+    dispatch(
+      requestUpdateUserData({
+        userId: user.id,
+        data: {
+          name:nombre,
+        },
+        onSuccess: setModalVisible(!modalVisible),
+      })
+    )
+  }
+
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={[globalStyles.container]}>
@@ -74,7 +90,7 @@ const Ajustes = ({ navigation, route = {} }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.negrita}>Cambiar nombre</Text>
-              <TextInput style={styles.input} ></TextInput>
+              <TextInput style={styles.input} defaultValue={nombre} onChangeText={text=>setNombre(text)}></TextInput>
 
               <View style={styles.flex}>
                 <Pressable
@@ -85,7 +101,7 @@ const Ajustes = ({ navigation, route = {} }) => {
                 >
                   <Text style={styles.negrita}>Cancelar</Text>
                 </Pressable>
-                <Pressable onPress={() => {}} style={styles.buttonpop}>
+                <Pressable onPress={changeName} style={styles.buttonpop}>
                   <Text style={[styles.negrita, globalStyles.white]}>
                     Aceptar
                   </Text>
