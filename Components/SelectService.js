@@ -17,18 +17,17 @@ import { requestUpdateUserData } from "../app/store/states/user/thunks";
 import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../app/globalStyles";
 
+
 const SelectService = () => {
   const navigation = useNavigation();
-
   const services = useAppSelector(selectAllServices);
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
-
-  const [selections, setSelections] = useState([]);
-  const [servicesPrice, setServicesPrice] = useState();
+  const [selections, setSelections] = useState(user.services);
+  const [servicesPrice, setServicesPrice] = useState(user.servicesPrice);
 
   const onConfirm = () => {
-    if (selections.length && servicesPrice) {
+    if (selections.length || servicesPrice) {
       dispatch(
         requestUpdateUserData({
           userId: user.id,
@@ -58,14 +57,14 @@ const SelectService = () => {
         />
       </View>
       
-       
       <TextInput
-        keyboardType="number-pad"
-        onChangeText={(number) => setServicesPrice(number)}
+        keyboardType="number-pad" 
+        onChangeText={number => setServicesPrice(number)}
         style={styles.input}
         placeholder="precio por hora"
+        defaultValue={servicesPrice}
       ></TextInput>
-      
+
       <TouchableOpacity onPress={onConfirm} style={styles.prompt}>
         <View style={[globalStyles.btnyellow]}>
           <Text style={[styles.negrita, globalStyles.white]}>confirm</Text>
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
   },
   prompt: {
     marginTop: 40,
+    marginBottom:40,
     alignItems: "center",
     width: "100%",
   },
