@@ -1,14 +1,14 @@
 import { createContext, useContext, useReducer } from "react";
 import { rootReducer } from "../states";
-import { once } from "../utils";
+import { combineReducers, once } from "../utils";
 
 const AppContext = createContext();
-
-const getInitialState = once(rootReducer);
+const combinedReducer = combineReducers(rootReducer);
+const getInitialState = once(combinedReducer);
 
 export const AppProvider = ({ children }) => {
   const [AppState, dispatch] = useReducer(
-    rootReducer,
+    combinedReducer,
     getInitialState(undefined, {})
   );
   const getState = () => AppState;
