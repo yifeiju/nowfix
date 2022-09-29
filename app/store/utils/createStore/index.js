@@ -3,10 +3,10 @@ import { initializeStoreState } from "./actions";
 import { isObject } from "lodash";
 import { createObserver } from "../observer";
 
-export const createStore = (
+export function createStore(
   reducer = (state) => state,
   middleware = defaultMiddleWare
-) => {
+) {
   let state;
   const observer = createObserver({ name: "store" });
 
@@ -14,7 +14,7 @@ export const createStore = (
 
   const getState = () => state;
 
-  const dispatch = (action = {}) => {
+  function dispatch(action = {}) {
     try {
       state = reducer(store.getState(), action);
       observer.setState();
@@ -26,7 +26,7 @@ export const createStore = (
       throw new Error(err);
     }
     return action;
-  };
+  }
 
   const store = {
     getState,
@@ -38,4 +38,4 @@ export const createStore = (
   store.dispatch(initializeStoreState());
 
   return store;
-};
+}
