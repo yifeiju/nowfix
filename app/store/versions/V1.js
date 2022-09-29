@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
     getInitialState(undefined, {})
   );
   const getState = () => AppState;
-  console.log({ APP_CONTEXT: AppState });
+  console.log({ APP_CONTEXT_STATE: getState() });
   return (
     <AppContext.Provider value={[getState, dispatch]}>
       {children}
