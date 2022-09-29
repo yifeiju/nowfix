@@ -1,4 +1,3 @@
-import { isFunction } from "../lodash";
 import { defaultMiddleWare } from "../applyMiddlewares";
 import { initializeStoreState } from "./actions";
 import { isObject } from "lodash";

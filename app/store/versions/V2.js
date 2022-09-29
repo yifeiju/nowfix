@@ -21,8 +21,7 @@ const defaultIsEqual = isEqual;
 
 export const useAppSelector = (
   selector = (state) => state,
-  isEqual = defaultIsEqual,
-  name = ""
+  isEqual = defaultIsEqual
 ) => {
   const [, forceRender] = useState(false);
   const selection = useRef(selector(store.getState()));
@@ -32,7 +31,7 @@ export const useAppSelector = (
       if (isEqual(selection.current, nextSelection)) return;
       selection.current = nextSelection;
       forceRender((isTrue) => !isTrue);
-    }, name);
+    });
     return unsubscribe;
   }, []);
 
