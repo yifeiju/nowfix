@@ -2,35 +2,23 @@ import { isFunction } from "../lodash";
 import { defaultMiddleWare } from "../applyMiddlewares";
 import { initializeStoreState } from "./actions";
 import { isObject } from "lodash";
+import { createObserver } from "../observer";
 
 export const createStore = (
   reducer = (state) => state,
   middleware = defaultMiddleWare
 ) => {
   let state;
-  const subscribers = new Map();
-  let nextSubscriberIndex = 0;
+  const observer = createObserver({ name: "store" });
+  
+  const subscribe = observer.subscribe;
 
   const getState = () => state;
-
-  const getNextSubscriberKey = () => {
-    nextSubscriberIndex++;
-    return `store_sub_${nextSubscriberIndex}`;
-  };
-
-  const subscribe = (subscriber = () => {}) => {
-    if (!isFunction(subscriber)) return;
-    const key = getNextSubscriberKey();
-    subscribers.set(key, subscriber);
-    return () => subscribers.delete(key);
-  };
-
-  const notifyUpdates = () => subscribers.forEach((sub = () => {}) => sub());
 
   const dispatch = (action = {}) => {
     try {
       state = reducer(store.getState(), action);
-      notifyUpdates();
+      observer.setState();
     } catch (error) {
       let err = error;
       if (!isObject(action)) {
