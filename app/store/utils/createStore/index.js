@@ -9,7 +9,7 @@ export const createStore = (
 ) => {
   let state;
   const observer = createObserver({ name: "store" });
-  
+
   const subscribe = observer.subscribe;
 
   const getState = () => state;
@@ -34,7 +34,7 @@ export const createStore = (
     subscribe,
   };
 
-  store.dispatch = middleware(store)?.(dispatch);
+  store.dispatch = middleware(store)?.(store.dispatch);
   store.dispatch(initializeStoreState());
 
   return store;

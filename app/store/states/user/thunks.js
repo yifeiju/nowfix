@@ -37,11 +37,10 @@ export const requestUpdateUserData = ({
     beforeRequest();
     try {
       await fb.user.updateUserData(userId, data);
-      console.log("CALLED__");
       dispatch(requestUserData(userId));
       onSuccess();
     } catch (error) {
-      console.log("ERR: ", error);
+      console.log("requestUpdateUserData_ERR: ", error);
       onError();
     } finally {
       onComplete();
