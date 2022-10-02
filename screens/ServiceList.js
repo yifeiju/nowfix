@@ -37,7 +37,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
   const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
   const [filters, setFilters] = useState({});
   const [locationRange, setLocationRange] = useState(0);
-  const [starsRange, setStarsRange] = useState(0);
+  const [starsRange, setStarsRange] = useState(1);
   const [priceRange, setPriceRange] = useState(0);
 
   const requestUserByFilter = async () => {
@@ -120,13 +120,15 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
               </Text>
               <Slider
                 style={{ width: "90%", height: 50 }}
-                onValueChange={(value) => setStarsRange(value)}
-                minimumValue={0}
-                maximumValue={1}
+                onValueChange={setStarsRange}
+                minimumValue={1}
+                step={1}
+                maximumValue={5}
+                value={starsRange}
                 thumbTintColor={"#FF8200"}
                 minimumTrackTintColor={"#FF8200"}
               ></Slider>
-              <Text>{Math.floor(starsRange * 4)}</Text>
+              <Text>{starsRange}</Text>
               <Text style={{ fontSize: 20, color: "#054091" }}>Precio</Text>
               <Slider
                 style={{ width: "90%", height: 50 }}
