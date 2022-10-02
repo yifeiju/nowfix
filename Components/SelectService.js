@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { KeyboardAvoidingView,
+import {
   TouchableOpacity,
   View,
   Text,
-  Image,
   StyleSheet,
   TextInput,
-  Modal,
-  Pressable, } from "react-native";
+} from "react-native";
 import SelectionComponent from "./SelectionComponent";
 import ServiceComponent from "./ServiceComponent";
 import { selectAllServices } from "../app/store/states/services/selectors";
@@ -16,7 +14,6 @@ import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
 import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../app/globalStyles";
-
 
 const SelectService = () => {
   const navigation = useNavigation();
@@ -46,7 +43,7 @@ const SelectService = () => {
         style={{
           width: "100%",
           alignItems: "center",
-          marginTop:20,
+          marginTop: 20,
         }}
       >
         <SelectionComponent
@@ -56,13 +53,13 @@ const SelectService = () => {
           onSelectionUpdate={setSelections}
         />
       </View>
-      
+
       <TextInput
-        keyboardType="number-pad" 
-        onChangeText={number => setServicesPrice(number)}
+        keyboardType="number-pad"
+        onChangeText={setServicesPrice}
         style={styles.input}
         placeholder="precio por hora"
-        defaultValue={servicesPrice}
+        value={`${servicesPrice}`}
       ></TextInput>
 
       <TouchableOpacity onPress={onConfirm} style={styles.prompt}>
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
   },
   prompt: {
     marginTop: 40,
-    marginBottom:40,
+    marginBottom: 40,
     alignItems: "center",
     width: "100%",
   },
@@ -126,7 +123,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   buttonpop: {
     width: "40%",
