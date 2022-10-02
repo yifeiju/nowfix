@@ -16,6 +16,6 @@ export const getUsersFilteredForServiceScreen = ({
 } = {}) => {
   return [
     getUsersFilteredByServicePrice(maxPrice),
-    getUsersFilteredByStars(minStars),
+    //getUsersFilteredByStars(minStars),
   ];
 };
