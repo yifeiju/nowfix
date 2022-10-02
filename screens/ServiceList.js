@@ -20,6 +20,15 @@ import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
 import { useNavigation } from "@react-navigation/native";
 import Slider from "@react-native-community/slider";
 
+const locationConstants = {
+  range: [1, 5, 15, 30],
+};
+
+const formatLocationRange = (locationIndex = 0) => {
+  const range = locationConstants.range[locationIndex];
+  return range ? `${range}km` : `Sin Límite`;
+};
+
 const ServiceList = ({ navigation: { goBack }, route = {} }) => {
   const service = route.params ?? {};
   const navigations = useNavigation();
@@ -47,7 +56,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
       })
       .then(setUsers);
   };
-  
+
   useEffect(() => {
     requestUserByFilter();
   }, [limit]);
@@ -98,13 +107,14 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
               <Text style={{ fontSize: 20, color: "#054091" }}>Proximidad</Text>
               <Slider
                 style={{ width: "90%", height: 50 }}
-                onValueChange={(value) => setLocationRange(value)}
+                onValueChange={setLocationRange}
                 minimumValue={0}
-                maximumValue={1}
+                step={1}
+                maximumValue={4}
                 thumbTintColor={"#FF8200"}
                 minimumTrackTintColor={"#FF8200"}
               ></Slider>
-              <Text>{Math.floor(locationRange * 4)}</Text>
+              <Text>{formatLocationRange(locationRange)}</Text>
               <Text style={{ fontSize: 20, color: "#054091" }}>
                 Valoraciones
               </Text>
