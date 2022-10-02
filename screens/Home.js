@@ -31,7 +31,7 @@ const Home = ({ navigation, route }) => {
             return (
               <View style={styles.profesional} key={service.id}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate(service.name, service)}
+                  onPress={() => navigation.navigate("service", service)}
                   style={styles.prof}
                 >
                   <View style={styles.prof}>
