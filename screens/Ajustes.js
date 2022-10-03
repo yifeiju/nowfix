@@ -16,6 +16,7 @@ import lapiz from "../assets/lapiz.png";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
+import { updatePassword } from "firebase/auth";
 
 const Ajustes = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -24,6 +25,8 @@ const Ajustes = ({ navigation, route = {} }) => {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [nombre, setNombre] = useState(user.name);
+  const [newPassword, setNewPassword] = useState();
+  
 
   const changeName=()=>{
     dispatch(
@@ -35,6 +38,15 @@ const Ajustes = ({ navigation, route = {} }) => {
         onSuccess: setModalVisible(!modalVisible),
       })
     )
+  }
+  const onChangePress=()=>{
+    updatePassword(user, newPassword).then(() => {
+      alert('yes')
+      console.log(user)
+    }).catch((error) => {
+      alert('no')
+      console.log(user,newPassword)
+    });
   }
 
   return (
@@ -124,6 +136,7 @@ const Ajustes = ({ navigation, route = {} }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Nueva contraseña"
+                onChangeText={(text)=>setNewPassword(text)}
               ></TextInput>
               <TextInput
                 style={styles.input}
@@ -138,7 +151,7 @@ const Ajustes = ({ navigation, route = {} }) => {
                 >
                   <Text style={styles.negrita}>Cancelar</Text>
                 </Pressable>
-                <Pressable onPress={() => {}} style={styles.buttonpop}>
+                <Pressable onPress={()=>{onChangePress(),setModalVisible1(!modalVisible1)}} style={styles.buttonpop}>
                   <Text style={[styles.negrita, globalStyles.white]}>
                     Confirmar
                   </Text>

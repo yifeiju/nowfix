@@ -13,6 +13,7 @@ import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
 import { fb } from "../app/firebase";
 
+
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");

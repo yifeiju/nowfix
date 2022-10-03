@@ -10,11 +10,13 @@ import {
   TextInput,
   Modal,
   Pressable,
+  FlatList
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
 import filtro from "../assets/filtro.png";
 import busca from "../assets/busca.png";
+import fotoperfil from "../assets/Fotoperfil.png";
 import { fb } from "../app/firebase";
 import { AppConstants } from "../app/utils/constants";
 import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
@@ -85,6 +87,21 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
     setLimit(limit + AppConstants.LIST.MAX_LIMIT);
   };
 
+  const renderItem=({ item }) => (
+    <View style={{width:'90%',height:150,borderBottomWidth:1,borderBottomColor:'red',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
+      <View style={{width:'40%',height:'100%',alignItems:'center',backgroundColor:'blue',padding:15}}>
+        <Image source={fotoperfil} style={{ width: 120, height: 120 }}></Image>
+      </View>
+      <View style={{width:'60%',height:'100%',backgroundColor:'yellow',padding:10}}>
+        <View style={{display:'flex', justifyContent:'space-between',flexDirection:'row'}}>
+          <Text>{item?.name}</Text>
+          <Text>{item?.servicesPrice}€/h</Text>
+        </View>
+        <Text>a {item?.location} km de ti</Text>
+      </View>
+    </View>
+  );
+
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -114,6 +131,11 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
         {users.map((user) => (
           <Text key={user?.id}>{user?.name}</Text>
         ))}
+        <FlatList
+        data={users}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
         <Modal
           animationType="slide"
           transparent={true}

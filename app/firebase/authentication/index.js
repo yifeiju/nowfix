@@ -2,9 +2,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
 } from "firebase/auth";
 import { auth, db } from "../config";
-import { setDoc } from "firebase/firestore";
 
 export const signUp = async (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -20,6 +20,7 @@ export const signIn = async (email, password) => {
       console.log(error);
     });
 };
+
 
 export const getCurrentUser = async () => await auth.currentUser;
 export const logout = async () => await signOut(auth);
