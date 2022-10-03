@@ -148,7 +148,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
                 thumbTintColor={"#FF8200"}
                 minimumTrackTintColor={"#FF8200"}
               ></Slider>
-              <Text>{filters.stars}</Text>
+              <Text>{filters.stars} estrellas</Text>
               <Text style={{ fontSize: 20, color: "#054091" }}>Precio</Text>
               <Slider
                 style={{ width: "90%", height: 50 }}
