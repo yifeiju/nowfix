@@ -21,6 +21,9 @@ import { fb } from "../app/firebase";
 import { AppConstants } from "../app/utils/constants";
 import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
 import Slider from "@react-native-community/slider";
+import { useAppDispatch, useAppSelector } from "../app/store";
+import { selectUser } from "../app/store/states/user/selectors";
+import { requestUserData } from "../app/store/states/user/thunks";
 
 const locationConstants = {
   range: [1, 5, 15, 30],
@@ -37,8 +40,10 @@ const formatLocationRange = (locationIndex = 0) => {
   return range ? `${range}km` : `Sin Límite`;
 };
 
-const ServiceList = ({ navigation: { goBack }, route = {} }) => {
+const ServiceList = ({ navigation, route }) => {
   const service = route.params ?? {};
+  const [selectedUser, setSelectedUser] = useState();
+  const dispach = useAppDispatch()
   const [modalVisible, setModalVisible] = useState(false);
   const [users, setUsers] = useState([]);
   const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
@@ -49,6 +54,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
       return setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
     };
   });
+
 
   const requestUserList = async (extraQueries) => {
     fb.user
@@ -88,25 +94,32 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
   };
 
   const renderItem=({ item }) => (
-    <View style={{width:'90%',height:150,borderBottomWidth:1,borderBottomColor:'red',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
-      <View style={{width:'40%',height:'100%',alignItems:'center',backgroundColor:'blue',padding:15}}>
-        <Image source={fotoperfil} style={{ width: 120, height: 120 }}></Image>
-      </View>
-      <View style={{width:'60%',height:'100%',backgroundColor:'yellow',padding:10}}>
-        <View style={{display:'flex', justifyContent:'space-between',flexDirection:'row'}}>
-          <Text>{item?.name}</Text>
-          <Text>{item?.servicesPrice}€/h</Text>
+    <TouchableOpacity onPress={()=>{dispach(
+      requestUserData(
+        item.id
+      )
+    ),console.log(item.id),navigation.navigate('Personperfil')}}>
+      <View style={{width:'90%',height:150,borderBottomWidth:1,borderBottomColor:'#D9D9D9',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
+        <View style={{width:'40%',height:'100%',alignItems:'center',padding:15}}>
+          <Image source={fotoperfil} style={{ width: 120, height: 120 }}></Image>
         </View>
-        <Text>a {item?.location} km de ti</Text>
+        <View style={{width:'60%',height:'100%',padding:10}}>
+          <View style={{display:'flex', justifyContent:'space-between',flexDirection:'row'}}>
+            <Text style={{fontSize:20,marginBottom:10}}>{item?.name}</Text>
+            <Text style={{color:'#FF8200',fontSize:20,fontWeight:'bold'}}>{item?.servicesPrice}€/h</Text>
+          </View>
+          {item.location && (<Text style={{color:'#626262'}}>a {item?.location} km de ti</Text>)}
+          
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleview}>
-          <TouchableOpacity onPress={goBack}>
+          <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
             <Image source={back} style={globalStyles.btnback}></Image>
           </TouchableOpacity>
           <Text style={globalStyles.title1}>{service.name}</Text>
@@ -128,9 +141,7 @@ const ServiceList = ({ navigation: { goBack }, route = {} }) => {
             <Image source={filtro} style={{ width: 30, height: 34 }}></Image>
           </View>
         </TouchableOpacity>
-        {users.map((user) => (
-          <Text key={user?.id}>{user?.name}</Text>
-        ))}
+        
         <FlatList
         data={users}
         renderItem={renderItem}
