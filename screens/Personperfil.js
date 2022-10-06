@@ -12,7 +12,7 @@ import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
 
 const Personperfil = ({ navigation, route = {} }) => {
-    
+    const user = route.params ?? {};
     return (
       <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
         <View style={globalStyles.container}>
@@ -23,7 +23,7 @@ const Personperfil = ({ navigation, route = {} }) => {
             <Text style={globalStyles.title1}>Personperfil</Text>
             <View></View>
           </View>
-          
+          <Text>{user?.name}</Text>
         </View>
       </KeyboardAvoidingView>
     );

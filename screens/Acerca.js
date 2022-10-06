@@ -6,6 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
+  ScrollView,
   
 } from "react-native";
 import globalStyles from "../app/globalStyles";
@@ -24,9 +25,13 @@ const Acerca = ({ navigation, route = {} }) => {
             <Text style={globalStyles.title1}>Acerca de Nowfix</Text>
             <View></View>
           </View>
-          <View style={styles.center}>
-            <Image source={logo} style={{width:266, height:80}}></Image>
-          </View>
+          <ScrollView>
+            <View style={styles.center}>
+              <Image source={logo} style={{width:266, height:80}}></Image>
+            </View>
+            <Text style={{lineHeight:30,margin:20}}>Nowfix es una app nace de la necesidad de facilitar la búsqueda y contratación de servicios de reparación a domicilio de la manera más rápida y sencilla. 
+Con Nowfix podrás, encontrar  tus especialistas más cercanos al radio de tu domicilio, recibir notificaciones del proceso de contratación y contactar vía chat con los profesionales para proporcionar una mayor seguridad a nuestros clientes.</Text>
+          </ScrollView>
         </View>
       </KeyboardAvoidingView>
     );

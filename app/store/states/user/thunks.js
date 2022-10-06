@@ -19,7 +19,6 @@ export const requestUserData = (id) => {
     try {
       const data = await fb.user.getUserData(id);
       dispatch(setUserData(data));
-      console.log(data)
     } catch (error) {
       console.error("error_requesting_UserData", error);
     }

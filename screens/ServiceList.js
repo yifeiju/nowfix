@@ -42,7 +42,6 @@ const formatLocationRange = (locationIndex = 0) => {
 
 const ServiceList = ({ navigation, route }) => {
   const service = route.params ?? {};
-  const [selectedUser, setSelectedUser] = useState();
   const dispach = useAppDispatch()
   const [modalVisible, setModalVisible] = useState(false);
   const [users, setUsers] = useState([]);
@@ -98,7 +97,7 @@ const ServiceList = ({ navigation, route }) => {
       requestUserData(
         item.id
       )
-    ),console.log(item.id),navigation.navigate('Personperfil')}}>
+    ),console.log(item.id),navigation.navigate('Personperfil',item)}}>
       <View style={{width:'90%',height:150,borderBottomWidth:1,borderBottomColor:'#D9D9D9',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
         <View style={{width:'40%',height:'100%',alignItems:'center',padding:15}}>
           <Image source={fotoperfil} style={{ width: 120, height: 120 }}></Image>

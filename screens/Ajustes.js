@@ -70,6 +70,22 @@ const Ajustes = ({ navigation, route = {} }) => {
             </Text>
             <Image source={lapiz} style={{ width: 24, height: 24 }}></Image>
           </TouchableOpacity>
+          {user.userType?.id === "professional" && (
+            <>
+              <TouchableOpacity
+                style={styles.prompt}
+                onPress={() => {
+                  navigation.navigate("Información");
+                }}
+              >
+                <View style={[globalStyles.btnyellow]}>
+                  <Text style={[styles.negrita, globalStyles.white]}>
+                    Información
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
           <TouchableOpacity
             style={styles.prompt}
             onPress={() => setModalVisible1(true)}

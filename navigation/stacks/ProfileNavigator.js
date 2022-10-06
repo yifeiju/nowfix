@@ -7,6 +7,7 @@ import Ajustes from '../../screens/Ajustes';
 import Servicios from '../../screens/Servicios';
 import Facturas from '../../screens/Facturas';
 import Categories from '../../screens/Categories';
+import Información from '../../screens/Informations';
 
 
  const Stack = createStackNavigator();
@@ -21,7 +22,7 @@ export default () => (
         <Stack.Screen name="Servicios" component={Servicios} />
         <Stack.Screen name="Facturas" component={Facturas} />
         <Stack.Screen name="Categories" component={Categories} />
-
+        <Stack.Screen name="Información" component={Información} />
 
     </Stack.Navigator>
 );
