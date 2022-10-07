@@ -98,13 +98,13 @@ const ServiceList = ({ navigation, route }) => {
         item.id
       )
     ),console.log(item.id),navigation.navigate('Personperfil',item)}}>
-      <View style={{width:'90%',height:150,borderBottomWidth:1,borderBottomColor:'#D9D9D9',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
-        <View style={{width:'40%',height:'100%',alignItems:'center',padding:15}}>
-          <Image source={fotoperfil} style={{ width: 120, height: 120 }}></Image>
+      <View style={{width:'100%',height:130,borderBottomWidth:1,borderBottomColor:'#D9D9D9',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
+        <View style={{width:'30%',height:'100%',alignItems:'center',padding:15}}>
+          <Image source={fotoperfil} style={{ width: 100, height: 100 }}></Image>
         </View>
-        <View style={{width:'60%',height:'100%',padding:10}}>
+        <View style={{width:'70%',height:'100%',padding:10}}>
           <View style={{display:'flex', justifyContent:'space-between',flexDirection:'row'}}>
-            <Text style={{fontSize:20,marginBottom:10}}>{item?.name}</Text>
+            <Text style={{fontSize:16,marginBottom:10}}>{item?.name}</Text>
             <Text style={{color:'#FF8200',fontSize:20,fontWeight:'bold'}}>{item?.servicesPrice}€/h</Text>
           </View>
           {item.location && (<Text style={{color:'#626262'}}>a {item?.location} km de ti</Text>)}
