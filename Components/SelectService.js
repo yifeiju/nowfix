@@ -60,6 +60,7 @@ const SelectService = () => {
         style={styles.input}
         placeholder="precio por hora"
         value={`${servicesPrice}`}
+        textAlign='center'
       ></TextInput>
 
       <TouchableOpacity onPress={onConfirm} style={styles.prompt}>

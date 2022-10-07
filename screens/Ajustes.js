@@ -80,7 +80,7 @@ const Ajustes = ({ navigation, route = {} }) => {
               >
                 <View style={[globalStyles.btnyellow]}>
                   <Text style={[styles.negrita, globalStyles.white]}>
-                    Información
+                    Horarios
                   </Text>
                 </View>
               </TouchableOpacity>

@@ -17,6 +17,8 @@ import logo from "../assets/logo.png";
 import globalStyles from "../app/globalStyles";
 import { useAppSelector } from "../app/store";
 import { selectAllUserTypes } from "../app/store/states/user/selectors";
+import iconprofe from '../assets/iconprofe.png'
+import iconclient from '../assets/iconclient.png'
 
 const Registro = () => {
   const userTypes = useAppSelector(selectAllUserTypes);
@@ -70,9 +72,11 @@ const Registro = () => {
                       }}
                       style={styles.buttonpop}
                     >
+                      <Image source={{ uri: type.icon }} style={{height:60,width:48}}></Image>
                       <Text style={[styles.negrita, globalStyles.white]}>
                         {type.name}
                       </Text>
+                      <Text style={{color:'#FF8200'}}>sdsdaas</Text>
                     </Pressable>
                   );
                 })}
@@ -201,9 +205,12 @@ const styles = StyleSheet.create({
     borderRadius: 37,
     backgroundColor: "#FF8200",
     textAlign: "center",
-    justifyContent: "center",
+    alignItems:'center',
+    justifyContent: 'space-around',
     marginBottom: 35,
     marginTop: 35,
+    display:'flex',
+    flexDirection:'row'
   },
   textStyle: {
     color: "white",

@@ -19,16 +19,18 @@ import back from "../assets/back.png";
 
 const Información = ({ navigation, route = {} }) => {
     const user = useAppSelector(selectCurrentUser);
-    const [info,setInfo] = useState(user?.information);
-    const dispach = useAppDispatch()
+    const dispach = useAppDispatch();
+    const [information,setInformation] = useState(user.information);
+    
 
     const confirm = ()=>{
         dispach(
             requestUpdateUserData({
-                userId: user.id,
-                data: {
-                information:info,
-                },
+              userId: user.id,
+              data: {
+                information:information,
+              },
+              onSuccess: navigation.navigate("Ajustes"),
             })
         )
     }
@@ -39,13 +41,13 @@ const Información = ({ navigation, route = {} }) => {
           <TouchableOpacity onPress={() => navigation.navigate("Ajustes")}>
             <Image source={back} style={globalStyles.btnback}></Image>
           </TouchableOpacity>
-          <Text style={globalStyles.title1}>Información</Text>
+          <Text style={globalStyles.title1}>Horarios</Text>
           <View></View>
         </View>
         <ScrollView>
-          <textarea style={{margin:20,height:300}} onChange={text=>setInfo(text)}>
+          <TextInput onChangeText={setInformation} value={`${information}`} multiline numberOfLines={4} textAlign='center' style={styles.input} >
 
-          </textarea>
+          </TextInput>
           <TouchableOpacity style={styles.prompt} onPress={confirm}>
             <View style={[globalStyles.btnyellow]}>
               <Text style={[styles.negrita, globalStyles.white]}>
@@ -93,10 +95,10 @@ const styles = StyleSheet.create({
       padding: 12,
       fontSize: 16,
       color: "#626262",
-      backgroundColor: "#D9D9D9",
+      backgroundColor: "white",
       borderRadius: 8,
       marginTop: 40,
-      height: 40,
+      height: 200,
       width: "100%",
     },
     white: {

@@ -52,8 +52,22 @@ const Profile = ({ navigation, route }) => {
                   </Text>
                 </View>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.margin}
+                onPress={() => {
+                  navigation.navigate("Historial");
+                }}
+              >
+                <View style={[globalStyles.btnyellow]}>
+                  <Text style={[styles.negrita, globalStyles.white]}>
+                    Historial de clietes
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </>
           )}
+          {user.userType?.id === "client" && (
+            <>
           <TouchableOpacity
             style={styles.margin}
             onPress={() => {
@@ -66,6 +80,7 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
+          
 
           <TouchableOpacity
             style={styles.margin}
@@ -79,6 +94,8 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
+          </>
+          )}
           <TouchableOpacity
             style={styles.margin}
             onPress={() => {

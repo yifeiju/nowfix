@@ -8,6 +8,7 @@ import Servicios from '../../screens/Servicios';
 import Facturas from '../../screens/Facturas';
 import Categories from '../../screens/Categories';
 import Información from '../../screens/Informations';
+import Historial from '../../screens/Historial';
 
 
  const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ export default () => (
         <Stack.Screen name="Facturas" component={Facturas} />
         <Stack.Screen name="Categories" component={Categories} />
         <Stack.Screen name="Información" component={Información} />
+        <Stack.Screen name="Historial" component={Historial} />
 
     </Stack.Navigator>
 );

@@ -26,7 +26,7 @@ const ServiceComponent = ({
           textAlign:'center',
         }}
       >
-        <Text style={{textAlign:'center',alignItems:'center'}}>{item.name}</Text>
+        <Text style={{textAlign:'center',alignItems:'center',fontWeight:'bold',color:isSelected ? 'white' : 'black'}}>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
