@@ -12,45 +12,74 @@ import globalStyles from "../app/globalStyles";
 import logo from "../assets/logo.png";
 import { useAppSelector } from "../app/store";
 import { selectAllServices } from "../app/store/states/services/selectors";
+import Location from "../components/Location";
+import { selectCurrentUser } from "../app/store/states/user/selectors";
 
 const Home = ({ navigation, route }) => {
   const services = useAppSelector(selectAllServices);
+  const user=useAppSelector(selectCurrentUser) ;
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <ScrollView style={globalStyles.container}>
         <View style={styles.center}>
           <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
+        {user.userType?.id === "client" && (
+          <View style={styles.flexbox}>
+            {services.map((service = {}) => {
+              let icon;
+              try {
+                icon = service.icon;
+              } catch (error) {}
+              return (
+                <View style={styles.profesional} key={service.id}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("service", service)}
+                    style={styles.prof}
+                  >
+                    <View style={styles.prof}>
+                      <Text>{service.name}</Text>
 
-        <View style={styles.flexbox}>
-          {services.map((service = {}) => {
-            let icon;
-            try {
-              icon = service.icon;
-            } catch (error) {}
-            return (
-              <View style={styles.profesional} key={service.id}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("service", service)}
-                  style={styles.prof}
-                >
-                  <View style={styles.prof}>
-                    <Text>{service.name}</Text>
-
-                    <Image
-                      source={{ uri: icon }}
-                      style={{
-                        width: service.width,
-                        height: service.height,
-                        marginTop: 10,
-                      }}
-                    ></Image>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            );
-          })}
-        </View>
+                      <Image
+                        source={{ uri: icon }}
+                        style={{
+                          width: service.width,
+                          height: service.height,
+                          marginTop: 10,
+                        }}
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
+          </View>
+        )}
+        {user.userType?.id === "professional" && (
+          <>
+          <TouchableOpacity
+            style={styles.prompt}
+            onPress={() => {}}
+          >
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>
+              Estoy de servicio
+              </Text>
+            </View>
+          </TouchableOpacity>
+            <Location />
+            <TouchableOpacity
+            style={styles.prompt}
+            onPress={() => {}}
+          >
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>
+              Compartir ubicación
+              </Text>
+            </View>
+          </TouchableOpacity>
+          </>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -66,7 +95,8 @@ const styles = StyleSheet.create({
 
   prompt: {
     alignItems: "center",
-    marginTop: 80,
+    marginTop: 30,
+    marginBottom:30,
   },
 
   txtcenter: {

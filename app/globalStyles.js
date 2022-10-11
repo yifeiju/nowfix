@@ -35,10 +35,12 @@ const globalStyles = StyleSheet.create({
     textAlign: "center",
     marginTop: 30,
     fontWeight: "bold",
+    fontSize:20
   },
   title1: {
     textAlign: "center",
     fontWeight: "bold",
+    fontSize:20
   },
   titleview: {
     display: "flex",

@@ -87,6 +87,18 @@ const Ajustes = ({ navigation, route = {} }) => {
             </>
           )}
           <TouchableOpacity
+                style={styles.prompt}
+                onPress={() => {
+                  navigation.navigate("Ubicacion");
+                }}
+              >
+                <View style={[globalStyles.btnyellow]}>
+                  <Text style={[styles.negrita, globalStyles.white]}>
+                    Ubicación
+                  </Text>
+                </View>
+              </TouchableOpacity>
+          <TouchableOpacity
             style={styles.prompt}
             onPress={() => setModalVisible1(true)}
           >
