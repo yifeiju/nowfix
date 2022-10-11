@@ -14,6 +14,7 @@ import back from "../assets/back.png";
 import fotoperfil from '../assets/Fotoperfil.png'
 import chat from '../assets/chaticon.png'
 import star from '../assets/star.png'
+import valoracion from '../assets/Valoraciones.png'
 
 const Personperfil = ({ navigation, route = {} }) => {
     const user = route.params ?? {};
@@ -38,12 +39,50 @@ const Personperfil = ({ navigation, route = {} }) => {
           <View style={{width:'100%',height:50,marginTop:10,display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
             <View></View>
             <View></View>
-            <Image source={chat} style={{height:40, width:40}}></Image>
-            <Image source={star} style={{height:40, width:40}}></Image>
+            <TouchableOpacity>
+              <Image source={chat} style={{height:40, width:40}}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Image source={star} style={{height:40, width:40}}></Image>
+            </TouchableOpacity>
             <View></View>
             <View></View>
           </View>
+          <View style={{display:'flex', flexDirection:'row'}}>
+            <Text style={styles.bluetext}>Precio</Text>
+            <Text style={styles.orangetext}>{user.servicesPrice}€/h</Text>
+          </View>
+          <Text style={styles.bluetext}>Horarios</Text>
+          <Text style={[styles.gristext, styles.margintop, styles.marginbot]}>{user.information}</Text>
+          <View style={{display:'flex', flexDirection:'row'}}>
+            <Text style={styles.bluetext}>Servicios prestados</Text>
+            <Text style={styles.orangetext}>180</Text>
+          </View>
+          <View style={{display:'flex', flexDirection:'row',justifyContent:'flex-start'}}>
+            <Text style={styles.bluetext}>Valoraciones</Text>
+            <Text style={[styles.gristext,styles.paddingtop]}>60</Text>
+          </View>
+          <View style={styles.center}> 
+            <Image source={valoracion} style={{height:50,width:215,margin:20}}></Image>
+          </View>
+          <View style={{display:'flex', flexDirection:'row',justifyContent:'flex-start',marginTop:7}}>
+            <Text style={styles.bluetext}>Reseñas</Text>
+            <Text style={[styles.gristext,styles.paddingtop]}>217</Text>
+          </View>
+          
           </ScrollView>
+          <View style={styles.politica}>
+            <TouchableOpacity
+              style={styles.margin}
+              onPress={() => {}}
+            >
+              <View style={[globalStyles.btnyellow]}>
+                <Text style={[styles.negrita, globalStyles.white]}>
+                  Contratar servicio
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -54,10 +93,43 @@ const Personperfil = ({ navigation, route = {} }) => {
     margin: {
       marginBottom: 32,
       alignItems: "center",
+      width:'100%'
     },
+    politica:{
+      alignItems:"center",
+      position:"absolute",
+      textAlign:'center',
+      width: '100%',
+      bottom:20,
+      margin:'auto',
+      left:25
+  },
     negrita: {
       fontWeight: "bold",
       textAlign: "center",
+    },
+    bluetext:{
+      fontWeight:'bold',
+      color:'#054091',
+      fontSize:20,
+      marginRight:50,
+    },
+    orangetext:{
+      fontWeight:'bold',
+      color:'#FF8200',
+      fontSize:24,
+    },
+    gristext:{
+      color:'#626262',
+    },
+    paddingtop:{
+      paddingTop:7
+    },
+    margintop:{
+      marginTop:10
+    },
+    marginbot:{
+      marginBottom:10
     },
     center: {
       justifyContent: "center",
