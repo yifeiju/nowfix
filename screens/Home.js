@@ -24,6 +24,8 @@ const Home = ({ navigation, route }) => {
         <View style={styles.center}>
           <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
+        <Text style={styles.siempre}>Siempre cerca de ti.</Text>
+
         {user.userType?.id === "client" && (
           <View style={styles.flexbox}>
             {services.map((service = {}) => {
@@ -62,7 +64,7 @@ const Home = ({ navigation, route }) => {
             onPress={() => {}}
           >
             <View style={[globalStyles.btnyellow]}>
-              <Text style={[styles.negrita, globalStyles.white]}>
+              <Text style={[styles.negrita, globalStyles.white,styles.txtcenter]}>
               Estoy de servicio
               </Text>
             </View>
@@ -73,7 +75,7 @@ const Home = ({ navigation, route }) => {
             onPress={() => {}}
           >
             <View style={[globalStyles.btnyellow]}>
-              <Text style={[styles.negrita, globalStyles.white]}>
+              <Text style={[styles.negrita, globalStyles.white,styles.txtcenter]}>
               Compartir ubicación
               </Text>
             </View>
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   prompt: {
     alignItems: "center",
     marginTop: 30,
-    marginBottom:30,
+    marginBottom:40,
   },
 
   txtcenter: {
@@ -153,6 +155,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     marginTop: 50,
+    marginBottom:50,
   },
   prof: {
     padding: 10,
@@ -160,4 +163,10 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 6,
   },
+  siempre:{
+    color:'#041E42',
+    textAlign:'center',
+    fontSize:23,
+    marginTop:48,
+},
 });

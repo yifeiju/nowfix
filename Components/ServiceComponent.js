@@ -10,15 +10,15 @@ const ServiceComponent = ({
       onPress={onSelection}
       style={{
         width: "90%",
-        margin: 5,
-        height: 96,
+        margin: 10,
+        height: 48,
       }}
     >
       <View
         style={{
           backgroundColor: isSelected ? "#FF8200" : "transparent",
           borderWidth: 1,
-          height:96,
+          height:48,
           borderColor: "#FF8200",
           borderRadius:37,
           alignItems:'center',

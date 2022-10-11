@@ -8,7 +8,7 @@ import {
     Image,
   } from "react-native";
   import loc from '../assets/loc.png'
-  import mapa from '../assets/mapa 1.png'
+  import mapa from '../assets/mapa.png'
 
   const Location = () => {
     
@@ -22,7 +22,7 @@ import {
           ></TextInput>
         </View>
         <View style={styles.center}>
-            <Image source={mapa} style={{ width: 324, height: 324 }}></Image>
+            <Image source={mapa} style={{ width:300, height: 300 }}></Image>
         </View>
     </View>
       
