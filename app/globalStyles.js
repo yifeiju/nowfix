@@ -3,8 +3,6 @@ import { StyleSheet } from "react-native";
 const globalStyles = StyleSheet.create({
   container: {
     padding: 25,
-    //borderColor:"red",
-    //borderWidth:1,
     width: "100%",
     minHeight: "100%",
   },
