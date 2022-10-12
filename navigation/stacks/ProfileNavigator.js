@@ -10,6 +10,7 @@ import Categories from '../../screens/Categories';
 import Información from '../../screens/Informations';
 import Historial from '../../screens/Historial';
 import Ubicacion from '../../screens/Ubicacion';
+import Personperfil from '../../screens/Personperfil';
 
 
  const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ export default () => (
         <Stack.Screen name="Información" component={Información} />
         <Stack.Screen name="Historial" component={Historial} />
         <Stack.Screen name="Ubicacion" component={Ubicacion} />
+        <Stack.Screen name="Personperfil" component={Personperfil} />
 
     </Stack.Navigator>
 );

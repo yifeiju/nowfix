@@ -52,3 +52,14 @@ export const getUsersByServiceId = ({
     )
   ).then(getArrayFromCollection);
 };
+
+export const getFavoriteProfessionals = async ({
+  favoriteProfessionals = [],
+  listLimit = AppConstants.LIST.MAX_LIMIT,
+}) => {
+  if (!favoriteProfessionals.length) return [];
+  
+  return getDocs(
+    query(userRef, where("id", "in", favoriteProfessionals), limit(listLimit))
+  ).then(getArrayFromCollection);
+};

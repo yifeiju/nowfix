@@ -18,12 +18,11 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
 
-const Personperfil = ({ navigation, route = {} }) => {
+const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const professional = route.params ?? {};
   const isFavorite = user.favoriteProfessionals?.includes(professional.id);
-  console.log({ professional, user });
 
   const onFavoriteChanges = (isSelected) => {
     let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
@@ -47,7 +46,7 @@ const Personperfil = ({ navigation, route = {} }) => {
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleview}>
-          <TouchableOpacity onPress={() => navigation.navigate("service")}>
+          <TouchableOpacity onPress={() => goBack()}>
             <Image source={back} style={globalStyles.btnback}></Image>
           </TouchableOpacity>
           <Text></Text>
