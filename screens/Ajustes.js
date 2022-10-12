@@ -47,7 +47,13 @@ const Ajustes = ({ navigation, route = {} }) => {
     };
     fb.auth.changePassword(credentials, newPassword);
   };
-
+  const deletaPress = () => {
+    const credentials = {
+      email: user.email,
+      password: currentPassword,
+    };
+    fb.auth.toDeleteUser(credentials)
+  }
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={[globalStyles.container]}>
@@ -211,7 +217,12 @@ const Ajustes = ({ navigation, route = {} }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.negrita}>¿Desea eliminar la cuenta?</Text>
-
+              <TextInput
+                style={styles.input}
+                placeholder="contraseña actual"
+                secureTextEntry
+                onChangeText={setCurrentPassword}
+              ></TextInput>
               <View style={styles.flex}>
                 <Pressable
                   onPress={() => {
@@ -221,7 +232,7 @@ const Ajustes = ({ navigation, route = {} }) => {
                 >
                   <Text style={styles.negrita}>Cancelar</Text>
                 </Pressable>
-                <Pressable onPress={() => {}} style={styles.buttonpop}>
+                <Pressable onPress={() => {deletaPress(),setModalVisible2(!modalVisible2)}} style={styles.buttonpop}>
                   <Text style={[styles.negrita, globalStyles.white]}>
                     Eliminar
                   </Text>

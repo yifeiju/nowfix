@@ -14,7 +14,7 @@ import { AppConstants } from "../../utils/constants";
 import { db } from "../config";
 import { getArrayFromCollection } from "../utils";
 
-const userRef = collection(db, "user");
+export const userRef = collection(db, "user");
 const userTypeRef = collection(db, "userTypes");
 
 export const setUserData = (userId, data = {}) => {
