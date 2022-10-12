@@ -21,9 +21,9 @@ const Profile = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
-      <View style={globalStyles.container}>
+      <ScrollView style={globalStyles.container}>
         <Text style={globalStyles.title}>Profile</Text>
-        <ScrollView>
+        
           <View style={styles.center}>
             <Image
               source={fotoperfil}
@@ -139,7 +139,7 @@ const Profile = ({ navigation, route }) => {
               </Text>
             </View>
           </TouchableOpacity>
-        </ScrollView>
+        
         <Modal
           animationType="slide"
           transparent={true}
@@ -172,7 +172,7 @@ const Profile = ({ navigation, route }) => {
             </View>
           </View>
         </Modal>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

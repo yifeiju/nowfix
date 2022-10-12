@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
 import { updatePassword } from "firebase/auth";
+import { fb } from "../app/firebase";
 
 const Ajustes = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -25,29 +26,27 @@ const Ajustes = ({ navigation, route = {} }) => {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
   const [nombre, setNombre] = useState(user.name);
+  const [currentPassword, setCurrentPassword] = useState();
   const [newPassword, setNewPassword] = useState();
-  
 
-  const changeName=()=>{
+  const changeName = () => {
     dispatch(
       requestUpdateUserData({
         userId: user.id,
         data: {
-          name:nombre,
+          name: nombre,
         },
         onSuccess: setModalVisible(!modalVisible),
       })
-    )
-  }
-  const onChangePress=()=>{
-    updatePassword(user, newPassword).then(() => {
-      alert('yes')
-      console.log(user)
-    }).catch((error) => {
-      alert('no')
-      console.log(user,newPassword)
-    });
-  }
+    );
+  };
+  const onChangePress = () => {
+    const credentials = {
+      email: user.email,
+      password: currentPassword,
+    };
+    fb.auth.changePassword(credentials, newPassword);
+  };
 
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
@@ -87,17 +86,17 @@ const Ajustes = ({ navigation, route = {} }) => {
             </>
           )}
           <TouchableOpacity
-                style={styles.prompt}
-                onPress={() => {
-                  navigation.navigate("Ubicacion");
-                }}
-              >
-                <View style={[globalStyles.btnyellow]}>
-                  <Text style={[styles.negrita, globalStyles.white]}>
-                    Ubicación
-                  </Text>
-                </View>
-              </TouchableOpacity>
+            style={styles.prompt}
+            onPress={() => {
+              navigation.navigate("Ubicacion");
+            }}
+          >
+            <View style={[globalStyles.btnyellow]}>
+              <Text style={[styles.negrita, globalStyles.white]}>
+                Ubicación
+              </Text>
+            </View>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.prompt}
             onPress={() => setModalVisible1(true)}
@@ -130,7 +129,11 @@ const Ajustes = ({ navigation, route = {} }) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.negrita}>Cambiar nombre</Text>
-              <TextInput style={styles.input} defaultValue={nombre} onChangeText={text=>setNombre(text)}></TextInput>
+              <TextInput
+                style={styles.input}
+                defaultValue={nombre}
+                onChangeText={(text) => setNombre(text)}
+              ></TextInput>
 
               <View style={styles.flex}>
                 <Pressable
@@ -163,13 +166,17 @@ const Ajustes = ({ navigation, route = {} }) => {
               <Text style={styles.negrita}>Cambiar contraseña</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Nueva contraseña"
-                onChangeText={(text)=>setNewPassword(text)}
+                placeholder="contraseña actual"
+                secureTextEntry
+                onChangeText={setCurrentPassword}
               ></TextInput>
               <TextInput
                 style={styles.input}
-                placeholder="Repetir contraseña"
+                secureTextEntry
+                placeholder="Nueva contraseña"
+                onChangeText={(text) => setNewPassword(text)}
               ></TextInput>
+              
               <View style={styles.flex}>
                 <Pressable
                   onPress={() => {
@@ -179,7 +186,12 @@ const Ajustes = ({ navigation, route = {} }) => {
                 >
                   <Text style={styles.negrita}>Cancelar</Text>
                 </Pressable>
-                <Pressable onPress={()=>{onChangePress(),setModalVisible1(!modalVisible1)}} style={styles.buttonpop}>
+                <Pressable
+                  onPress={() => {
+                    onChangePress(), setModalVisible1(!modalVisible1);
+                  }}
+                  style={styles.buttonpop}
+                >
                   <Text style={[styles.negrita, globalStyles.white]}>
                     Confirmar
                   </Text>
@@ -274,7 +286,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'rgba(0,0,0,0.5)',
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   buttonpop: {
     width: "40%",

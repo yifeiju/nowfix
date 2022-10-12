@@ -102,7 +102,7 @@ const Personperfil = ({ navigation, route = {} }) => {
       width: '100%',
       bottom:20,
       margin:'auto',
-      left:25
+      left:0
   },
     negrita: {
       fontWeight: "bold",

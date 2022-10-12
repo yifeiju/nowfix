@@ -15,7 +15,7 @@ import SelectService from "../components/SelectService";
 const Categories = ({ navigation, route = {} }) => {
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
-      <View style={globalStyles.container}>
+      <ScrollView style={globalStyles.container}>
         <View style={globalStyles.titleview}>
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Image source={back} style={globalStyles.btnback}></Image>
@@ -27,7 +27,7 @@ const Categories = ({ navigation, route = {} }) => {
           
           <SelectService />
         </ScrollView>
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
