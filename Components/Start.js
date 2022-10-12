@@ -6,13 +6,13 @@ import star2 from "../assets/star2.png";
 export const Start = ({
   initialState = false,
   disabled = false,
-  onSelect = () => {},
+  onChange = () => {},
 }) => {
   const [isSelected, setSelected] = useState(initialState);
   const onPress = () => {
     const nexState = !isSelected;
     setSelected(!isSelected);
-    onSelect(nexState);
+    onChange(nexState);
   };
   return (
     <>

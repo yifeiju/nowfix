@@ -14,12 +14,35 @@ import fotoperfil from "../assets/Fotoperfil.png";
 import chat from "../assets/chaticon.png";
 import valoracion from "../assets/Valoraciones.png";
 import { Start } from "../Components/start";
-import { useAppSelector } from "../app/store";
+import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
+import { requestUpdateUserData } from "../app/store/states/user/thunks";
 
 const Personperfil = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
-  const profesional = route.params ?? {};
+  const dispatch = useAppDispatch();
+  const professional = route.params ?? {};
+  const isFavorite = user.favoriteProfessionals?.includes(professional.id);
+  console.log({ professional, user });
+
+  const onFavoriteChanges = (isSelected) => {
+    let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
+    if (isSelected) favoriteProfessionals.push(professional.id);
+    else {
+      favoriteProfessionals = favoriteProfessionals.filter(
+        (id) => id !== professional.id
+      );
+    }
+    dispatch(
+      requestUpdateUserData({
+        userId: user.id,
+        data: {
+          favoriteProfessionals,
+        },
+      })
+    );
+  };
+
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -40,13 +63,13 @@ const Personperfil = ({ navigation, route = {} }) => {
           <Text
             style={{ textAlign: "center", marginTop: 10, fontWeight: "bold" }}
           >
-            {profesional?.name}
+            {professional?.name}
           </Text>
-          {profesional.location && (
+          {professional.location && (
             <Text
               style={{ color: "#626262", textAlign: "center", marginTop: 10 }}
             >
-              a {profesional?.location} km de ti
+              a {professional?.location} km de ti
             </Text>
           )}
           <View
@@ -65,19 +88,21 @@ const Personperfil = ({ navigation, route = {} }) => {
             <TouchableOpacity>
               <Image source={chat} style={{ height: 40, width: 40 }}></Image>
             </TouchableOpacity>
-            <Start />
+
+            <Start initialState={isFavorite} onChange={onFavoriteChanges} />
+
             <View></View>
             <View></View>
           </View>
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Text style={styles.bluetext}>Precio</Text>
             <Text style={styles.orangetext}>
-              {profesional.servicesPrice}€/h
+              {professional.servicesPrice}€/h
             </Text>
           </View>
           <Text style={styles.bluetext}>Horarios</Text>
           <Text style={[styles.gristext, styles.margintop, styles.marginbot]}>
-            {profesional.information}
+            {professional.information}
           </Text>
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Text style={styles.bluetext}>Servicios prestados</Text>

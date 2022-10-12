@@ -10,7 +10,7 @@ import {
   TextInput,
   Modal,
   Pressable,
-  FlatList
+  FlatList,
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
@@ -21,9 +21,6 @@ import { fb } from "../app/firebase";
 import { AppConstants } from "../app/utils/constants";
 import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
 import Slider from "@react-native-community/slider";
-import { useAppDispatch, useAppSelector } from "../app/store";
-import { selectUser } from "../app/store/states/user/selectors";
-import { requestUserData } from "../app/store/states/user/thunks";
 
 const locationConstants = {
   range: [1, 5, 15, 30],
@@ -42,7 +39,6 @@ const formatLocationRange = (locationIndex = 0) => {
 
 const ServiceList = ({ navigation, route }) => {
   const service = route.params ?? {};
-  const dispach = useAppDispatch()
   const [modalVisible, setModalVisible] = useState(false);
   const [users, setUsers] = useState([]);
   const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
@@ -53,7 +49,6 @@ const ServiceList = ({ navigation, route }) => {
       return setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
     };
   });
-
 
   const requestUserList = async (extraQueries) => {
     fb.user
@@ -92,23 +87,57 @@ const ServiceList = ({ navigation, route }) => {
     setLimit(limit + AppConstants.LIST.MAX_LIMIT);
   };
 
-  const renderItem=({ item }) => (
-    <TouchableOpacity onPress={()=>{dispach(
-      requestUserData(
-        item.id
-      )
-    ),console.log(item.id),navigation.navigate('Personperfil',item)}}>
-      <View style={{width:'100%',height:130,borderBottomWidth:1,borderBottomColor:'#D9D9D9',margin:'auto',display:'flex',justifyContent:'space-between',flexDirection:'row'}}>
-        <View style={{width:'30%',height:'100%',alignItems:'center',padding:15}}>
-          <Image source={fotoperfil} style={{ width: 100, height: 100 }}></Image>
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("Personperfil", item);
+      }}
+    >
+      <View
+        style={{
+          width: "100%",
+          height: 130,
+          borderBottomWidth: 1,
+          borderBottomColor: "#D9D9D9",
+          margin: "auto",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}
+      >
+        <View
+          style={{
+            width: "30%",
+            height: "100%",
+            alignItems: "center",
+            padding: 15,
+          }}
+        >
+          <Image
+            source={fotoperfil}
+            style={{ width: 100, height: 100 }}
+          ></Image>
         </View>
-        <View style={{width:'70%',height:'100%',padding:10}}>
-          <View style={{display:'flex', justifyContent:'space-between',flexDirection:'row'}}>
-            <Text style={{fontSize:16,marginBottom:10}}>{item?.name}</Text>
-            <Text style={{color:'#FF8200',fontSize:20,fontWeight:'bold'}}>{item?.servicesPrice}€/h</Text>
+        <View style={{ width: "70%", height: "100%", padding: 10 }}>
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{ fontSize: 16, marginBottom: 10 }}>{item?.name}</Text>
+            <Text
+              style={{ color: "#FF8200", fontSize: 20, fontWeight: "bold" }}
+            >
+              {item?.servicesPrice}€/h
+            </Text>
           </View>
-          {item.location && (<Text style={{color:'#626262'}}>a {item?.location} km de ti</Text>)}
-          
+          {item.location && (
+            <Text style={{ color: "#626262" }}>
+              a {item?.location} km de ti
+            </Text>
+          )}
         </View>
       </View>
     </TouchableOpacity>
@@ -118,7 +147,7 @@ const ServiceList = ({ navigation, route }) => {
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleview}>
-          <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
             <Image source={back} style={globalStyles.btnback}></Image>
           </TouchableOpacity>
           <Text style={globalStyles.title1}>{service.name}</Text>
@@ -140,12 +169,12 @@ const ServiceList = ({ navigation, route }) => {
             <Image source={filtro} style={{ width: 30, height: 34 }}></Image>
           </View>
         </TouchableOpacity>
-        
+
         <FlatList
-        data={users}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+          data={users}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
         <Modal
           animationType="slide"
           transparent={true}
