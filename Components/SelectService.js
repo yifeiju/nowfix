@@ -21,7 +21,7 @@ const SelectService = () => {
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   const [selections, setSelections] = useState(user.services);
-  const [servicesPrice, setServicesPrice] = useState(user.servicesPrice);
+  const [servicesPrice, setServicesPrice] = useState(user.servicesPrice ?? []);
 
   const onConfirm = () => {
     if (selections.length || servicesPrice) {

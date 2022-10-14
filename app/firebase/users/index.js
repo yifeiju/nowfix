@@ -63,3 +63,14 @@ export const getFavoriteProfessionals = async ({
     query(userRef, where("id", "in", favoriteProfessionals), limit(listLimit))
   ).then(getArrayFromCollection);
 };
+
+export const getHistoryProfessionals = async ({
+  historyProfessionals = [],
+  listLimit = AppConstants.LIST.MAX_LIMIT,
+}) => {
+  if (!historyProfessionals.length) return [];
+  
+  return getDocs(
+    query(userRef, where("id", "in", historyProfessionals), limit(listLimit))
+  ).then(getArrayFromCollection);
+};

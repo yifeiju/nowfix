@@ -9,10 +9,18 @@ import {
   
 } from "react-native";
 import globalStyles from "../app/globalStyles";
+import { useAppSelector } from "../app/store";
+import { selectCurrentUser } from "../app/store/states/user/selectors";
+import { AppConstants } from "../app/utils/constants";
 import back from "../assets/back.png";
+import fotoperfil from "../assets/Fotoperfil.png";
+import { fb } from "../app/firebase";
+
+
 
 const Historial = ({ navigation, route = {} }) => {
-    
+  
+
     return (
       <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
         <View style={globalStyles.container}>
@@ -23,7 +31,7 @@ const Historial = ({ navigation, route = {} }) => {
             <Text style={globalStyles.title1}>Historial de clientes</Text>
             <View></View>
           </View>
-          
+        
         </View>
       </KeyboardAvoidingView>
     );

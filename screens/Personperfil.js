@@ -42,6 +42,19 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
     );
   };
 
+  const contactPress = ()=>{
+    let historyProfessionals = [...(user.historyProfessionals ?? [])];
+    historyProfessionals.push(professional.id);
+    dispatch(
+      requestUpdateUserData({
+        userId: user.id,
+        data: {
+          historyProfessionals,
+        },
+      })
+    )
+  }
+
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -136,7 +149,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
           </View>
         </ScrollView>
         <View style={styles.politica}>
-          <TouchableOpacity style={styles.margin} onPress={() => {}}>
+          <TouchableOpacity style={styles.margin} onPress={contactPress}>
             <View style={[globalStyles.btnyellow]}>
               <Text style={[styles.negrita, globalStyles.white]}>
                 Contratar servicio
