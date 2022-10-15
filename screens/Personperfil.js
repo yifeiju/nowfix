@@ -6,8 +6,9 @@ import {
   Text,
   Image,
   StyleSheet,
+  FlatList,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import globalStyles from "../app/globalStyles";
 import back from "../assets/back.png";
 import fotoperfil from "../assets/Fotoperfil.png";
@@ -24,6 +25,8 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const dispatch = useAppDispatch();
   const professional = route.params ?? {};
   const isFavorite = user.favoriteProfessionals?.includes(professional.id);
+  const [txt, setTxt] = useState();
+  const [comentario, setComentario] = useState([]);
 
   const onFavoriteChanges = (isSelected) => {
     let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
@@ -50,7 +53,20 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
       date: new Date(),
     });
   };
-
+  const commentPress = () => {
+    fb.comment.createComment({
+      clientId: user.id,
+      professionalId: professional.id,
+      date: new Date(),
+      comment:txt,
+    });
+  };
+  const requestUserList = async () => {
+    fb.comment.getUserComment(professional.id).then(setComentario)
+  }
+  useEffect(() => {
+    requestUserList();
+  }, [professional.id]);
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <View style={globalStyles.container}>
@@ -143,18 +159,66 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             <Text style={styles.bluetext}>Reseñas</Text>
             <Text style={[styles.gristext, styles.paddingtop]}>217</Text>
           </View>
-        </ScrollView>
-        <View style={styles.politica}>
-          <TouchableOpacity style={styles.margin} onPress={contactPress}>
-            <View style={[globalStyles.btnyellow]}>
+          <TextInput style={styles.input} onChangeText={(text) => setTxt(text)}></TextInput>
+          <TouchableOpacity style={styles.prompt} onPress={commentPress}>
+            <View style={styles.btnyellow}>
               <Text style={[styles.negrita, globalStyles.white]}>
-                Contratar servicio
+                Compartir
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
+          <FlatList
+            data={comentario}
+            renderItem={({ item }) => <CommentCard item={item} />}
+            keyExtractor={(item, index) => `comment${index}`}
+          />
+        </ScrollView>
+       
       </View>
     </KeyboardAvoidingView>
+  );
+};
+
+const CommentCard = ({ item }) => {
+  if (!item?.clientId) return null;
+  
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    fb.user.getUserData(item.clientId).then(setUser);
+    console.log({item});
+  }, [item.clientId]);
+  return (
+    
+      <View
+        style={{
+          width: "100%",
+          borderBottomWidth: 1,
+          borderBottomColor: "#D9D9D9",
+          margin: "auto",
+          display: "flex",
+          flexDirection: 'column',
+        }}
+      >
+        <View
+          style={{
+            width: "100%",
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'flex-start'
+          }}
+        >
+          <Image
+            source={fotoperfil}
+            style={{ width: 25, height: 25 }}
+          ></Image>
+          <Text style={{ fontSize: 16, marginLeft:10 }}>{user?.name}</Text>
+        </View>
+          {item?.date && <Text>{new Date(item.date.toDate()).toDateString()}</Text>}
+          <Text style={{marginTop:5}}>{item.comment}</Text>
+        
+      </View>
+    
   );
 };
 export default Personperfil;
@@ -257,5 +321,29 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
+  },
+  input: {
+    padding: 12,
+    fontSize: 16,
+    color: "#626262",
+    backgroundColor: "#D9D9D9",
+    borderRadius: 8,
+    marginTop: 40,
+    height: 40,
+    width: "100%",
+  },
+  prompt: {
+    marginTop: 40,
+    alignItems: "center",
+    width:'40%',
+    margin:'auto',
+  },
+  btnyellow: {
+    width:'100%',
+    height: 48,
+    backgroundColor: "#FF8200",
+    textAlign: "center",
+    justifyContent: "center",
+    borderRadius: 37,
   },
 });
