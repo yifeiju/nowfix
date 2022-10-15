@@ -42,15 +42,27 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
     );
   };
 
-  const contactPress = ()=>{
+   const contactPress = ()=>{
     let historyProfessionals = [...(user.historyProfessionals ?? [])];
     historyProfessionals.push(professional.id);
+    let historyClient = [...(professional.historyClient ?? [])];
+    historyClient.push(user.id);
+    const date = new Date();
     dispatch(
       requestUpdateUserData({
         userId: user.id,
         data: {
           historyProfessionals,
+          
         },
+      })
+    )
+    dispatch(
+      requestUpdateUserData({
+        userId:professional.id,
+        data:{
+          historyClient
+        }
       })
     )
   }

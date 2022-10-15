@@ -6,7 +6,7 @@ import {
   Text,
   Image,
   StyleSheet,
-  
+  FlatList
 } from "react-native";
 import globalStyles from "../app/globalStyles";
 import { useAppSelector } from "../app/store";
@@ -19,19 +19,90 @@ import { fb } from "../app/firebase";
 
 
 const Historial = ({ navigation, route = {} }) => {
+  const user = useAppSelector(selectCurrentUser);
+  const [users, setUsers] = useState([]);
+  const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
+
+  const requestUserList = async () => {
+    fb.user
+      .getHistoryClient({
+        historyClient: user.historyClient,
+        listLimit: limit,
+      })
+      .then(setUsers);
+  };
   
+  useEffect(() => {
+    requestUserList();
+  }, [limit, user.historyClient]);
+
+  const renderItem = ({ item }) => (
+    
+      <View
+        style={{
+          width: "100%",
+          height: 130,
+          borderBottomWidth: 1,
+          borderBottomColor: "#D9D9D9",
+          margin: "auto",
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}
+      >
+        <View
+          style={{
+            width: "30%",
+            height: "100%",
+            alignItems: "center",
+            padding: 15,
+          }}
+        >
+          <Image
+            source={fotoperfil}
+            style={{ width: 100, height: 100 }}
+          ></Image>
+        </View>
+        <View style={{ width: "70%", height: "100%", padding: 10 }}>
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={{ fontSize: 16, marginBottom: 10 }}>{item?.name}</Text>
+            <Text
+              style={{ color: "#FF8200", fontSize: 20, fontWeight: "bold" }}
+            >
+              {item?.servicesPrice}
+            </Text>
+          </View>
+          {item.location && (
+            <Text style={{ color: "#626262" }}>
+              a {item?.location} km de ti
+            </Text>
+          )}
+        </View>
+      </View>
+    
+  );
 
     return (
       <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
         <View style={globalStyles.container}>
-          <View style={globalStyles.titleview}>
+          <View style={[globalStyles.titleview,styles.marginbot]}>
             <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
               <Image source={back} style={globalStyles.btnback}></Image>
             </TouchableOpacity>
             <Text style={globalStyles.title1}>Historial de clientes</Text>
             <View></View>
           </View>
-        
+        <FlatList
+        data={users}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        />
         </View>
       </KeyboardAvoidingView>
     );
@@ -110,6 +181,9 @@ const Historial = ({ navigation, route = {} }) => {
       color: "white",
       fontWeight: "bold",
       textAlign: "center"
+    },
+    marginbot: {
+      marginBottom: 30,
     },
   });
   
