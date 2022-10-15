@@ -20,73 +20,15 @@ import { fb } from "../app/firebase";
 
 const Historial = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
-  const [users, setUsers] = useState([]);
-  const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
+  const [history, setHistory] = useState([]);
 
   const requestUserList = async () => {
-    fb.user
-      .getHistoryClient({
-        historyClient: user.historyClient,
-        listLimit: limit,
-      })
-      .then(setUsers);
+    fb.history.getProfessionalHistory(user.id).then(setHistory)
   };
   
   useEffect(() => {
     requestUserList();
-  }, [limit, user.historyClient]);
-
-  const renderItem = ({ item }) => (
-    
-      <View
-        style={{
-          width: "100%",
-          height: 130,
-          borderBottomWidth: 1,
-          borderBottomColor: "#D9D9D9",
-          margin: "auto",
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
-      >
-        <View
-          style={{
-            width: "30%",
-            height: "100%",
-            alignItems: "center",
-            padding: 15,
-          }}
-        >
-          <Image
-            source={fotoperfil}
-            style={{ width: 100, height: 100 }}
-          ></Image>
-        </View>
-        <View style={{ width: "70%", height: "100%", padding: 10 }}>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <Text style={{ fontSize: 16, marginBottom: 10 }}>{item?.name}</Text>
-            <Text
-              style={{ color: "#FF8200", fontSize: 20, fontWeight: "bold" }}
-            >
-              {item?.servicesPrice}
-            </Text>
-          </View>
-          {item.location && (
-            <Text style={{ color: "#626262" }}>
-              a {item?.location} km de ti
-            </Text>
-          )}
-        </View>
-      </View>
-    
-  );
+  }, [user.id]);
 
     return (
       <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
@@ -99,12 +41,72 @@ const Historial = ({ navigation, route = {} }) => {
             <View></View>
           </View>
         <FlatList
-        data={users}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        data={history}
+        renderItem={({ item }) => <HistoryCardd item={item} />}
+        keyExtractor={(item, index) => `professional_history_${index}`}
         />
         </View>
       </KeyboardAvoidingView>
+    );
+  };
+  const HistoryCardd = ({ item }) => {
+    if (!item?.clientId) return null;
+    
+    const [user, setUser] = useState();
+  
+    useEffect(() => {
+      fb.user.getUserData(item.clientId).then(setUser);
+      console.log({item});
+    }, [item.clientId]);
+    return (
+      
+        <View
+          style={{
+            width: "100%",
+            height: 130,
+            borderBottomWidth: 1,
+            borderBottomColor: "#D9D9D9",
+            margin: "auto",
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              width: "30%",
+              height: "100%",
+              alignItems: "center",
+              padding: 15,
+            }}
+          >
+            <Image
+              source={fotoperfil}
+              style={{ width: 100, height: 100 }}
+            ></Image>
+          </View>
+          <View style={{ width: "70%", height: "100%", padding: 10 }}>
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <Text style={{ fontSize: 16, marginBottom: 10 }}>{user?.name}</Text>
+              <Text
+                style={{ color: "#FF8200", fontSize: 20, fontWeight: "bold" }}
+              >
+                {user?.servicesPrice}
+              </Text>
+            </View>
+            {user?.location && (
+              <Text style={{ color: "#626262" }}>a {user.location} km de ti</Text>
+            )}
+            {item?.date && <Text>{new Date(item.date.toDate()).toDateString()}</Text>}
+          </View>
+        </View>
+      
     );
   };
   export default Historial;

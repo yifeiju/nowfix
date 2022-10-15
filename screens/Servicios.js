@@ -107,7 +107,7 @@ const HistoryCard = ({ item }) => {
           {user?.location && (
             <Text style={{ color: "#626262" }}>a {user.location} km de ti</Text>
           )}
-          {item?.date && <Text>{new Date(item.date.toDate()).toString()}</Text>}
+          {item?.date && <Text>{new Date(item.date.toDate()).toDateString()}</Text>}
         </View>
       </View>
     </TouchableOpacity>
