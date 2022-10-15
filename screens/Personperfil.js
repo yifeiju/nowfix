@@ -13,10 +13,11 @@ import back from "../assets/back.png";
 import fotoperfil from "../assets/Fotoperfil.png";
 import chat from "../assets/chaticon.png";
 import valoracion from "../assets/Valoraciones.png";
-import { Start } from "../Components/start";
+import { Start } from "../components/Start";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
+import { fb } from "../app/firebase";
 
 const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -42,30 +43,13 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
     );
   };
 
-   const contactPress = ()=>{
-    let historyProfessionals = [...(user.historyProfessionals ?? [])];
-    historyProfessionals.push(professional.id);
-    let historyClient = [...(professional.historyClient ?? [])];
-    historyClient.push(user.id);
-    const date = new Date();
-    dispatch(
-      requestUpdateUserData({
-        userId: user.id,
-        data: {
-          historyProfessionals,
-          
-        },
-      })
-    )
-    dispatch(
-      requestUpdateUserData({
-        userId:professional.id,
-        data:{
-          historyClient
-        }
-      })
-    )
-  }
+  const contactPress = () => {
+    fb.history.createHistory({
+      clientId: user.id,
+      professionalId: professional.id,
+      date: new Date(),
+    });
+  };
 
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
