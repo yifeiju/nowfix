@@ -58,18 +58,18 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
       clientId: user.id,
       professionalId: professional.id,
       date: new Date(),
-      comment:txt,
+      comment: txt,
     });
   };
   const requestUserList = async () => {
-    fb.comment.getUserComment(professional.id).then(setComentario)
-  }
+    fb.comment.getUserComment(professional.id).then(setComentario);
+  };
   useEffect(() => {
     requestUserList();
   }, [professional.id]);
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
-      <View style={globalStyles.container}>
+      <View style={[globalStyles.container]}>
         <View style={globalStyles.titleview}>
           <TouchableOpacity onPress={() => goBack()}>
             <Image source={back} style={globalStyles.btnback}></Image>
@@ -159,9 +159,12 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             <Text style={styles.bluetext}>Reseñas</Text>
             <Text style={[styles.gristext, styles.paddingtop]}>217</Text>
           </View>
-          <TextInput style={styles.input} onChangeText={(text) => setTxt(text)}></TextInput>
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setTxt(text)}
+          ></TextInput>
           <TouchableOpacity style={styles.prompt} onPress={commentPress}>
-            <View style={styles.btnyellow}>
+            <View style={[styles.btnyellow]}>
               <Text style={[styles.negrita, globalStyles.white]}>
                 Compartir
               </Text>
@@ -169,56 +172,65 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
           </TouchableOpacity>
           <FlatList
             data={comentario}
-            renderItem={({ item }) => <CommentCard item={item} />}
+            renderItem={({ item, index }) => (
+              <CommentCard
+                item={item}
+                isLastChild={comentario.length - 1 === index}
+              />
+            )}
             keyExtractor={(item, index) => `comment${index}`}
           />
         </ScrollView>
-        
+
+        <TouchableOpacity
+          style={[styles.prompt, styles.politica]}
+          onPress={contactPress}
+        >
+          <View style={[globalStyles.btnyellow]}>
+            <Text style={[styles.negrita, globalStyles.white]}>Contactar</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-const CommentCard = ({ item }) => {
+const CommentCard = ({ item, isLastChild }) => {
   if (!item?.clientId) return null;
-  
+
   const [user, setUser] = useState();
 
   useEffect(() => {
     fb.user.getUserData(item.clientId).then(setUser);
-    console.log({item});
+    console.log({ item });
   }, [item.clientId]);
   return (
-    
+    <View
+      style={{
+        width: "100%",
+        borderBottomWidth: 1,
+        borderBottomColor: "#D9D9D9",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        padding: 5,
+        ...(isLastChild && { marginBottom: 50 }),
+      }}
+    >
       <View
         style={{
           width: "100%",
-          borderBottomWidth: 1,
-          borderBottomColor: "#D9D9D9",
-          margin: "auto",
           display: "flex",
-          flexDirection: 'column',
+          flexDirection: "row",
+          justifyContent: "flex-start",
         }}
       >
-        <View
-          style={{
-            width: "100%",
-            display:'flex',
-            flexDirection:'row',
-            justifyContent:'flex-start'
-          }}
-        >
-          <Image
-            source={fotoperfil}
-            style={{ width: 25, height: 25 }}
-          ></Image>
-          <Text style={{ fontSize: 16, marginLeft:10 }}>{user?.name}</Text>
-        </View>
-          {item?.date && <Text>{new Date(item.date.toDate()).toDateString()}</Text>}
-          <Text style={{marginTop:5}}>{item.comment}</Text>
-        
+        <Image source={fotoperfil} style={{ width: 25, height: 25 }}></Image>
+        <Text style={{ fontSize: 16, marginLeft: 10 }}>{user?.name}</Text>
       </View>
-    
+      {item?.date && <Text>{new Date(item.date.toDate()).toDateString()}</Text>}
+      <Text style={{ marginTop: 5 }}>{item.comment}</Text>
+    </View>
   );
 };
 export default Personperfil;
@@ -234,9 +246,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     textAlign: "center",
     width: "100%",
-    bottom: 20,
+    bottom: 25,
     margin: "auto",
-    left: 0,
+    left: 25,
   },
   negrita: {
     fontWeight: "bold",
@@ -328,18 +340,19 @@ const styles = StyleSheet.create({
     color: "#626262",
     backgroundColor: "#D9D9D9",
     borderRadius: 8,
-    marginTop: 40,
+    marginTop: 20,
     height: 40,
     width: "100%",
   },
   prompt: {
-    marginTop: 40,
+    marginTop: 20,
     alignItems: "center",
-    width:'40%',
-    margin:'auto',
+    alignSelf: "center",
+    width: "40%",
+    margin: "auto",
   },
   btnyellow: {
-    width:'100%',
+    width: "100%",
     height: 48,
     backgroundColor: "#FF8200",
     textAlign: "center",
