@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         width: '100%',
         bottom:20,
         margin:'auto',
-        left:0
+        left:25
     },
     politi:{
         color:'#041E42',

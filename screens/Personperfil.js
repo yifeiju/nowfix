@@ -173,7 +173,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             keyExtractor={(item, index) => `comment${index}`}
           />
         </ScrollView>
-       
+        
       </View>
     </KeyboardAvoidingView>
   );

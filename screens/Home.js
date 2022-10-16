@@ -17,7 +17,8 @@ import { selectCurrentUser } from "../app/store/states/user/selectors";
 
 const Home = ({ navigation, route }) => {
   const services = useAppSelector(selectAllServices);
-  const user=useAppSelector(selectCurrentUser) ;
+  const user = useAppSelector(selectCurrentUser);
+  console.log({ user });
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
       <ScrollView style={globalStyles.container}>
@@ -25,7 +26,6 @@ const Home = ({ navigation, route }) => {
           <Image source={logo} style={{ width: 266, height: 80 }} />
         </View>
         <Text style={styles.siempre}>Siempre cerca de ti.</Text>
-
         {user.userType?.id === "client" && (
           <View style={styles.flexbox}>
             {services.map((service = {}) => {
@@ -59,27 +59,25 @@ const Home = ({ navigation, route }) => {
         )}
         {user.userType?.id === "professional" && (
           <>
-          <TouchableOpacity
-            style={styles.prompt}
-            onPress={() => {}}
-          >
-            <View style={[globalStyles.btnyellow]}>
-              <Text style={[styles.negrita, globalStyles.white,styles.txtcenter]}>
-              Estoy de servicio
-              </Text>
-            </View>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.prompt} onPress={() => {}}>
+              <View style={[globalStyles.btnyellow]}>
+                <Text
+                  style={[styles.negrita, globalStyles.white, styles.txtcenter]}
+                >
+                  Estoy de servicio
+                </Text>
+              </View>
+            </TouchableOpacity>
             <Location />
-            <TouchableOpacity
-            style={styles.prompt}
-            onPress={() => {}}
-          >
-            <View style={[globalStyles.btnyellow]}>
-              <Text style={[styles.negrita, globalStyles.white,styles.txtcenter]}>
-              Compartir ubicación
-              </Text>
-            </View>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.prompt} onPress={() => {}}>
+              <View style={[globalStyles.btnyellow]}>
+                <Text
+                  style={[styles.negrita, globalStyles.white, styles.txtcenter]}
+                >
+                  Compartir ubicación
+                </Text>
+              </View>
+            </TouchableOpacity>
           </>
         )}
       </ScrollView>
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({
   prompt: {
     alignItems: "center",
     marginTop: 30,
-    marginBottom:40,
+    marginBottom: 40,
   },
 
   txtcenter: {
@@ -155,7 +153,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     marginTop: 50,
-    marginBottom:50,
+    marginBottom: 50,
   },
   prof: {
     padding: 10,
@@ -163,10 +161,10 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 6,
   },
-  siempre:{
-    color:'#041E42',
-    textAlign:'center',
-    fontSize:23,
-    marginTop:48,
-},
+  siempre: {
+    color: "#041E42",
+    textAlign: "center",
+    fontSize: 23,
+    marginTop: 48,
+  },
 });

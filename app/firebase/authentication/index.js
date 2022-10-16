@@ -6,6 +6,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   deleteUser,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth, db } from "../config";
 import { deleteDoc, doc } from "firebase/firestore";
@@ -44,4 +45,8 @@ export const toDeleteUser = ({ email, password }) => {
       deleteDoc(doc(userRef, id));
     });
   });
+};
+
+export const sentEmailToResetPassword = (email) => {
+  return sendPasswordResetEmail(auth, email);
 };
