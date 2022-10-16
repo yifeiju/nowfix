@@ -47,6 +47,8 @@ export const toDeleteUser = ({ email, password }) => {
   });
 };
 
-export const sentEmailToResetPassword = (email) => {
-  return sendPasswordResetEmail(auth, email);
+export const sentEmailToResetPassword = async(email) => {
+  return await sendPasswordResetEmail(auth, email).then(() => {
+    console.log('sent');
+  });
 };

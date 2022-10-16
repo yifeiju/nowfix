@@ -6,7 +6,6 @@ import {
   Text,
   Image,
   StyleSheet,
-  FlatList,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import globalStyles from "../app/globalStyles";
@@ -27,7 +26,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const isFavorite = user.favoriteProfessionals?.includes(professional.id);
   const [txt, setTxt] = useState();
   const [comentario, setComentario] = useState([]);
-
+  const comentarioList = comentario.slice(0, 5);
   const onFavoriteChanges = (isSelected) => {
     let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
     if (isSelected) favoriteProfessionals.push(professional.id);
@@ -170,16 +169,13 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
               </Text>
             </View>
           </TouchableOpacity>
-          <FlatList
-            data={comentario}
-            renderItem={({ item, index }) => (
-              <CommentCard
-                item={item}
-                isLastChild={comentario.length - 1 === index}
-              />
-            )}
-            keyExtractor={(item, index) => `comment${index}`}
-          />
+          {comentarioList.map((item, index) => (
+            <CommentCard
+              key={`comment${index}`}
+              item={item}
+              isLastChild={comentarioList.length - 1 === index}
+            />
+          ))}
         </ScrollView>
 
         <TouchableOpacity
