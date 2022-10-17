@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
 import { fb } from "../app/firebase";
+import RatingModal from 'react-native-rating-modal-box';
 
 const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -28,6 +29,8 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const [comentario, setComentario] = useState([]);
   const comentarioList = comentario.slice(0, 5);
   const [list, setList] = useState([]);
+  const [isOpenRating, setOpenRating] = useState(false);
+  
   const onFavoriteChanges = (isSelected) => {
     let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
     if (isSelected) favoriteProfessionals.push(professional.id);
@@ -58,6 +61,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
       professionalId: professional.id,
       date: new Date(),
     });
+    setOpenRating(true)
   };
   const commentPress = () => {
     fb.comment.createComment({
@@ -185,7 +189,15 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             />
           ))}
         </ScrollView>
-
+        <RatingModal
+        onClose={() => setOpenRating(false)}
+        visible={isOpenRating}
+        
+        ratingConfirm={selectedRating => {
+          console.log('Selected rating', selectedRating);
+          setOpenRating(false)
+        }}
+      />
         <TouchableOpacity
           style={[styles.prompt, styles.politica]}
           onPress={contactPress}
