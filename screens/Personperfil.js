@@ -6,6 +6,8 @@ import {
   Text,
   Image,
   StyleSheet,
+  Modal,
+  Pressable
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import globalStyles from "../app/globalStyles";
@@ -18,7 +20,9 @@ import { useAppDispatch, useAppSelector } from "../app/store";
 import { selectCurrentUser } from "../app/store/states/user/selectors";
 import { requestUpdateUserData } from "../app/store/states/user/thunks";
 import { fb } from "../app/firebase";
-import RatingModal from 'react-native-rating-modal-box';
+import { Rating } from 'react-native-ratings';
+import { AirbnbRating } from 'react-native-ratings';
+import { async } from "@firebase/util";
 
 const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -29,7 +33,9 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const [comentario, setComentario] = useState([]);
   const comentarioList = comentario.slice(0, 5);
   const [list, setList] = useState([]);
-  const [isOpenRating, setOpenRating] = useState(false);
+  const [val, setVal] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [ratingList, setRatingList] = useState([])
   
   const onFavoriteChanges = (isSelected) => {
     let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
@@ -61,7 +67,8 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
       professionalId: professional.id,
       date: new Date(),
     });
-    setOpenRating(true)
+    
+    setModalVisible(true)
   };
   const commentPress = () => {
     fb.comment.createComment({
@@ -76,6 +83,12 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   };
   useEffect(() => {
     requestUserList();
+  }, [professional.id]);
+  const requestRatingList = async () => {
+    fb.rating.getUserRating(professional.id).then(setRatingList)
+  };
+  useEffect(() => {
+    requestRatingList();
   }, [professional.id]);
   return (
     <KeyboardAvoidingView behavior="height" style={globalStyles.screen}>
@@ -189,15 +202,43 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             />
           ))}
         </ScrollView>
-        <RatingModal
-        onClose={() => setOpenRating(false)}
-        visible={isOpenRating}
-        
-        ratingConfirm={selectedRating => {
-          console.log('Selected rating', selectedRating);
-          setOpenRating(false)
-        }}
-      />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+            <AirbnbRating count={5} defaultRating={3} onFinishRating={setVal}></AirbnbRating>
+               
+              <View style={styles.flex}>
+                <Pressable
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                  style={styles.buttonpop1}
+                >
+                  <Text style={styles.negrita}>Cancelar</Text>
+                </Pressable>
+                <Pressable onPress={() => {
+                  fb.rating.createRating({
+                    clientId: user.id,
+                    professionalId: professional.id,
+                    rating:val,
+                  })
+                  setModalVisible(!modalVisible);
+                  }} style={styles.buttonpop}>
+                  <Text style={[styles.negrita, globalStyles.white]}>
+                    Rating
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
         <TouchableOpacity
           style={[styles.prompt, styles.politica]}
           onPress={contactPress}
