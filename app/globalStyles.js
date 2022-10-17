@@ -4,8 +4,8 @@ const globalStyles = StyleSheet.create({
   container: {
     padding: 25,
     width: "100%",
-    minHeight: "100%",
-    backgroundColor:'white'
+    flex: 1,
+    backgroundColor: "white",
   },
   btnyellow: {
     width: "90%",
@@ -34,12 +34,12 @@ const globalStyles = StyleSheet.create({
     textAlign: "center",
     marginTop: 30,
     fontWeight: "bold",
-    fontSize:20
+    fontSize: 20,
   },
   title1: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize:20
+    fontSize: 20,
   },
   titleview: {
     display: "flex",

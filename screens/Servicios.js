@@ -105,14 +105,19 @@ const HistoryCard = ({ item }) => {
               {user?.servicesPrice}€/h
             </Text>
           </View>
+          <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
+
           {user?.location && (
             <Text style={{ color: "#626262" }}>a {user.location} km de ti</Text>
           )}
+          {item?.date && <Text>{new Date(item.date.toDate()).toDateString()}</Text>}
+          </View>
+
           <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
-          {item?.date && <Text style={{marginTop:15}}>{new Date(item.date.toDate()).toDateString()}</Text>}
+            <Text></Text>
           <Rating
             readonly
-            startingValue={item?.rating?.avg}
+            startingValue={user?.rating?.avg}
             type="custom"
             style={{ marginTop: 20 }}
             ratingColor="#ff8200"

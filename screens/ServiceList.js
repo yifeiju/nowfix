@@ -153,15 +153,21 @@ const ServiceList = ({ navigation, route }) => {
               a {item?.location} km de ti
             </Text>
           )}
-          <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
             <Text></Text>
-          <Rating
-            readonly
-            startingValue={item?.rating?.avg}
-            type="custom"
-            style={{ marginTop: 20 }}
-            ratingColor="#ff8200"
-          ></Rating>
+            <Rating
+              readonly
+              startingValue={item?.rating?.avg}
+              type="custom"
+              style={{ marginTop: 20 }}
+              ratingColor="#ff8200"
+            ></Rating>
           </View>
         </View>
       </View>
@@ -195,12 +201,13 @@ const ServiceList = ({ navigation, route }) => {
             <Image source={filtro} style={{ width: 30, height: 34 }}></Image>
           </View>
         </TouchableOpacity>
-
-        <FlatList
-          data={users}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={users}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
         <Modal
           animationType="slide"
           transparent={true}
