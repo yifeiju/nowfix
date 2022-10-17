@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image ,TouchableHighlight} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TouchableOpacity, View, Text, TextInput, Image ,TouchableHighlight,} from 'react-native';
 import globalStyles from '../app/globalStyles';
 
 const Chat=()=>{
@@ -11,6 +11,7 @@ const Chat=()=>{
         <View style={globalStyles.container}>
             <Text style={globalStyles.title}>chat</Text>
         </View>
+
         </KeyboardAvoidingView>
     )
 }

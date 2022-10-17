@@ -27,6 +27,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
   const [txt, setTxt] = useState();
   const [comentario, setComentario] = useState([]);
   const comentarioList = comentario.slice(0, 5);
+  const [list, setList] = useState([]);
   const onFavoriteChanges = (isSelected) => {
     let favoriteProfessionals = [...(user.favoriteProfessionals ?? [])];
     if (isSelected) favoriteProfessionals.push(professional.id);
@@ -44,6 +45,12 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
       })
     );
   };
+  const requestList = async () => {
+    fb.history.getProfessionalHistory(professional.id).then(setList)
+  };
+  useEffect(() => {
+    requestList();
+  }, [professional.id]);
 
   const contactPress = () => {
     fb.history.createHistory({
@@ -129,7 +136,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
           </Text>
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Text style={styles.bluetext}>Servicios prestados</Text>
-            <Text style={styles.orangetext}>180</Text>
+            <Text style={styles.orangetext}>{list.length}</Text>
           </View>
           <View
             style={{
@@ -156,11 +163,12 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             }}
           >
             <Text style={styles.bluetext}>Reseñas</Text>
-            <Text style={[styles.gristext, styles.paddingtop]}>217</Text>
+            <Text style={[styles.gristext, styles.paddingtop]}>{comentario.length}</Text>
           </View>
           <TextInput
             style={styles.input}
             onChangeText={(text) => setTxt(text)}
+            placeholder='Dejar un comentario'
           ></TextInput>
           <TouchableOpacity style={styles.prompt} onPress={commentPress}>
             <View style={[styles.btnyellow]}>
