@@ -163,13 +163,11 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
             }}
           >
             <Text style={styles.bluetext}>Valoraciones</Text>
-            <Text style={[styles.gristext, styles.paddingtop]}>60</Text>
+            <Text style={[styles.gristext, styles.paddingtop]}>{professional?.rating?.quantity}</Text>
           </View>
           <View style={styles.center}>
-            <Image
-              source={valoracion}
-              style={{ height: 50, width: 215, margin: 20 }}
-            ></Image>
+          <Rating readonly startingValue={professional?.rating?.avg} ratingColor="#ff8200" type="custom" style={{marginTop:20}} ></Rating>
+
           </View>
           <View
             style={{
@@ -212,7 +210,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-            <AirbnbRating count={5} defaultRating={3} onFinishRating={setVal}></AirbnbRating>
+            <AirbnbRating count={5} defaultRating={0} onFinishRating={setVal} selectedColor='#ff8200'></AirbnbRating>
                
               <View style={styles.flex}>
                 <Pressable
@@ -224,11 +222,7 @@ const Personperfil = ({ navigation: { goBack }, route = {} }) => {
                   <Text style={styles.negrita}>Cancelar</Text>
                 </Pressable>
                 <Pressable onPress={() => {
-                  fb.rating.createRating({
-                    clientId: user.id,
-                    professionalId: professional.id,
-                    rating:val,
-                  })
+                  fb.user.setProfessionalRating(professional.id,val)
                   setModalVisible(!modalVisible);
                   }} style={styles.buttonpop}>
                   <Text style={[styles.negrita, globalStyles.white]}>

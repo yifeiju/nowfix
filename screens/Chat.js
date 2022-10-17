@@ -15,10 +15,6 @@ const Chat=()=>{
         <View style={globalStyles.container}>
             <Text style={globalStyles.title}>chat</Text>
         </View>
-        <Text>{val}</Text>
-        <AirbnbRating count={5} defaultRating={5} onFinishRating={setVal}></AirbnbRating>
-      <Rating readonly startingValue={3} style={{marginBottom:500}}></Rating>
-      
         </KeyboardAvoidingView>
     )
 }

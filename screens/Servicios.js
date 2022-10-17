@@ -16,6 +16,7 @@ import { AppConstants } from "../app/utils/constants";
 import fotoperfil from "../assets/Fotoperfil.png";
 import { fb } from "../app/firebase";
 import { useNavigation } from "@react-navigation/native";
+import { Rating } from "react-native-ratings";
 
 const Servicios = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -107,7 +108,17 @@ const HistoryCard = ({ item }) => {
           {user?.location && (
             <Text style={{ color: "#626262" }}>a {user.location} km de ti</Text>
           )}
+          <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
           {item?.date && <Text style={{marginTop:15}}>{new Date(item.date.toDate()).toDateString()}</Text>}
+          <Rating
+            readonly
+            startingValue={item?.rating?.avg}
+            type="custom"
+            style={{ marginTop: 20 }}
+            ratingColor="#ff8200"
+          ></Rating>
+          </View>
+          
         </View>
       </View>
     </TouchableOpacity>

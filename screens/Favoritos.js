@@ -15,6 +15,7 @@ import { selectCurrentUser } from "../app/store/states/user/selectors";
 import back from "../assets/back.png";
 import fotoperfil from "../assets/Fotoperfil.png";
 import { AppConstants } from "../app/utils/constants";
+import { Rating } from "react-native-ratings";
 
 const Favoritos = ({ navigation, route = {} }) => {
   const user = useAppSelector(selectCurrentUser);
@@ -85,6 +86,16 @@ const Favoritos = ({ navigation, route = {} }) => {
               a {item?.location} km de ti
             </Text>
           )}
+          <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
+            <Text></Text>
+          <Rating
+            readonly
+            startingValue={item?.rating?.avg}
+            type="custom"
+            style={{ marginTop: 20 }}
+            ratingColor="#ff8200"
+          ></Rating>
+          </View>
         </View>
       </View>
     </TouchableOpacity>

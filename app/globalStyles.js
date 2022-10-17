@@ -5,6 +5,7 @@ const globalStyles = StyleSheet.create({
     padding: 25,
     width: "100%",
     minHeight: "100%",
+    backgroundColor:'white'
   },
   btnyellow: {
     width: "90%",

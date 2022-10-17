@@ -21,6 +21,8 @@ import { fb } from "../app/firebase";
 import { AppConstants } from "../app/utils/constants";
 import { getUsersFilteredForServiceScreen } from "../app/utils/formats";
 import Slider from "@react-native-community/slider";
+import { Rating } from "react-native-ratings";
+import { useRef } from "react";
 
 const locationConstants = {
   range: [1, 5, 15, 30],
@@ -43,6 +45,19 @@ const ServiceList = ({ navigation, route }) => {
   const [users, setUsers] = useState([]);
   const [limit, setLimit] = useState(AppConstants.LIST.MAX_LIMIT);
   const [filters, setFilters] = useState(filterInitialState);
+  const auxRef = useRef();
+  const onSearch = (search = "") => {
+    if (!auxRef.current) auxRef.current = users;
+    if (!search) {
+      console.log("reset: ", auxRef.current);
+      return setUsers(auxRef.current);
+    }
+    const pattern = new RegExp(search);
+    const searchResult = users.filter((professional) =>
+      pattern.test(professional.name)
+    );
+    setUsers(searchResult);
+  };
 
   const updateFilter = useCallback((key = "") => {
     return (value) => {
@@ -138,6 +153,16 @@ const ServiceList = ({ navigation, route }) => {
               a {item?.location} km de ti
             </Text>
           )}
+          <View style={{display:'flex', flexDirection:'row',justifyContent:'space-between'}}>
+            <Text></Text>
+          <Rating
+            readonly
+            startingValue={item?.rating?.avg}
+            type="custom"
+            style={{ marginTop: 20 }}
+            ratingColor="#ff8200"
+          ></Rating>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -158,6 +183,7 @@ const ServiceList = ({ navigation, route }) => {
           <TextInput
             underlineColorAndroid="transparent"
             style={{ marginLeft: 10, width: "85%", height: "80%" }}
+            onChangeText={onSearch}
           ></TextInput>
         </View>
         <TouchableOpacity
@@ -223,7 +249,7 @@ const ServiceList = ({ navigation, route }) => {
               <Text>{filters.price}€/h</Text>
               <View style={styles.flex}>
                 <Pressable onPress={onCancelFilter} style={styles.buttonpop1}>
-                  <Text style={styles.negrita}>Cancelar</Text>
+                  <Text style={styles.negrita}>Borrar filter</Text>
                 </Pressable>
                 <Pressable onPress={onAcceptFilter} style={styles.buttonpop}>
                   <Text style={[styles.negrita, globalStyles.white]}>

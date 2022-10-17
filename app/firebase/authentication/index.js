@@ -48,7 +48,7 @@ export const toDeleteUser = ({ email, password }) => {
 };
 
 export const sentEmailToResetPassword = async(email) => {
-  return await sendPasswordResetEmail(auth, email).then(() => {
-    console.log('sent');
-  });
+  return await sendPasswordResetEmail(auth, email).then((res) => {
+    console.log('sent',res);
+  }).catch((err)=>console.log("ERR: ", err));
 };

@@ -58,7 +58,7 @@ export const getFavoriteProfessionals = async ({
   listLimit = AppConstants.LIST.MAX_LIMIT,
 }) => {
   if (!favoriteProfessionals.length) return [];
-  
+
   return getDocs(
     query(userRef, where("id", "in", favoriteProfessionals), limit(listLimit))
   ).then(getArrayFromCollection);
@@ -68,8 +68,6 @@ export const getHistoryProfessionals = async ({
   historyProfessionals = [],
   listLimit = AppConstants.LIST.MAX_LIMIT,
 }) => {
-  
-  
   return getDocs(
     query(userRef, where("id", "in", historyProfessionals), limit(listLimit))
   ).then(getArrayFromCollection);
@@ -78,9 +76,18 @@ export const getHistoryClient = async ({
   historyClient = [],
   listLimit = AppConstants.LIST.MAX_LIMIT,
 }) => {
-  
-  
   return getDocs(
     query(userRef, where("id", "in", historyClient), limit(listLimit))
   ).then(getArrayFromCollection);
+};
+
+export const setProfessionalRating = async (professionalId, newRating) => {
+  const { rating = { sum: 0, quantity: 0 } } = await getUserData(
+    professionalId
+  );
+
+  rating.quantity++;
+  rating.sum += newRating;
+  rating.avg = rating.sum / rating.quantity;
+  updateUserData(professionalId, { rating });
 };
