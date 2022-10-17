@@ -13,7 +13,9 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { userRef } from "../users";
 
 export const signUp = async (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+  return createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+    console.log(error);
+  });;
 };
 
 export const signIn = async (email, password) => {

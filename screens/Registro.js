@@ -18,20 +18,51 @@ import globalStyles from "../app/globalStyles";
 import { useAppSelector } from "../app/store";
 import { selectAllUserTypes } from "../app/store/states/user/selectors";
 import { useRef } from "react";
-import { useEffect } from "react";
+
 const initialState = {
   name: "",
   email: "",
   password: "",
-  userType: {},
+  userType: "",
 };
 const Registro = () => {
   const userTypes = useAppSelector(selectAllUserTypes);
   const data = useRef(initialState);
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [obl, setObl] = useState(" ");
+  const [obtype, setObtype] = useState(" ");
+  const [obmail, setObmail] = useState(" ");
+  const [obpass, setObpass] = useState(" ");
+  const [obpass2, setObpass2] = useState(" ");
+
 
   const onSignUp = async () => {
+    if (!data.current.name) {
+      setObl('Este campo es obligatório')
+    }else{
+      setObl(' ')
+    };
+    if (!data.current.userType) {
+      setObtype('Este campo es obligatório')
+    }else{
+      setObtype(' ')
+    };
+    if (!data.current.email) {
+      setObmail('Este campo es obligatório')
+    }else{
+      setObmail(' ')
+    };
+    if (!data.current.password) {
+      setObpass('Se requieren 8 carácteres')
+    }else{
+      setObpass(' ')
+    };
+    if (data.current.password !== confirmedPassword){
+      setObpass2('La contraseña no coincide.')
+    }else{
+      setObpass2(' ')
+    };
     if (
       !data.current.name ||
       !data.current.userType ||
@@ -112,6 +143,7 @@ const Registro = () => {
               value={data.current.userType?.name ?? ""}
             />
           </TouchableOpacity>
+          <Text style={styles.error}>{obtype}</Text>
 
           <TextInput
             style={styles.input}
@@ -119,7 +151,7 @@ const Registro = () => {
             autoCapitalize="none"
             onChangeText={(text) => (data.current.name = text)}
           />
-
+          <Text style={styles.error}>{obl}</Text>
           <TextInput
             style={styles.input}
             keyboardType="email-address"
@@ -127,6 +159,7 @@ const Registro = () => {
             autoCapitalize="none"
             onChangeText={(text) => (data.current.email = text)}
           />
+          <Text style={styles.error}>{obmail}</Text>
 
           <TextInput
             style={styles.input}
@@ -135,6 +168,7 @@ const Registro = () => {
             autoCapitalize="none"
             onChangeText={(text) => (data.current.password = text)}
           />
+          <Text style={styles.error}>{obpass}</Text>
 
           <TextInput
             style={{
@@ -143,7 +177,7 @@ const Registro = () => {
               color: "#626262",
               backgroundColor: "#D9D9D9",
               borderRadius: 8,
-              marginTop: 40,
+              marginTop: 20,
               height: 40,
               width: "100%",
               ...(data.current.password &&
@@ -157,7 +191,7 @@ const Registro = () => {
             autoCapitalize="none"
             onChangeText={(text) => setConfirmedPassword(text)}
           />
-
+          <Text style={styles.error}>{obpass2}</Text>
           <TouchableOpacity style={styles.prompt} onPress={onSignUp}>
             <View style={[globalStyles.btnyellow]}>
               <Text style={[styles.negrita, globalStyles.white]}>
@@ -208,7 +242,7 @@ const styles = StyleSheet.create({
     color: "#626262",
     backgroundColor: "#D9D9D9",
     borderRadius: 8,
-    marginTop: 40,
+    marginTop: 20,
     height: 40,
     width: "100%",
   },
@@ -255,5 +289,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  error:{
+    color:'red'
   },
 });

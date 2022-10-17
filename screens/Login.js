@@ -22,7 +22,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [verificarEmail, setVerificarEmail] = useState("");
-
+  const [rr,setRr] = useState(" ");
   
 
   return (
@@ -42,7 +42,8 @@ const Login = () => {
           autoCapitalize="none"
           onChangeText={(text) => setEmail(text)}
         />
-        
+        <Text style={styles.error}>{rr}</Text>
+
         <TextInput
           style={styles.input}
           placeholder="contraseña"
@@ -55,7 +56,7 @@ const Login = () => {
           <Text style={styles.txtcenter} onPress={() => setModalVisible(true)}>¿Has olvidado la contraseña?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.prompt} onPress={() => fb.auth.signIn(email, password)}>
+        <TouchableOpacity style={styles.prompt} onPress={() => {fb.auth.signIn(email, password).catch(setRr("Usuario o contraseña incorrecta"))}}>
           <View style={[globalStyles.btnyellow]}>
             <Text style={[styles.negrita, globalStyles.white]}>Iniciar sessión</Text>
           </View>
@@ -85,7 +86,7 @@ const Login = () => {
                   <Text style={styles.negrita}>Cancelar</Text>
                 </Pressable>
                 <Pressable  style={styles.buttonpop} onPress={()=>{
-                  fb.auth.sentEmailToResetPassword(verificarEmail),
+                  fb.auth.sentEmailToResetPassword(verificarEmail);
                   setModalVisible(!modalVisible);
                 }}>
                   <Text style={[styles.negrita, globalStyles.white]}>
@@ -108,6 +109,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 55,
+  },
+  error:{
+    color:'red'
   },
   centeredView: {
     flex: 1,
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
     color: "#626262",
     backgroundColor: "#D9D9D9",
     borderRadius: 8,
-    marginTop: 40,
+    marginTop: 20,
     height: 40,
     width: "100%",
   },
